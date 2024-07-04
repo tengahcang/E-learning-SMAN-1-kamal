@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-sm mt-5">
-    <form action="{{ route('students.update',['student'=>$user->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('teachers.update',['teacher'=>$user->id]) }}" method="POST" enctype="multipart/form-data">
         @method('put')
         @csrf
         <div class="row justify-content-center">
@@ -54,7 +54,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Alamat') }}</label>
 
-                            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $errors->any() ? old('address') : $student->address }}" required autocomplete="address" autofocus>
+                            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $errors->any() ? old('address') : $teacher->address }}" required autocomplete="address" autofocus>
                             @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -65,7 +65,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="telephone" class="col-md-4 col-form-label text-md-end">{{ __('Telepon') }}</label>
 
-                            <input id="telephone" type="number" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ $errors->any() ? old('telephone') : $student->telephone }}" required autocomplete="telephone" autofocus>
+                            <input id="telephone" type="number" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ $errors->any() ? old('telephone') : $teacher->telephone }}" required autocomplete="telephone" autofocus>
                             @error('telephone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -77,7 +77,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-6 d-grid">
-                        <a href="{{ route('students.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Cancel</a>
+                        <a href="{{ route('teachers.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Cancel</a>
                     </div>
                     <div class="col-md-6 d-grid">
                         <button type="submit" class="btn btn-dark btn-lg mt-3"><i class="bi-check-circle me-2"></i> Save</button>
