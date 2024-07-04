@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SiswaController as AdminSiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/', function(){
         return view('admin.dashboard');
     })->name('admin');
+    Route::resource('students',AdminSiswa::class);
 });
 Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
     Route::get('/', function(){

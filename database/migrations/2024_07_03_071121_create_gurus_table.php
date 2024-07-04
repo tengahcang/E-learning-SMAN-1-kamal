@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('NIP');
             $table->string('name');
-            $table->integer('telephone');
+            $table->string('address')->nullable();
+            $table->string('telephone')->nullable();
             $table->timestamps();
         });
     }
