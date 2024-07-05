@@ -21,6 +21,8 @@
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('admin') }}" class="nav-link @if($currentRouteName == 'admin') active @endif">beranda</a></li>
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('students.index') }}" class="nav-link @if($currentRouteName == 'students.index') active @endif">siswa</a></li>
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('teachers.index') }}" class="nav-link @if($currentRouteName == 'teachers.index') active @endif">guru</a></li>
+                        <li class="nav-item col-2 col-md-auto"> <a href="{{ route('subjects.index') }}" class="nav-link @if($currentRouteName == 'subjects.index') active @endif">Mata Pelajaran</a></li>
+                        <li class="nav-item col-2 col-md-auto"> <a href="{{ route('classes.index') }}" class="nav-link @if($currentRouteName == 'classes.index') active @endif">Kelas</a></li>
                         {{-- <li class="nav-item col-2 col-md-auto"> <a href="{{ route('subjects.index') }}" class="nav-link @if($currentRouteName == 'subjects.index') active @endif">mata pelajaran</a></li> --}}
                     @elseif (Auth::user()->role == "guru")
                         <li class="nav-item col-2 col-md-auto">Dashboard</li>
