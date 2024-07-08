@@ -23,7 +23,7 @@
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('teachers.index') }}" class="nav-link @if($currentRouteName == 'teachers.index') active @endif">guru</a></li>
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('subjects.index') }}" class="nav-link @if($currentRouteName == 'subjects.index') active @endif">Mata Pelajaran</a></li>
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('classes.index') }}" class="nav-link @if($currentRouteName == 'classes.index') active @endif">Kelas</a></li>
-                        {{-- <li class="nav-item col-2 col-md-auto"> <a href="{{ route('subjects.index') }}" class="nav-link @if($currentRouteName == 'subjects.index') active @endif">mata pelajaran</a></li> --}}
+                        <li class="nav-item col-2 col-md-auto"> <a href="{{ route('rooms.index') }}" class="nav-link @if($currentRouteName == 'rooms.index') active @endif">Room</a></li>
                     @elseif (Auth::user()->role == "guru")
                         <li class="nav-item col-2 col-md-auto">Dashboard</li>
                         <li class="nav-item col-2 col-md-auto">Matpel</li>
