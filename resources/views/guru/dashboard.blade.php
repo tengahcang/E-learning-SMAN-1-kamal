@@ -7,12 +7,14 @@
         </div>
         @foreach ($rooms as $room)
             <div class="col-md-3 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $room->class->name }}</h5>
-                        <p class="card-text">{{ $room->subject->name }}</p>
+                <a href="{{ route('matapelajaran.index', ['id_room' => $room->id]) }}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $room->subject->name." ". $room->class->name }}</h5>
+                            {{-- <p class="card-text">{{ $room->subject->name }}</p> --}}
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         @endforeach
     </div>

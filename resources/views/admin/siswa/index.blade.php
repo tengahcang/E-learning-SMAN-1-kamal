@@ -18,11 +18,11 @@
                         </a>
                     </li> --}}
                     <li class="list-inline-item">|</li>
-                    {{-- <li class="list-inline-item">
-                        <a href="{{ route('students.import.form') }}" class="btn btn-primary">
+                    <li class="list-inline-item">
+                        <a href="{{ route('students.upload.form') }}" class="btn btn-primary">
                             <i class="bi bi-plus-circle me-1"></i>Add Student Excel
                         </a>
-                    </li> --}}
+                    </li>
                     <li class="list-inline-item">
                         <a href="{{ route('students.create') }}" class="btn btn-primary">
                             <i class="bi bi-plus-circle me-1"></i> Create Student
