@@ -11,7 +11,6 @@ body {
     height: 100vh; /* Tinggi penuh */
     overflow-y: auto; /* Jika konten sidebar terlalu panjang, tampilkan scroll */
 }
-}
 
 .sidebar.collapsed {
     width: 8.33333%;
@@ -197,6 +196,14 @@ body {
 /* Admin */
 .count-object{
     background-color:#20c997 ;
+}
+.btn-create{
+    background-color:#fc5c5c ;
+    border: none;
+}
+.btn-create:hover{
+    background-color:#cf4b4b ;
+    border: none;
 }
 @media (max-width: 767px) {
     .side-pc {
