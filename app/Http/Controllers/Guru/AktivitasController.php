@@ -17,7 +17,7 @@ class AktivitasController extends Controller
     {
         //
         // dd($id);
-        $activities = Aktivitas::where('id_room', $id)->get();
+        $activities = Aktivitas::where('id_room', $id)->with('tasks')->get();
         $room = Room::find($id);
         return view('guru.aktivitas.index',compact('activities','room'));
     }

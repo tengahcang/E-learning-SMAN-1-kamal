@@ -11,4 +11,7 @@ class Aktivitas extends Model
     public function room(){
         return $this->belongsTo(Room::class);
     }
+    public function tasks(){
+        return $this->hasMany(Tugas::class,'id_aktivitas');
+    }
 }

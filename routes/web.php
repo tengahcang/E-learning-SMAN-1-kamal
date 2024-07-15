@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\SiswaController as AdminSiswa;
 use App\Http\Controllers\Admin\RoomController as AdminRoom;
 use App\Http\Controllers\Guru\AktivitasController as GuruAktivitas;
 use App\Http\Controllers\Guru\DashboardController as GuruDashboard;
-use App\Http\Controllers\Guru\MataPelajaranController as GuruMatPel;
+use App\Http\Controllers\Guru\TugasController as GuruTugas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,14 +33,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 });
 Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
     Route::get('/',[GuruDashboard::class,'index'])->name('guru');
-    // Menambahkan parameter id_room pada rute matapelajaran.index
     Route::get('matapelajaran/{id_room}', [GuruAktivitas::class, 'index'])->name('matapelajaran.index');
-
-    // Menambahkan parameter id_room pada rute untuk membuat aktivitas baru
     Route::get('matapelajaran/{id_room}/create', [GuruAktivitas::class, 'create'])->name('matapelajaran.create');
-
-    // Menambahkan parameter id_room pada resource routes, kecuali index dan create
     Route::resource('matapelajaran', GuruAktivitas::class)->except('index', 'create');
+    Route::get('tugas/create/{id_activity}/{id_room}',[GuruTugas::class,'create'])->name('tugas.create');
+    Route::resource('tugas', GuruTugas::class)->except('create');
 });
 Route::middleware(['auth', 'role:siswa'])->prefix('student')->group(function () {
     Route::get('/', function(){
