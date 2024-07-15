@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    transition: all 0.3s;
+    position: sticky;
+    top: 0; /* Jarak dari atas saat sticky */
+    height: 100vh; /* Tinggi penuh */
+    overflow-y: auto; /* Jika konten sidebar terlalu panjang, tampilkan scroll */
+}
+}
+
+.sidebar.collapsed {
+    width: 8.33333%;
+    /* Equivalent to col-md-1 */
+    flex: 0 0 8.33333%;
+    max-width: 8.33333%;
+}
+
+.sidebar .nav-link {
+    color: #000;
+    font-size: 14px;
+}
+
+.col-md-1 .nav-link span,
+.col-md-1 .user-tag span,
+.col-md-1 .navbar-brand span {
+    display: none;
+    /* Sembunyikan teks menu */
+}
+
+.col-md-1 .navbar-brand {
+    display: flex;
+    justify-content: center;
+}
+
+.col-md-1 .bi,
+.col-md-1 .logo-brand,
+.col-md-1 .container-icon-user {
+    margin-right: 0px;
+}
+
+.col-md-1 .nav-link {
+    display: flex;
+    justify-content: center;
+    /* Mengatur agar ikon berada di tengah secara horizontal */
+    align-items: center;
+    padding: 10px;
+}
+
+
+
+.col-md-1 .nav-link .icon-sidebar {
+    font-size: 20px;
+}
+
+.col-md-1 .container-icon-user {
+    width: 100%;
+}
+
+.sidebar .nav-link.active {
+    background-color: #20c997;
+    padding: 15px;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.user-tag {
+    background-color: #FF6D59;
+}
+
+.navbar {
+    padding: 1rem 2rem;
+    width: 100%;
+    background-color: #57BAAB;
+}
+
+.navbar-brand {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.button-hamburger {
+    font-size: 25px;
+    background-color: transparent;
+    border-width: 0;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem;
+}
+
+.card p {
+    margin: 0;
+}
+
+.icon-user {
+    font-size: 25px;
+    color: #FF6D59;
+}
+
+.logo-brand {
+    margin-right: 30px;
+}
+.button-hamburger-mobile{
+    display: none;
+}
+.icon-sidebar {
+    margin-right: 10px;
+}
+
+.container-icon-user {
+    width: 15%;
+    margin-right: 20px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.dropdown-navbar {
+    background-color: transparent;
+    border: 0;
+}
+
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item .btn {
+    margin-left: 1rem;
+}
+
+.list-group-item .badge {
+    margin-left: auto;
+}
+
+#main-content {
+    transition: all 0.3s;
+}
+
+#main-content.expanded {
+    width: 91.66667%;
+    /* Equivalent to col-md-11 */
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+}
+
+/* LOGIN */
+.login-body {
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #57BAAB;
+
+}
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+.login-container img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+.login-container h2 {
+    font-weight: bold;
+}
+.login-container span {
+    color: #888;
+}
+.btn-custom {
+    background-color: #fc5c5c;
+    color: white;
+    border: none;
+    width: 100%;
+}
+.btn-custom:hover {
+    background-color: #e14e4e;
+}
+/* Admin */
+.count-object{
+    background-color:#20c997 ;
+}
+@media (max-width: 767px) {
+    .side-pc {
+        display: none;
+    }
+
+    .button-hamburger-pc {
+        display: none;
+    }
+
+    .button-hamburger-mobile {
+        display: block;
+    }
+}

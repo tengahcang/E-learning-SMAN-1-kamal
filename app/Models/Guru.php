@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Guru extends Model
 {
     use HasFactory;
+    public function rooms(){
+        return $this->hasMany(Room::class);
+    }
 }

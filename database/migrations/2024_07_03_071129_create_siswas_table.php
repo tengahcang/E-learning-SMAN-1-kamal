@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
-            $table->string('NIS');
+            $table->string('NISN');
             $table->string('name');
-            $table->string('address');
-            $table->integer('telephone');
+            $table->string('address')->nullable();
+            $table->string('telephone')->nullable();
             $table->timestamps();
         });
     }
