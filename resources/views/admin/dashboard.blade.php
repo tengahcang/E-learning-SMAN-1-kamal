@@ -20,7 +20,7 @@
     <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
         <h6>Tabel Siswa</h6>
         <div>
-            <table id="siswa" class="table table-striped" style="width:100%">
+            <table id="siswa" class="table table-striped nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nomor</th>

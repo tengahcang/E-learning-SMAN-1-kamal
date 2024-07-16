@@ -1,84 +1,71 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-sm mt-5">
-    <form action="{{ route('subjects.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="row justify-content-center">
-            <div class="p-5 bg-light rounded-3 border col-xl-6">
-                <div class="mb-3 text-center">
-                    <i class="bi-person-circle fs-1"></i>
-                    <h4>Create Subject</h4>
+    <div class="bg-white p-4 rounded-3 shadow-sm mt-3">
+        <h6>INPUT MATA PELAJARAN</h6>
+        <div class="mt-4">
+            <form action="{{ route('rooms.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="namaMataPelajaran" class="form-label">Nama Mata Pelajaran</label>
+                        <input type="text" class="form-control @error('subject_name') is-invalid @enderror"
+                            name="subject_name" id="namaMataPelajaran" placeholder="BAHASA INDONESIA">
+                        @error('subject_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
-                <hr>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="guruPengampu" class="form-label">Guru Pengampu</label>
+                        <select class="form-select @error('teacher') is-invalid @enderror" name="teacher" id="guruPengampu">
+                            <option selected>Hendro Laksono</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                        @error('teacher')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="kelas" class="form-label">Kelas</label>
+                        <select class="form-select @error('class') is-invalid @enderror" name="class" id="kelas">
+                            <option selected>X - MIPA 2</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                        @error('class')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="tambahSiswa" class="form-label">Tambahkan Siswa</label>
+                        <select class="form-select @error('student') is-invalid @enderror" name="student" id="tambahSiswa">
+                            <option selected>Cindy Gracya</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                        @error('student')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger w-100">Batal</button>
                     </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="description" class="col-md-4 col-form-label text-md-end">{{ __('Deskripsi') }}</label>
-
-                            <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" autocomplete="description">
-                            @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div>
-                    {{-- <div class="col-md-6 mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                             @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Alamat') }}</label>
-
-                            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}"  autocomplete="address" autofocus>
-                            @error('address')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="telephone" class="col-md-4 col-form-label text-md-end">{{ __('Telepon') }}</label>
-
-                            <input id="telephone" type="number" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"  autocomplete="telephone" autofocus>
-                            @error('telephone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div> --}}
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-6 d-grid">
-                        <a href="{{ route('subjects.index') }}" class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i> Cancel</a>
-                    </div>
-                    <div class="col-md-6 d-grid">
-                        <button type="submit" class="btn btn-dark btn-lg mt-3"><i class="bi-check-circle me-2"></i> Save</button>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-success w-100">Tambahkan</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
-</div>
+    </div>
 @endsection

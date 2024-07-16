@@ -1,6 +1,67 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-sm mt-5">
+<div class="bg-white p-4 rounded-3 shadow-sm mt-3">
+    <h6>INPUT GURU</h6>
+    <div class="mt-4">
+        <form action="{{ route('teachers.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="namaGuru" class="form-label">Nama Guru</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="namaGuru" placeholder="Raditya Dika">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-md-6">
+                    <label for="nip" class="form-label">NIP (Nomor Induk Pegawai)</label>
+                    <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" id="nip" value="{{ old('nip') }}" required autocomplete="NIP" placeholder="12034020199">
+                    @error('nip')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="radityadika@gmail.com">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Raditguru.">
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label for="mataPelajaran" class="form-label">Mata Pelajaran yang diampu</label>
+                    <input type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" id="mataPelajaran" placeholder="ILMU PENGETAHUAN ALAM">
+                    @error('subject')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger btn-batal">Batal</button>
+            <button type="submit" class="btn btn-success btn-tambah">Tambahkan</button>
+        </form>
+    </div>
+</div>
+{{-- <div class="container-sm mt-5">
     <form action="{{ route('teachers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row justify-content-center">
@@ -80,5 +141,5 @@
             </div>
         </div>
     </form>
-</div>
+</div> --}}
 @endsection
