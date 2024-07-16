@@ -26,8 +26,7 @@
                     <thead>
                         <tr>
                             <th>Nomor</th>
-                            <th>Nama Mata Pelajaran</th>
-                            <th>Deskripsi</th>
+                            <th>Nama Kelas</th>
                             <th>Action</th>
                         </tr>
                     </thead>

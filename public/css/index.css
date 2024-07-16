@@ -205,6 +205,18 @@ body {
     background-color:#cf4b4b ;
     border: none;
 }
+.btn-tambah{
+    background-color: #57BA8A;
+}
+.btn-tambah:hover{
+    background-color: #4a9d75;
+}
+.btn-batal{
+    background-color: #BA5757;
+}
+.btn-batal:hover{
+    background-color: #904444;
+}
 @media (max-width: 767px) {
     .side-pc {
         display: none;
