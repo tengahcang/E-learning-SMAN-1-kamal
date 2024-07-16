@@ -17,8 +17,10 @@ class Room extends Model
     public function teacher(){
         return $this->belongsTo(Guru::class, 'id_guru');
     }
-    public function students()
-    {
+    public function students(){
         return $this->belongsToMany(Siswa::class, 'room_siswas', 'id_room', 'id_siswa');
+    }
+    public function activities(){
+        return $this->hasMany(Aktivitas::class);
     }
 }

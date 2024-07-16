@@ -122,5 +122,8 @@ class RoomController extends Controller
     public function destroy(string $id)
     {
         //
+        $room = Room::find($id);
+        $room->delete();
+        return redirect()->route('rooms.index');
     }
 }

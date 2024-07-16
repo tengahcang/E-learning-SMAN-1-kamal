@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\SiswaImport;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaController extends Controller
 {
@@ -152,6 +154,33 @@ class SiswaController extends Controller
         $student = Siswa::find($user->id_siswa);
         $user->delete();
         $student->delete();
+        return redirect()->route('students.index');
+    }
+    public function createImport()
+    {
+        return view('admin.siswa.import');
+    }
+    public function uploadAndSetting(Request $request)
+    {
+        $file = $request->file('file');
+        $path = $file->store('temp');
+        $fullPath = storage_path('app/' . $path);
+
+        $sheets = Excel::toArray([], $fullPath);
+        $sheetNames = array_keys($sheets);
+
+        return view('admin.siswa.import',compact('fullPath','sheetNames'));
+    }
+    public function import(Request $request)
+    {
+        $sheetName = $request->input('sheet');
+        $filePath = $request->input('file_path');
+        $startRow = $request->input('start_row');
+
+        // var_dump($sheetName);
+
+        Excel::import(new SiswaImport($sheetName,$startRow), $filePath);
+
         return redirect()->route('students.index');
     }
 }

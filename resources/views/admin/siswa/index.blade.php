@@ -8,6 +8,17 @@
             <div class="col-lg-3 col-xl-6">
                 <ul class="list-inline mb-0 float-end">
                     <li class="list-inline-item">
+                        <a href="{{ route('employees.exportPdf') }}" class="btn btn-outline-danger">
+                            <i class="bi bi-download me-1"></i> to PDF
+                        </a>
+                    </li> --}}
+                    <li class="list-inline-item">|</li>
+                    <li class="list-inline-item">
+                        <a href="{{ route('students.upload.form') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i>Add Student Excel
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
                         <a href="{{ route('students.create') }}" class="btn btn-primary btn-create">
                             <i class="bi bi-plus-circle me-1"></i> Create Student
                         </a>
