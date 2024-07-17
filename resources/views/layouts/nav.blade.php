@@ -171,7 +171,7 @@
                     </li>
                 @elseif (Auth::user()->role == 'guru')
                     <li class="nav-item mb-3">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link @if ($currentRouteName == 'guru') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
                         </a>
                     </li>
