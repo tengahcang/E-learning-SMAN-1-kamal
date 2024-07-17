@@ -35,12 +35,12 @@
                     @elseif (Auth::user()->role == 'guru')
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('guru') }}" class="nav-link @if($currentRouteName == 'guru') active @endif">beranda</a></li>
                         {{-- <li class="nav-item col-2 col-md-auto">Dashboard</li> --}}
-                        <li class="nav-item col-2 col-md-auto">Matpel</li>
+                        {{-- <li class="nav-item col-2 col-md-auto">Matpel</li>
                     @elseif (Auth::user()->role == 'siswa')
                         <li class="nav-item col-2 col-md-auto">Dashboard</li>
                         <li class="nav-item col-2 col-md-auto">Matpel</li>
                         <li class="nav-item col-2 col-md-auto">Tugas</li>
-                    @endif
+                    @endif --}}
                     {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('home') }}" class="nav-link @if ($currentRouteName == 'home') active @endif">Home</a></li> --}}
                     {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('employees.index') }}" class="nav-link @if ($currentRouteName == 'employees.index') active @endif">Employee</a></li> --}}
                 {{-- </ul>
@@ -171,7 +171,7 @@
                     </li>
                 @elseif (Auth::user()->role == 'guru')
                     <li class="nav-item mb-3">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link @if ($currentRouteName == 'guru') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
                         </a>
                     </li>
@@ -269,8 +269,17 @@
                         <img src="{{asset('img/user.png')}}" class="ms-2" width="40" />
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                        <li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
