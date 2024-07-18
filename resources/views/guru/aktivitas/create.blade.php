@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<style>
-    .btn-tambahkan{
-        background-color: #BA57AA;
-    }
-</style>
+    <style>
+        .btn-tambahkan {
+            background-color: #BA57AA;
+        }
+    </style>
     <div class="container bg-white p-3">
         <div>
             <h4>Tambah Pertemuan</h4>
@@ -17,6 +17,13 @@
                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                     value="{{ old('name') }}" required autocomplete="name" autofocus id="namaPertemuan"
                     placeholder="Masukkan Nama Pertemuan" required>
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                <input id="room" type="hidden" class="form-control @error('name') is-invalid @enderror" name="room"
+                    value="{{ $id }}" required autocomplete="room" autofocus>
                 @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -49,16 +56,16 @@
                             @enderror
                         </div>
                         {{-- <div class="col-md-6 mb-3"> --}}
-                        {{-- <label for="room" class="col-md-4 col-form-label text-md-end">{{ __('room') }}</label> --}}
-                        {{-- <input id="room" type="hidden" class="form-control @error('name') is-invalid @enderror"
+    {{-- <label for="room" class="col-md-4 col-form-label text-md-end">{{ __('room') }}</label> --}}
+    {{-- <input id="room" type="hidden" class="form-control @error('name') is-invalid @enderror"
                             name="room" value="{{ $id }}" required autocomplete="room" autofocus> --}}
-                        {{-- @error('name')
+    {{-- @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror --}}
-                        {{-- </div> --}}
-                    {{-- </div>
+    {{-- </div> --}}
+    {{-- </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-6 d-grid">

@@ -67,18 +67,25 @@
                 </div>
                 <div>
                     <button class="btn btn-light me-2">Course Name</button>
-                    <button class="btn btn-light">Card</button>
+                    {{-- <button class="btn btn-light">Card</button> --}}
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-md-3 col-sm-6 mb-3 ">
-                    <div class="card bg-success text-white card-item">
-                        <div></div>
-                        <div class="text-dark footer-cardpelajaran  rounded-bottom card-text">X-MIA1<br>MATEMATIKA
-                        </div>
+
+                @foreach ($rooms as $room)
+                    <div class="col-md-3 col-sm-6 mb-3 ">
+                        <a href="{{ route('matapelajaran.index', ['id_room' => $room->id]) }}">
+                            <div class="card bg-success text-white card-item">
+                                <div></div>
+                                <div class="text-dark footer-cardpelajaran  rounded-bottom card-text">
+                                    {{ $room->class->name }}<br>{{ $room->subject->name }}
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-3">
+                @endforeach
+
+                {{-- <div class="col-md-3 col-sm-6 mb-3">
                     <div class="card bg-danger text-white card-item">
                         <div></div>
                         <div class="text-dark footer-cardpelajaran  rounded-bottom card-text">X-MIA1<br>MATEMATIKA</div>
@@ -95,7 +102,7 @@
                         <div></div>
                         <div class="text-dark footer-cardpelajaran rounded-bottom card-text">X-MIA2<br>MATEMATIKA</div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
 

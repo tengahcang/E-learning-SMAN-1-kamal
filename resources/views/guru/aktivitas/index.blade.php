@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        {{-- <h1>{{ $room->subject->name . ' ' . $room->class->name }}</h1> --}}
-        <div class="mt-3 mb-3">
+    {{-- <div class="container"> --}}
+    {{-- <h1>{{ $room->subject->name . ' ' . $room->class->name }}</h1> --}}
+    {{-- <div class="mt-3 mb-3">
 
         </div>
         <div class="list-group">
+            {{ $activities }}
             @foreach ($activities as $activity)
                 <div class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center">
@@ -23,13 +24,15 @@
                                             <a href="{{ route('tugas.show', $task->id) }}">{{ $task->name }}</a>
                                             <span style="color: red;">(Tugas)</span>
                                         </h5>
-                                        {{-- <p>{{ $task->description }}</p>
-                                <p>Deadline: {{ \Carbon\Carbon::parse($task->deadline)->format('d-m-Y H:i') }}</p>
-                                @if ($task->hasMedia('templates'))
-                                    @foreach ($task->getMedia('templates') as $media)
-                                        <p>Template File: <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>
-                                    @endforeach
-                                @endif --}}
+                                        <p>{{ $task->description }}</p>
+                                        <p>Deadline: {{ \Carbon\Carbon::parse($task->deadline)->format('d-m-Y H:i') }}</p>
+                                        @if ($task->hasMedia('templates'))
+                                            @foreach ($task->getMedia('templates') as $media)
+                                                <p>Template File: <a href="{{ $media->getUrl() }}"
+                                                        target="_blank">{{ $media->getCustomProperty('original_name') }}</a>
+                                                </p>
+                                            @endforeach
+                                        @endif
                                     </div>
                                     <div class="btn-group">
                                         <a href="{{ route('tugas.show', $task->id) }}"
@@ -50,7 +53,7 @@
                 </div>
             @endforeach
         </div>
-    </div>
+    </div> --}}
     {{-- <style>
         .task-item {
             padding: 15px;
@@ -183,7 +186,33 @@
                 Tambah
                 Pertemuan</a>
         </div>
+        @foreach ($activities as $activity)
+            <div class="task-item">
+                <div class="task-header">{{ $activity->name }}</div>
 
+                @foreach ($activity->tasks as $task)
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <i class="bi bi-file-earmark-pdf"></i><span> {{ $task->name }}</span>
+                        </div>
+                        <div>
+                            <a href="{{ route('tugas.show', $task->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a>
+                            <a class="icon-btn me-2" href="{{ route('tugas.edit', $task->id) }}"><i class="bi bi-pencil"></i></a>
+
+                            <form action="{{ route('tugas.destroy', $task->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="icon-btn"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+                <a href="{{ route('tugas.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
+                    class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</a>
+            </div>
+        @endforeach
+        <p>=============UNDERSCONS======================</p>
         <div class="task-item">
             <div class="task-header">Pertemuan ke 1</div>
             <div class="d-flex justify-content-between align-items-center mb-2">
