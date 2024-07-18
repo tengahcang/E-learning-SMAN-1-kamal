@@ -33,17 +33,17 @@
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('rooms.index') }}"
                                 class="nav-link @if ($currentRouteName == 'rooms.index') active @endif">Room</a></li>
                     @elseif (Auth::user()->role == 'guru')
-                        <li class="nav-item col-2 col-md-auto"> <a href="{{ route('guru') }}" class="nav-link @if($currentRouteName == 'guru') active @endif">beranda</a></li>
+                        <li class="nav-item col-2 col-md-auto"> <a href="{{ route('guru') }}" class="nav-link @if ($currentRouteName == 'guru') active @endif">beranda</a></li>
                         {{-- <li class="nav-item col-2 col-md-auto">Dashboard</li> --}}
-                        {{-- <li class="nav-item col-2 col-md-auto">Matpel</li>
+{{-- <li class="nav-item col-2 col-md-auto">Matpel</li>
                     @elseif (Auth::user()->role == 'siswa')
                         <li class="nav-item col-2 col-md-auto">Dashboard</li>
                         <li class="nav-item col-2 col-md-auto">Matpel</li>
                         <li class="nav-item col-2 col-md-auto">Tugas</li>
                     @endif --}}
-                    {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('home') }}" class="nav-link @if ($currentRouteName == 'home') active @endif">Home</a></li> --}}
-                    {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('employees.index') }}" class="nav-link @if ($currentRouteName == 'employees.index') active @endif">Employee</a></li> --}}
-                {{-- </ul>
+{{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('home') }}" class="nav-link @if ($currentRouteName == 'home') active @endif">Home</a></li> --}}
+{{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('employees.index') }}" class="nav-link @if ($currentRouteName == 'employees.index') active @endif">Employee</a></li> --}}
+{{-- </ul>
             @endguest
 
             <hr class="d-md-none text-white-50">
@@ -68,7 +68,7 @@
                         @if (Route::has('register'))
                             <li class="nav-item">
                                 {{-- <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a> --}}
-                                {{-- <a class="btn btn-outline-light my-2 ms-md-auto"
+{{-- <a class="btn btn-outline-light my-2 ms-md-auto"
                                     href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
@@ -96,8 +96,8 @@
                 </ul>
             </div> --}}
 
-            {{-- <a href="{{ route('profile') }}" class="btn btn-outline-light my-2 ms-md-auto"><i class="bi-person-circle me-1"></i> My Profile</a> --}}
-        {{-- </div>
+{{-- <a href="{{ route('profile') }}" class="btn btn-outline-light my-2 ms-md-auto"><i class="bi-person-circle me-1"></i> My Profile</a> --}}
+{{-- </div>
     </div>
 </nav> --}}
 
@@ -105,7 +105,7 @@
     <!-- Sidebar -->
     <aside id="sidebar" class="col-md-3 col-12 bg-white sidebar side-pc p-4">
         <a class="navbar-brand text-black  align-items-center  d-flex " href="#">
-            <img src="{{asset('img/logo.png')}}" class="logo-brand" width="50" />
+            <img src="{{ asset('img/logo.png') }}" class="logo-brand" width="50" />
             <span> EL - SMAN 1 Kamal</span>
 
         </a>
@@ -123,19 +123,24 @@
         <ul class="nav flex-column">
             @guest
                 <li class="nav-item mb-3">
-                    <a class="nav-link active" href="#"><i class="bi bi-journal-bookmark-fill icon-sidebar "></i><span>BERANDA</span></a>
+                    <a class="nav-link active" href="#"><i
+                            class="bi bi-journal-bookmark-fill icon-sidebar "></i><span>BERANDA</span></a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a class="nav-link" href="#"><i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>IPA</span></a>
+                    <a class="nav-link" href="#"><i
+                            class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>IPA</span></a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a class="nav-link" href="#"><i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>IPS</span></a>
+                    <a class="nav-link" href="#"><i
+                            class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>IPS</span></a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a class="nav-link" href="#"><i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATEMATIKA</span></a>
+                    <a class="nav-link" href="#"><i
+                            class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATEMATIKA</span></a>
                 </li>
                 <li class="nav-item mb-3">
-                    <a class="nav-link" href="#"><i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>BAHASA INDONESIA</span></a>
+                    <a class="nav-link" href="#"><i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>BAHASA
+                            INDONESIA</span></a>
                 </li>
             @else
                 @if (Auth::user()->role == 'admin')
@@ -145,41 +150,58 @@
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a href="{{ route('students.index') }}" class="nav-link @if ($currentRouteName == 'students.index') active @endif">
+                        <a href="{{ route('students.index') }}"
+                            class="nav-link @if ($currentRouteName == 'students.index') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>SISWA</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a href="{{ route('teachers.index') }}" class="nav-link @if ($currentRouteName == 'teachers.index') active @endif">
+                        <a href="{{ route('teachers.index') }}"
+                            class="nav-link @if ($currentRouteName == 'teachers.index') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>GURU</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a href="{{ route('subjects.index') }}" class="nav-link @if ($currentRouteName == 'subjects.index') active @endif">
+                        <a href="{{ route('subjects.index') }}"
+                            class="nav-link @if ($currentRouteName == 'subjects.index') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATA PELAJARAN</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a href="{{ route('classes.index') }}" class="nav-link @if ($currentRouteName == 'classes.index') active @endif">
+                        <a href="{{ route('classes.index') }}"
+                            class="nav-link @if ($currentRouteName == 'classes.index') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>KELAS</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a href="{{ route('rooms.index') }}" class="nav-link @if ($currentRouteName == 'rooms.index') active @endif">
+                        <a href="{{ route('rooms.index') }}"
+                            class="nav-link @if ($currentRouteName == 'rooms.index') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>ROOM</span>
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'guru')
                     <li class="nav-item mb-3">
-                        <a href="#" class="nav-link @if ($currentRouteName == 'guru') active @endif">
+                        <a href="{{ route('guru') }}" class="nav-link @if ($currentRouteName == 'guru') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
                         </a>
                     </li>
+                    @foreach ($rooms as $room)
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('matapelajaran.index', ['id_room' => $room->id]) }}"
+                                class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
+                                <i  class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->class->name }}-{{ $room->subject->name }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+
+                    {{-- @foreach ($rooms as $room)
                     <li class="nav-item mb-3">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('matapelajaran.index') }}"
+                            class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATPEL</span>
                         </a>
                     </li>
+                    @endforeach --}}
                 @elseif (Auth::user()->role == 'siswa')
                     <li class="nav-item mb-3">
                         <a href="#" class="nav-link">
@@ -205,8 +227,7 @@
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar">
         <div class="offcanvas-header">
             <div></div>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div id="sidebar" class="col-md-3 col-12 bg-white sidebar p-4">
@@ -266,15 +287,16 @@
                         type="button" data-bs-toggle="dropdown" aria-expanded="false">
 
                         {{ Auth::user()->name }}
-                        <img src="{{asset('img/user.png')}}" class="ms-2" width="40" />
+                        <img src="{{ asset('img/user.png') }}" class="ms-2" width="40" />
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
                                 @csrf
                             </form>
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
                         </li>
@@ -291,7 +313,7 @@
     </div>
 </nav>
 <script>
-    document.getElementById('toggle-sidebar').addEventListener('click', function () {
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
         var sidebar = document.getElementById('sidebar');
         var mainContent = document.getElementById('main-content');
         if (sidebar.classList.contains('col-md-3')) {
@@ -307,5 +329,5 @@
         }
     });
 </script>
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>

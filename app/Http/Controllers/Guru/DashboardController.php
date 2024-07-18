@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     //
-    public function index()
-    {
-        $user = Auth::user();
-        $id_guru = $user->id_guru;
-        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
-        // var_dump($rooms);
-        return view('guru.dashboard', compact('user', 'rooms'));
+        public function index()
+        {
+            $user = Auth::user();
+            $id_guru = $user->id_guru;
+            $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
+            // var_dump($rooms);
+            return view('guru.dashboard', compact('user', 'rooms','id_guru'));
 
 
-    }
+        }
 }
