@@ -33,6 +33,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 });
 Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
     Route::get('/',[GuruDashboard::class,'index'])->name('guru');
+    // Route::get('matapelajaran/{id_room}', [GuruAktivitas::class, 'index'])->name('matapelajaran.index');
     Route::get('matapelajaran/{id_room}', [GuruAktivitas::class, 'index'])->name('matapelajaran.index');
     Route::get('matapelajaran/{id_room}/create', [GuruAktivitas::class, 'create'])->name('matapelajaran.create');
     Route::resource('matapelajaran', GuruAktivitas::class)->except('index', 'create');

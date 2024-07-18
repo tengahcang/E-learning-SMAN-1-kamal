@@ -106,9 +106,9 @@
         <form class="mt-4" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="mb-2 text-start">
-                <label for="username" class="form-label">NIS</label>
+                <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" class="form-control @error('username') is-invalid @enderror"
-                    name="username" value="{{ old('username') }}" required autofocus placeholder="Masukkan NIS anda">
+                    name="username" value="{{ old('username') }}" required autofocus placeholder="Masukkan Username anda">
                 @error('username')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
