@@ -6,7 +6,7 @@
     <div class="table-responsive border p-3 rounded-3">
         <H1>tabel siswa</H1>
         <h2>Siswa (Total: {{ $studentCount }})</h2>
-        <table class="table table-bordered table-hover table-striped mb-0 bg-white datatable" id="employeeTable">
+        <table class="table table-bordered table-hover table-striped mb-0 bg-white datatable" id="studentTable">
             <thead>
                 <tr>
                     {{-- <th>ID</th> --}}
@@ -43,7 +43,7 @@
     <div class="table-responsive border p-3 rounded-3">
         <H1>tabel guru</H1>
         <h2>Guru (Total: {{ $teacherCount }})</h2>
-        <table class="table table-bordered table-hover table-striped mb-0 bg-white datatable" id="employeeTable">
+        <table class="table table-bordered table-hover table-striped mb-0 bg-white datatable" id="teacherTable">
             <thead>
                 <tr>
                     {{-- <th>ID</th> --}}
@@ -78,3 +78,11 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function() {
+            $('#studentTable').DataTable();
+            $('#teacherTable').DataTable();
+        });
+    </script>
+@endpush

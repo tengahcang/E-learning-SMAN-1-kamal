@@ -29,7 +29,7 @@
                         {{-- <li class="nav-item col-2 col-md-auto">Dashboard</li> --}}
                         <li class="nav-item col-2 col-md-auto">Matpel</li>
                     @elseif (Auth::user()->role == "siswa")
-                        <li class="nav-item col-2 col-md-auto">Dashboard</li>
+                        <li class="nav-item col-2 col-md-auto"><a href="{{ route('siswa') }}" class="nav-link @if($currentRouteName == 'guru') active @endif">beranda</a></li>
                         <li class="nav-item col-2 col-md-auto">Matpel</li>
                         <li class="nav-item col-2 col-md-auto">Tugas</li>
                     @endif
@@ -70,6 +70,19 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                @if (Auth::user()->role == "admin")
+                                    <a class="dropdown-item" href="">
+                                        Profile
+                                    </a>
+                                @elseif (Auth::user()->role == "guru")
+                                    <a class="dropdown-item" href="">
+                                        Profile
+                                    </a>
+                                @elseif (Auth::user()->role == "siswa")
+                                    <a class="dropdown-item" href="{{ route('student.profile') }}">
+                                        Profile
+                                    </a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

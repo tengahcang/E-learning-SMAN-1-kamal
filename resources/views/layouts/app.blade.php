@@ -76,6 +76,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @stack('scripts')
     </div>
 </body>
 </html>

@@ -42,6 +42,7 @@
                         <th>Nama</th>
                         <th>username</th>
                         <th>password</th>
+                        <th>alamat</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -53,6 +54,7 @@
                             <td>{{ $student->name }}</td>
                             <td>{{ $student->username }}</td>
                             <td>{{ str_repeat('*', $student->password_length) }}</td>
+                            <td>{{ $student->address }}</td>
                             <td>
                                 <div class="d-flex">
                                     <a href="{{ route('students.show', ['student'=> $student->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
