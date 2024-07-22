@@ -104,22 +104,11 @@
 <nav class="row g-0">
     <!-- Sidebar -->
     <aside id="sidebar" class="col-md-3 col-12 bg-white sidebar side-pc p-4">
-        <a class="navbar-brand text-black  align-items-center  d-flex " href="#">
+        <a class="navbar-brand text-black mb-5 align-items-center  d-flex " href="#">
             <img src="{{ asset('img/logo.png') }}" class="logo-brand" width="50" />
             <span> EL - SMAN 1 Kamal</span>
 
         </a>
-        <div class="mb-3 mt-5 ">
-            <div class="container user-tag rounded-3 text-white p-3 align-items-center   d-flex">
-                <div
-                    class="bg-white container-icon-user rounded-3 ms-1 align-items-center justify-content-center d-flex">
-                    <i class="icon-user bi bi-person-fill"></i>
-                </div>
-
-                <span>120202030</span>
-
-            </div>
-        </div>
         <ul class="nav flex-column">
             @guest
                 <li class="nav-item mb-3">
