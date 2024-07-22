@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Guru;
 
-use App\Http\Controllers\Controller;
-use App\Models\Aktivitas;
 use App\Models\Room;
+use App\Models\Aktivitas;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AktivitasController extends Controller
@@ -17,9 +18,12 @@ class AktivitasController extends Controller
     {
         //
         // dd($id);
+        $user = Auth::user();
+        $id_guru = $user->id_guru;
+        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
         $activities = Aktivitas::where('id_room', $id)->with('tasks')->get();
         $room = Room::find($id);
-        return view('guru.aktivitas.index',compact('activities','room'));
+        return view('guru.aktivitas.index',compact('activities','room','rooms'));
     }
 
     /**
@@ -28,7 +32,10 @@ class AktivitasController extends Controller
     public function create(string $id)
     {
         //
-        return view('guru.aktivitas.create',compact('id'));
+        $user = Auth::user();
+        $id_guru = $user->id_guru;
+        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
+        return view('guru.aktivitas.create',compact('id','rooms'));
     }
 
     /**

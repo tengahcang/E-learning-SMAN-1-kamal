@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Guru;
 
-use App\Http\Controllers\Controller;
-use App\Models\Aktivitas;
+use App\Models\Room;
 use App\Models\Tugas;
+use App\Models\Aktivitas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class TugasController extends Controller
@@ -25,8 +27,11 @@ class TugasController extends Controller
     public function create($id_activity, $id_room)
     {
         //
+        $user = Auth::user();
+        $id_guru = $user->id_guru;
+        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
         $activity = Aktivitas::findOrFail($id_activity);
-        return view('guru.tugas.create', compact('activity', 'id_room'));
+        return view('guru.tugas.create', compact('activity', 'id_room','rooms'));
     }
 
     /**
@@ -76,10 +81,13 @@ class TugasController extends Controller
     public function show(string $id)
     {
         //
+        $user = Auth::user();
+        $id_guru = $user->id_guru;
+        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
         $task = Tugas::with('activity')->find($id);
         // $activity = $task->activity;
         // dd($task);
-        return view('guru.tugas.show', compact('task'));
+        return view('guru.tugas.show', compact('task','rooms'));
     }
 
     /**
@@ -88,11 +96,14 @@ class TugasController extends Controller
     public function edit(string $id)
     {
         //
+        $user = Auth::user();
+        $id_guru = $user->id_guru;
+        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
         $tugas = Tugas::find($id);
         $activity = $tugas->activity;
         // dd($activity);
         // return view('guru.tugas.edit', compact('task', 'activity'));
-        return view('guru.tugas.edit', compact('tugas', 'activity'));
+        return view('guru.tugas.edit', compact('tugas', 'activity','rooms'));
     }
 
     /**

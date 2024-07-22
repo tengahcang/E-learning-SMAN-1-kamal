@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
     Route::resource('matapelajaran', GuruAktivitas::class)->except('index', 'create')->names(['index' => 'teacher.matapelajaran.index', 'create' => 'teacher.matapelajaran.create', 'store' => 'teacher.matapelajaran.store', 'show' => 'teacher.matapelajaran.show', 'edit' => 'teacher.matapelajaran.edit', 'update' => 'teacher.matapelajaran.update', 'destroy' => 'teacher.matapelajaran.destroy', ]);
     Route::get('tugas/create/{id_activity}/{id_room}',[GuruTugas::class,'create'])->name('teacher.tugas.create');
     Route::resource('tugas', GuruTugas::class)->except('create')->names([ 'index' => 'teacher.tugas.index', 'create' => 'teacher.tugas.create', 'store' => 'teacher.tugas.store', 'show' => 'teacher.tugas.show', 'edit' => 'teacher.tugas.edit', 'update' => 'teacher.tugas.update', 'destroy' => 'teacher.tugas.destroy', ]);
+
 });
 Route::middleware(['auth', 'role:siswa'])->prefix('student')->group(function () {
     Route::get('/', [SiswaDashboard::class,'index'])->name('siswa');

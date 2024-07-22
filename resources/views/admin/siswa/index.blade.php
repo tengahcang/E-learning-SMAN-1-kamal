@@ -7,11 +7,6 @@
             </div>
             <div class="col-lg-3 col-xl-6">
                 <ul class="list-inline mb-0 float-end">
-                    {{-- <li class="list-inline-item">
-                        <a href="{{ route('employees.exportExcel') }}" class="btn btn-outline-success">
-                            <i class="bi bi-download me-1"></i> to Excel
-                        </a>
-                    </li>
                     <li class="list-inline-item">
                         <a href="{{ route('employees.exportPdf') }}" class="btn btn-outline-danger">
                             <i class="bi bi-download me-1"></i> to PDF
@@ -24,56 +19,68 @@
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="{{ route('students.create') }}" class="btn btn-primary">
+                        <a href="{{ route('students.create') }}" class="btn btn-primary btn-create">
                             <i class="bi bi-plus-circle me-1"></i> Create Student
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="table-responsive border p-3 rounded-3">
-            <H1>tabel siswa</H1>
-            {{-- <h2>Siswa (Total: {{ $studentCount }})</h2> --}}
-            <table class="table table-bordered table-hover table-striped mb-0 bg-white datatable" id="employeeTable">
-                <thead>
-                    <tr>
-                        {{-- <th>ID</th> --}}
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>username</th>
-                        <th>password</th>
-                        <th>alamat</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($students as $index => $student)
+        <div class="table-responsive bg-white p-4 rounded-3 shadow-sm mt-3">
+            <h6>Tabel Siswa</h6>
+            <div>
+                <table id="siswa" class="table table-striped nowrap" style="width:100%" id="employeeTable">
+                    <thead>
                         <tr>
-                            {{-- <td>{{ $student->id }}</td> --}}
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $student->name }}</td>
-                            <td>{{ $student->username }}</td>
-                            <td>{{ str_repeat('*', $student->password_length) }}</td>
-                            <td>{{ $student->address }}</td>
-                            <td>
-                                <div class="d-flex">
-                                    <a href="{{ route('students.show', ['student'=> $student->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-person-lines-fill"></i></a>
-                                    <a href="{{ route('students.edit', ['student'=> $student->id]) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
-                                    <div>
-                                        <form action="{{ route('students.destroy', ['student'=> $student->id]) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
+                            <th>Nomor</th>
+                            <th>Nama</th>
+                            <th>NIS</th>
+                            <th>Alamat</th>
+                            <th>Telepon</th>
+                            <th>Action</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($students as $index => $student)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $student->name }}</td>
+                                <td>{{ $student->username }}</td>
+                                <td>{{ str_repeat('*', $student->password_length) }}</td>
+                                <td>{{ $student->address }}</td>
+                                <td>
+                                    <a href="{{ route('students.show', ['student'=> $student->id]) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('students.edit', ['student'=> $student->id]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="{{ route('students.destroy', ['student'=> $student->id]) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure?')"><i class="bi bi-trash3"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                </table>
+            </div>
         </div>
-        <hr>
+    </div>
+    <hr>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js
+                            "></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script>
+        new DataTable('#siswa', {
+            responsive: true
+        });
+    </script>
+    <script>
+        new DataTable('#guru', {
+            responsive: true
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
 @endsection
