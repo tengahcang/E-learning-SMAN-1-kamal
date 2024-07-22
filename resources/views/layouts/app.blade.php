@@ -79,9 +79,9 @@
         </nav> --}}
         @include('layouts.nav')
 
-        <main class="py-4">
+        {{-- <main class="py-4">
             @yield('content')
-        </main>
+        </main> --}}
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @stack('scripts')
 

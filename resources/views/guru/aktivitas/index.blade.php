@@ -182,7 +182,7 @@
     <div class="container bg-white p-4 shadow-sm">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4>{{ $room->class->name }}-{{ $room->subject->name }} </h4>
-            <a href="{{ route('matapelajaran.create', ['id_room' => $room->id]) }}" class="btn  btn-tambah-pertemuan">+
+            <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn  btn-tambah-pertemuan">+
                 Tambah
                 Pertemuan</a>
         </div>
@@ -196,10 +196,10 @@
                             <i class="bi bi-file-earmark-pdf"></i><span> {{ $task->name }}</span>
                         </div>
                         <div>
-                            <a href="{{ route('tugas.show', $task->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a>
-                            <a class="icon-btn me-2" href="{{ route('tugas.edit', $task->id) }}"><i class="bi bi-pencil"></i></a>
+                            <a href="{{ route('teacher.tugas.show', $task->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a>
+                            <a class="icon-btn me-2" href="{{ route('teacher.tugas.edit', $task->id) }}"><i class="bi bi-pencil"></i></a>
 
-                            <form action="{{ route('tugas.destroy', $task->id) }}" method="POST"
+                            <form action="{{ route('teacher.tugas.destroy', $task->id) }}" method="POST"
                                 class="d-inline">
                                 @csrf
                                 @method('DELETE')
@@ -208,7 +208,7 @@
                         </div>
                     </div>
                 @endforeach
-                <a href="{{ route('tugas.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
+                <a href="{{ route('teacher.tugas.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
                     class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</a>
             </div>
         @endforeach

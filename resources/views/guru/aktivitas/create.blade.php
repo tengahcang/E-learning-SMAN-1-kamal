@@ -30,7 +30,7 @@
                     </span>
                 @enderror
             </div>
-            <button type="submit" class="btn text-white btn-tambahkan">Tambahkan</button>
+            <button type="submit" class="btn text-black btn-tambahkan">Tambahkan</button>
         </form>
     </div>
     {{-- <div class="container-sm mt-5">

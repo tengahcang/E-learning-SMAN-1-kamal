@@ -35,13 +35,13 @@
                     @elseif (Auth::user()->role == 'guru')
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('guru') }}" class="nav-link @if ($currentRouteName == 'guru') active @endif">beranda</a></li>
                         {{-- <li class="nav-item col-2 col-md-auto">Dashboard</li> --}}
-                        <li class="nav-item col-2 col-md-auto">Matpel</li>
-                    @elseif (Auth::user()->role == "siswa")
-                        <li class="nav-item col-2 col-md-auto"><a href="{{ route('siswa') }}" class="nav-link @if($currentRouteName == 'guru') active @endif">beranda</a></li>
+                        {{-- <li class="nav-item col-2 col-md-auto">Matpel</li> --}}
+                    {{-- @elseif (Auth::user()->role == "siswa") --}}
+                        {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('siswa') }}" class="nav-link @if($currentRouteName == 'guru') active @endif">beranda</a></li> --}}
 
-                        <li class="nav-item col-2 col-md-auto">Matpel</li>
-                        <li class="nav-item col-2 col-md-auto">Tugas</li>
-                    @endif --}}
+                        {{-- <li class="nav-item col-2 col-md-auto">Matpel</li> --}}
+                        {{-- <li class="nav-item col-2 col-md-auto">Tugas</li> --}}
+                    {{-- @endif  --}}
 {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('home') }}" class="nav-link @if ($currentRouteName == 'home') active @endif">Home</a></li> --}}
 {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('employees.index') }}" class="nav-link @if ($currentRouteName == 'employees.index') active @endif">Employee</a></li> --}}
 {{-- </ul>
@@ -201,7 +201,7 @@
                     </li>
                     @foreach ($rooms as $room)
                         <li class="nav-item mb-3">
-                            <a href="{{ route('matapelajaran.index', ['id_room' => $room->id]) }}"
+                            <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $room->id]) }}"
                                 class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
                                 <i  class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->class->name }}-{{ $room->subject->name }}</span>
                             </a>
