@@ -10,7 +10,7 @@
             <h4>Tambah Pertemuan</h4>
             <hr>
         </div>
-        <form action="{{ route('matapelajaran.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('teacher.matapelajaran.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-4">
                 <label for="name">Nama Pertemuan</label>
@@ -69,7 +69,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6 d-grid">
-                            <a href="{{ Route('matapelajaran.index', ['id_room' => $id]) }}"
+                            <a href="{{ Route('teacher.matapelajaran.index',['id_room'=>$id]) }}"
                                 class="btn btn-outline-dark btn-lg mt-3"><i class="bi-arrow-left-circle me-2"></i>
                                 Cancel</a>
                         </div>

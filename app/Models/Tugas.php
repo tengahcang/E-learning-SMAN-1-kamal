@@ -15,4 +15,7 @@ class Tugas extends Model implements HasMedia
     public function activity(){
         return $this->belongsTo(Aktivitas::class, 'id_aktivitas');
     }
+    public function submisions(){
+        return $this->hasMany(Pengumpulan::class);
+    }
 }

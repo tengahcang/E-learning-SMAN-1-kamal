@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <style>
         .footer-cardpelajaran {
             background-color: #D9D9D9
@@ -38,7 +39,7 @@
             </div> --}}
     {{-- @foreach ($rooms as $room)
                 <div class="col-md-3 mb-3">
-                    <a href="{{ route('matapelajaran.index', ['id_room' => $room->id]) }}">
+                    <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $room->id]) }}">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $room->subject->name . ' ' . $room->class->name }}</h5>

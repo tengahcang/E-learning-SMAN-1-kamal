@@ -3,7 +3,7 @@
 @section('content')
 <div class="container bg-white p-3 shadow-sm">
     <h3 class="mb-4">Edit Tugas untuk {{ $activity->name }}</h3>
-    <form action="{{ route('tugas.update', $tugas->id) }}" method="POST">
+    <form action="{{ route('teacher.tugas.update', $tugas->id) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="id_activity" value="{{ $activity->id }}">

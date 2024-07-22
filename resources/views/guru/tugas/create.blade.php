@@ -3,7 +3,7 @@
 @section('content')
     <div class="container bg-white p-3 shadow-sm">
         <h3 class="mb-4">Tambah Tugas untuk {{ $activity->name }}</h3>
-        <form action="{{ route('tugas.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('teacher.tugas.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id_activity" value="{{ $activity->id }}">
             <input type="hidden" name="id_room" value="{{ $id_room }}">

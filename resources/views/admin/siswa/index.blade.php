@@ -29,7 +29,7 @@
         <div class="table-responsive bg-white p-4 rounded-3 shadow-sm mt-3">
             <h6>Tabel Siswa</h6>
             <div>
-                <table id="siswa" class="table table-striped nowrap" style="width:100%">
+                <table id="siswa" class="table table-striped nowrap" style="width:100%" id="employeeTable">
                     <thead>
                         <tr>
                             <th>Nomor</th>
@@ -45,13 +45,13 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $student->name }}</td>
-                                <td>{{ $student->nis }}</td>
+                                <td>{{ $student->username }}</td>
+                                <td>{{ str_repeat('*', $student->password_length) }}</td>
                                 <td>{{ $student->address }}</td>
-                                <td>{{ $student->telephone }}</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                    <form method="POST" style="display:inline-block;">
+                                    <a href="{{ route('students.show', ['student'=> $student->id]) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('students.edit', ['student'=> $student->id]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="{{ route('students.destroy', ['student'=> $student->id]) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"

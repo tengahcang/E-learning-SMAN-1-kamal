@@ -20,7 +20,7 @@
     <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
         <h6>Tabel Siswa</h6>
         <div>
-            <table id="siswa" class="table table-striped nowrap" style="width:100%">
+            <table id="siswa" class="table table-striped nowrap" style="width:100%" id="studentTable">
                 <thead>
                     <tr>
                         <th>Nomor</th>
@@ -58,7 +58,7 @@
     <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
         <h6>Tabel Guru</h6>
         <div>
-            <table id="guru" class="table table-striped" style="width:100%">
+            <table id="guru" class="table table-striped" style="width:100%" id="teacherTable">
                 <thead>
                     <tr>
                         <th>Nomor</th>
@@ -108,3 +108,11 @@
     </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function() {
+            $('#studentTable').DataTable();
+            $('#teacherTable').DataTable();
+        });
+    </script>
+@endpush
