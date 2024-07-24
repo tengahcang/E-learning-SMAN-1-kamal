@@ -25,7 +25,7 @@
                             <tr>
                                 <th>Nomor</th>
                                 <th>Nama Mata Pelajaran</th>
-                                <th>Deskripsi</th>
+                                {{-- <th>Deskripsi</th> --}}
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -35,7 +35,7 @@
                                     {{-- <td>{{ $student->id }}</td> --}}
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $subject->name }}</td>
-                                    <td>{{ $subject->description }}</td>
+                                    {{-- <td>{{ $subject->description }}</td> --}}
                                     {{-- <td>{{ $teacher->username }}</td>
                                             <td>{{ str_repeat('*', $teacher->password_length) }}</td> --}}
                                     <td>
@@ -66,7 +66,7 @@
         </div>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js
                         "></script>
@@ -76,5 +76,12 @@
             responsive: true
         });
     </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"> --}}
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function(){
+            $('#subject').DataTable();
+        })
+    </script>
+@endpush

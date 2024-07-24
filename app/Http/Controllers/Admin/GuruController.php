@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\GuruImport;
 use App\Models\Guru;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GuruController extends Controller
 {
@@ -45,29 +48,20 @@ class GuruController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'username' => 'required',
+            'NIP' => 'required',
             'password' => 'required',
-            'address' => 'nullable',
-            'telephone' => 'nullable','numeric'
-
         ], $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $teacher = New Guru();
-        $teacher->NIP = $request->username;
+        $teacher->NIP = $request->NIP;
         $teacher->name = $request->name;
-        if ($request->filled('address')){
-            $teacher->address = $request->address;
-        }
-        if ($request->filled('telephone')){
-            $teacher->telephone = $request->telephone;
-        }
         $teacher->save();
         $id = $teacher->id;
         $user = New User();
         $user->name = $request->name;
-        $user->username = $request->username;
+        $user->username = $request->NIP;
         $user->password = bcrypt($request->password);
         $user->role = "guru";
         $user->id_guru = $id;
@@ -110,35 +104,24 @@ class GuruController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'username' => 'required',
-            'password' => 'nullable',
-            'address' => 'nullable',
-            'telephone' => 'nullable','numeric'
-
+            'NIP' => 'required',
+            'password' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
         $user = User::find($id);
         $user->name = $request->name;
-        $user->username = $request->username;
+        $user->username = $request->NIP;
         if ($request->filled('password')){
             $user->password = bcrypt($request->password);
         }
         $user->role = "guru";
         $user->save();
         $teacher = Guru::find($user->id_guru);
-        $teacher->NIP = $request->username;
+        $teacher->NIP = $request->NIP;
         $teacher->name = $request->name;
-        if ($request->filled('address')){
-            $teacher->address = $request->address;
-        }
-        if ($request->filled('telephone')){
-            $teacher->telephone = $request->telephone;
-        }
         $teacher->save();
-        // $id = $student->id;
         return redirect()->route('teachers.index');
     }
 
@@ -153,5 +136,29 @@ class GuruController extends Controller
         $user->delete();
         $teacher->delete();
         return redirect()->route('teachers.index');
+    }
+    public function createImport()
+    {
+        return view('admin.guru.import');
+    }
+    public function import(Request $request)
+    {
+        // dd($request);
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        Excel::import(new GuruImport, $request->file('file'));
+
+        // return back()->with('success', 'File uploaded successfully.');
+
+        return redirect()->route('teachers.index');
+    }
+    public function download()
+    {
+        $filePath = 'Template_data_guru.xlsx';
+        $fileName = 'Template_data_guru.xlsx';
+        $path = Storage::disk('local')->path($filePath);
+        return response()->download($path, $fileName);
     }
 }

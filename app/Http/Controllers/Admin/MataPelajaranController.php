@@ -38,17 +38,13 @@ class MataPelajaranController extends Controller
             'required' => ':Attribute harus diisi.',
         ];
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'description' => 'nullable'
+            'subject_name' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $subject = New MataPelajaran();
-        $subject->name = $request->name;
-        if ($request->filled('description')){
-            $subject->description = $request->address;
-        }
+        $subject->name = $request->subject_name;
         $subject->save();
         return redirect()->route('subjects.index');
     }

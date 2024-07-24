@@ -38,13 +38,13 @@ class KelasController extends Controller
             'required' => ':Attribute harus diisi.',
         ];
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'class_name' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $class = New Kelas();
-        $class->name = $request->name;
+        $class->name = $request->class_name;
         $class->save();
         return redirect()->route('classes.index');
     }
@@ -79,13 +79,13 @@ class KelasController extends Controller
             'required' => ':Attribute harus diisi.',
         ];
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'class_name' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $class = Kelas::find($id);
-        $class->name = $request->name;
+        $class->name = $request->class_name;
         $class->save();
         return redirect()->route('classes.index');
     }

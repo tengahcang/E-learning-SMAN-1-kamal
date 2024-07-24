@@ -11,8 +11,6 @@ class Siswa extends Model
     protected $fillable = [
         'NISN',
         'name',
-        'address',
-        'telephone',
     ];
     public function rooms()
     {

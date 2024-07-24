@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_matpel');
             $table->unsignedBigInteger('id_kelas');
             $table->unsignedBigInteger('id_guru');
+            $table->text('description')->nullable();
             $table->foreign('id_matpel')->references('id')->on('mata_pelajarans');
             $table->foreign('id_kelas')->references('id')->on('kelas');
             $table->foreign('id_guru')->references('id')->on('gurus');

@@ -3,13 +3,13 @@
     <div class="bg-white p-4 rounded-3 shadow-sm mt-3">
         <h6>INPUT MATA PELAJARAN</h6>
         <div class="mt-4">
-            <form action="{{ route('rooms.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('subjects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label for="namaMataPelajaran" class="form-label">Nama Mata Pelajaran</label>
                         <input type="text" class="form-control @error('subject_name') is-invalid @enderror"
-                            name="subject_name" id="namaMataPelajaran" placeholder="BAHASA INDONESIA">
+                            name="subject_name" id="subject_name" placeholder="BAHASA INDONESIA">
                         @error('subject_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -17,7 +17,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="guruPengampu" class="form-label">Guru Pengampu</label>
                         <select class="form-select @error('teacher') is-invalid @enderror" name="teacher" id="guruPengampu">
@@ -56,7 +56,7 @@
                             </span>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="row">
                     <div class="col-md-6">
                         <button type="button" class="btn btn-danger w-100">Batal</button>

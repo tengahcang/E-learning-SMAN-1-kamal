@@ -9,6 +9,11 @@
             <div class="col-lg-3 col-xl-6">
                 <ul class="list-inline mb-0 float-end">
                     <li class="list-inline-item">
+                        <a href="{{ route('teachers.upload.form') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i>Add Teachers Excel
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
                         <a href="{{ route('teachers.create') }}" class="btn btn-primary btn-create">
                             <i class="bi bi-plus-circle me-1"></i> Create Teacher
                         </a>
@@ -19,13 +24,13 @@
         <div class="table-responsive bg-white p-4 rounded-3 shadow-sm mt-3">
             <h6>Tabel Guru</h6>
             <div>
-                <table id="guru" class="table table-striped" style="width:100%">
+                <table id="teacherTable" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
                             <th>Nomor</th>
-                            <th>Nama</th>
                             <th>NIP</th>
-                            <th>Telepon</th>
+                            <th>Nama</th>
+                            <th>Password</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -33,13 +38,13 @@
                         @foreach ($teachers as $index => $teacher)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+                                <td>{{ $teacher->username }}</td>
                                 <td>{{ $teacher->name }}</td>
-                                <td>{{ $teacher->NIP }}</td>
-                                <td>{{ $teacher->telephone }}</td>
+                                <td>{{ str_repeat('*', $teacher->password_length) }}</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                    <form method="POST" style="display:inline-block;">
+                                    <a href="{{ route('teachers.show', ['teacher'=> $teacher->id]) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('teachers.edit', ['teacher'=> $teacher->id]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="{{ route('teachers.destroy', ['teacher'=> $teacher->id]) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"
@@ -54,7 +59,7 @@
     </div>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js
                             "></script>
@@ -68,6 +73,13 @@
         new DataTable('#guru', {
             responsive: true
         });
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+    </script> --}}
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"> --}}
 @endsection
+@push('scripts')
+<script type="module">
+    $(document).ready(function() {
+        $('#teacherTable').DataTable();
+    });
+</script>
+@endpush

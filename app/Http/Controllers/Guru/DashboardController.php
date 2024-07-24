@@ -17,7 +17,7 @@ class DashboardController extends Controller
             $user = Auth::user();
             $id_guru = $user->id_guru;
             $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
-            // var_dump($rooms);
+            // dd($user);
             return view('guru.dashboard', compact('user', 'rooms','id_guru'));
 
 

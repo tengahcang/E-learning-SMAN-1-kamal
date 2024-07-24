@@ -83,6 +83,13 @@
                             <div class="text-danger"><small>{{ $message }}</small></div>
                         @enderror
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="students_file" class="form-label">Upload Data Siswa (Excel)</label>
+                        <input type="file" name="students_file" id="students_file" class="form-control">
+                        @error('students_file')
+                            <div class="text-danger"><small>{{ $message }}</small></div>
+                        @enderror
+                    </div>
                 </div>
                 <hr>
                 <div class="row">

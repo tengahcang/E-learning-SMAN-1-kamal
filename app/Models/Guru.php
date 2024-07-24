@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Guru extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'NIP',
+        'name',
+    ];
     public function rooms(){
         return $this->hasMany(Room::class);
     }

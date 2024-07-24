@@ -7,6 +7,7 @@ use App\Imports\SiswaImport;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -22,6 +23,7 @@ class SiswaController extends Controller
         $students->each(function ($student) {
             $student->password_length = strlen($student->password);
         });
+        // dd($students);
         return view('admin.siswa.index', compact('students'));
     }
 
@@ -39,7 +41,7 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
         $messages = [
             'required' => ':Attribute harus diisi.',
             'numeric' => ':Attribute harus diisi dengan angka'
@@ -47,29 +49,20 @@ class SiswaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'username' => 'required',
+            'nisn' => 'required',
             'password' => 'required',
-            'address' => 'nullable',
-            'telephone' => 'nullable','numeric'
-
         ], $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $student = New Siswa();
-        $student->NISN = $request->username;
+        $student->NISN = $request->nisn;
         $student->name = $request->name;
-        if ($request->filled('address')){
-            $student->address = $request->address;
-        }
-        if ($request->filled('telephone')){
-            $student->telephone = $request->telephone;
-        }
         $student->save();
         $id = $student->id;
         $user = New User();
         $user->name = $request->name;
-        $user->username = $request->username;
+        $user->username = $request->nisn;
         $user->password = bcrypt($request->password);
         $user->role = "siswa";
         $user->id_siswa = $id;
@@ -112,11 +105,8 @@ class SiswaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'username' => 'required',
-            'password' => 'nullable',
-            'address' => 'nullable',
-            'telephone' => 'nullable','numeric'
-
+            'nisn' => 'required',
+            'password' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -124,21 +114,15 @@ class SiswaController extends Controller
 
         $user = User::find($id);
         $user->name = $request->name;
-        $user->username = $request->username;
+        $user->username = $request->nisn;
         if ($request->filled('password')){
             $user->password = bcrypt($request->password);
         }
         $user->role = "siswa";
         $user->save();
         $student = Siswa::find($user->id_siswa);
-        $student->NISN = $request->username;
+        $student->NISN = $request->nisn;
         $student->name = $request->name;
-        if ($request->filled('address')){
-            $student->address = $request->address;
-        }
-        if ($request->filled('telephone')){
-            $student->telephone = $request->telephone;
-        }
         $student->save();
         // $id = $student->id;
         return redirect()->route('students.index');
@@ -160,27 +144,24 @@ class SiswaController extends Controller
     {
         return view('admin.siswa.import');
     }
-    public function uploadAndSetting(Request $request)
-    {
-        $file = $request->file('file');
-        $path = $file->store('temp');
-        $fullPath = storage_path('app/' . $path);
-
-        $sheets = Excel::toArray([], $fullPath);
-        $sheetNames = array_keys($sheets);
-
-        return view('admin.siswa.import',compact('fullPath','sheetNames'));
-    }
     public function import(Request $request)
     {
-        $sheetName = $request->input('sheet');
-        $filePath = $request->input('file_path');
-        $startRow = $request->input('start_row');
+        // dd($request);
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
 
-        // var_dump($sheetName);
+        Excel::import(new SiswaImport, $request->file('file'));
 
-        Excel::import(new SiswaImport($sheetName,$startRow), $filePath);
+        // return back()->with('success', 'File uploaded successfully.');
 
         return redirect()->route('students.index');
+    }
+    public function downloadTemplate()
+    {
+        $filePath = 'Template_data_siswa.xlsx';
+        $fileName = 'Template_data_siswa.xlsx';
+        $path = Storage::disk('local')->path($filePath);
+        return response()->download($path, $fileName);
     }
 }

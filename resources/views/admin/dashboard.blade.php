@@ -17,65 +17,26 @@
             </div>
         </div>
     </div>
-    <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
-        <h6>Tabel Siswa</h6>
-        <div>
-            <table id="siswa" class="table table-striped nowrap" style="width:100%" id="studentTable">
-                <thead>
-                    <tr>
-                        <th>Nomor</th>
-                        <th>Nama</th>
-                        <th>NIS</th>
-                        <th>Alamat</th>
-                        <th>Telepon</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($students as $index => $student)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $student->name }}</td>
-                            <td>{{ $student->nis }}</td>
-                            <td>{{ $student->address }}</td>
-                            <td>{{ $student->telephone }}</td>
-                            <td>
-                                <a class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                <a class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                <form method="POST"
-                                    style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Are you sure?')"><i class="bi bi-trash3"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-            </table>
-        </div>
-    </div>
+
     <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
         <h6>Tabel Guru</h6>
         <div>
-            <table id="guru" class="table table-striped" style="width:100%" id="teacherTable">
+            <table class="table table-striped" style="width:100%" id="teacherTable">
                 <thead>
                     <tr>
                         <th>Nomor</th>
-                        <th>Nama</th>
                         <th>NIP</th>
-                        <th>Telepon</th>
-                        <th>Action</th>
+                        <th>Nama</th>
+                        {{-- <th>Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($teachers as $index => $teacher)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $teacher->name }}</td>
                             <td>{{ $teacher->NIP }}</td>
-                            <td>{{ $teacher->telephone }}</td>
-                            <td>
+                            <td>{{ $teacher->name }}</td>
+                            {{-- <td>
                                 <a class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
                                 <a class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                                 <form method="POST"
@@ -85,16 +46,48 @@
                                     <button type="submit" class="btn btn-danger btn-sm"
                                         onclick="return confirm('Are you sure?')"><i class="bi bi-trash3"></i></button>
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
             </table>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js
-                        "></script>
+    <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
+        <h6>Tabel Siswa</h6>
+        <div>
+            <table class="table table-striped nowrap" style="width:100%" id="studentTable">
+                <thead>
+                    <tr>
+                        <th>Nomor</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        {{-- <th>Action</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($students as $index => $student)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $student->NISN }}</td>
+                            <td>{{ $student->name }}</td>
+                            {{-- <td>
+                                <a class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                <a class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                <form method="POST"
+                                    style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure?')"><i class="bi bi-trash3"></i></button>
+                                </form>
+                            </td> --}}
+                        </tr>
+                    @endforeach
+            </table>
+        </div>
+    </div>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
     <script>
         new DataTable('#siswa', {
@@ -104,15 +97,15 @@
     <script>
         new DataTable('#guru', {
             responsive: true
-        });
+            });
     </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"> --}}
 @endsection
 @push('scripts')
-    <script type="module">
-        $(document).ready(function() {
-            $('#studentTable').DataTable();
-            $('#teacherTable').DataTable();
-        });
-    </script>
+<script type="module">
+    $(document).ready(function() {
+        $('#teacherTable').DataTable();
+        $('#studentTable').DataTable();
+    });
+</script>
 @endpush

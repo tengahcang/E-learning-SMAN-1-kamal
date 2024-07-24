@@ -13,10 +13,10 @@
                     <label for="name" class="form-label">Nama</label>
                     <h5>{{ $subject->name }}</h5>
                 </div>
-                <div class="col-md-12 mb-3">
+                {{-- <div class="col-md-12 mb-3">
                     <label for="description" class="form-label">Deskripsi</label>
                     <h5>{{ $subject->description }}</h5>
-                </div>
+                </div> --}}
                 {{-- <div class="col-md-12 mb-3">
                     <label for="address" class="form-label">Alamat</label>
                     <h5>{{ $teacher->address }}</h5>

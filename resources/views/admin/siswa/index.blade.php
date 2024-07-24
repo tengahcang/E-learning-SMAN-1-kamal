@@ -29,14 +29,14 @@
         <div class="table-responsive bg-white p-4 rounded-3 shadow-sm mt-3">
             <h6>Tabel Siswa</h6>
             <div>
-                <table id="siswa" class="table table-striped nowrap" style="width:100%" id="employeeTable">
+                <table id="studentTable" class="table table-striped nowrap" style="width:100%" >
                     <thead>
                         <tr>
-                            <th>Nomor</th>
-                            <th>Nama</th>
+                            <th>No</th>
                             <th>NIS</th>
-                            <th>Alamat</th>
-                            <th>Telepon</th>
+                            <th>Nama</th>
+                            {{-- <th>Alamat</th> --}}
+                            <th>Password</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,10 +44,10 @@
                         @foreach ($students as $index => $student)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $student->name }}</td>
                                 <td>{{ $student->username }}</td>
+                                <td>{{ $student->name }}</td>
                                 <td>{{ str_repeat('*', $student->password_length) }}</td>
-                                <td>{{ $student->address }}</td>
+                                {{-- <td>{{ $student->address }}</td> --}}
                                 <td>
                                     <a href="{{ route('students.show', ['student'=> $student->id]) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
                                     <a href="{{ route('students.edit', ['student'=> $student->id]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
@@ -67,12 +67,12 @@
     <hr>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js
                             "></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script> --}}
+    {{-- <script>
         new DataTable('#siswa', {
             responsive: true
         });
@@ -81,6 +81,13 @@
         new DataTable('#guru', {
             responsive: true
         });
-    </script>
+    </script> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function() {
+            $('#studentTable').DataTable();
+        });
+    </script>
+@endpush

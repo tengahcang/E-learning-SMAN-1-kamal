@@ -22,7 +22,7 @@
         <div class="container ">
             <h6>Tabel Kelas</h6>
             <div>
-                <table id="subject" class="table table-striped nowrap" style="width:100%">
+                <table class="table table-striped nowrap" style="width:100%" id="classTable">
                     <thead>
                         <tr>
                             <th>Nomor</th>
@@ -33,25 +33,21 @@
                     <tbody>
                         @foreach ($classes as $index => $class)
                             <tr>
-                                {{-- <td>{{ $student->id }}</td> --}}
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $class->name }}</td>
-                                {{-- <td>{{ $teacher->username }}</td>
-                                    <td>{{ str_repeat('*', $teacher->password_length) }}</td> --}}
                                 <td>
                                     <div class="d-flex">
                                         <a href="{{ route('classes.show', ['class' => $class->id]) }}"
-                                            class="btn btn-outline-dark btn-sm me-2"><i
-                                                class="bi-person-lines-fill"></i></a>
+                                            class="btn btn-info btn-sm"><i
+                                                class="bi bi-eye"></i></a>
                                         <a href="{{ route('classes.edit', ['class' => $class->id]) }}"
-                                            class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
+                                            class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                                         <div>
                                             <form action="{{ route('classes.destroy', ['class' => $class->id]) }}"
                                                 method="POST">
                                                 @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-outline-dark btn-sm me-2"><i
-                                                        class="bi-trash"></i></button>
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="bi bi-trash3"></i></button>
                                             </form>
                                         </div>
                                     </div>
@@ -65,15 +61,12 @@
     </div>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js
-                                "></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script>
-        new DataTable('#subject', {
-            responsive: true
-        });
-    </script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css"> --}}
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function(){
+            $('#classTable').DataTable();
+        })
+    </script>
+@endpush

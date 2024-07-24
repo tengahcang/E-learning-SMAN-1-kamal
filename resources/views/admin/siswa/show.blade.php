@@ -14,17 +14,17 @@
                     <h5>{{ $user->name }}</h5>
                 </div>
                 <div class="col-md-12 mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label">NISN</label>
                     <h5>{{ $user->username }}</h5>
                 </div>
-                <div class="col-md-12 mb-3">
+                {{-- <div class="col-md-12 mb-3">
                     <label for="address" class="form-label">Alamat</label>
                     <h5>{{ $student->address }}</h5>
                 </div>
                 <div class="col-md-12 mb-3">
                     <label for="telephone" class="form-label">Telepon</label>
                     <h5>{{ $student->telephone }}</h5>
-                </div>
+                </div> --}}
             </div>
             <hr>
             <div class="row">

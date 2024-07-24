@@ -15,6 +15,7 @@ use App\Http\Controllers\Siswa\DashboardController as SiswaDashboard;
 use App\Http\Controllers\Siswa\SubmisionController as SiswaSubmision;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,9 +30,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/profile',[AdminDashboard::class,'index'])->name('profile');
     Route::resource('students',AdminSiswa::class);
     Route::get('students/upload/form',[AdminSiswa::class, 'createImport'])->name('students.upload.form');
-    Route::post('students/upload/form',[AdminSiswa::class, 'uploadAndSetting'])->name('students.upload.form');
+    Route::get('student/download-template',[AdminSiswa::class, 'downloadTemplate'])->name('students.download.form');
     Route::post('students/import',[AdminSiswa::class, 'import'])->name('students.import');
     Route::resource('teachers',AdminGuru::class);
+    Route::get('teachers/upload/form',[AdminGuru::class, 'createImport'])->name('teachers.upload.form');
+    Route::get('teachers/download-template', function() {
+        $filePath = 'Template_data_guru.xlsx';
+        $fileName = 'Template_data_guru.xlsx';
+        $path = Storage::disk('local')->path($filePath);
+        if (Storage::disk('local')->exists($filePath)) {
+            return response()->download($path, $fileName);
+        } else {
+            return "File not found.";
+        }
+    })->name('teachers.download-template');
+    Route::post('teachers/import',[AdminGuru::class, 'import'])->name('teachers.import');
     Route::resource('subjects',AdminMatPel::class);
     Route::resource('classes',AdminKelas::class);
     Route::resource('rooms',AdminRoom::class);

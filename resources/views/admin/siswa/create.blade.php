@@ -8,8 +8,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="namaSiswa" class="form-label">Nama Siswa</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                            id="namaSiswa" placeholder="Hendro Laksono">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" id="namaSiswa" value="{{ old('name') }}" autocomplete="name" placeholder="Hendro Laksono">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -19,8 +18,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="nisn" class="form-label">NISN (Nomor Induk Siswa Nasional)</label>
-                        <input type="text" class="form-control @error('nisb') is-invalid @enderror" name="nisn"
-                            value="{{ old('nisn') }}" required autocomplete="NISN">
+                        <input type="text" class="form-control @error('nisn') is-invalid @enderror" name="nisn" id="nisn" value="{{ old('nisn') }}" autocomplete="nisn">
                         @error('nisn')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -28,7 +26,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="kelas" class="form-label">Kelas</label>
                         <input type="text" class="form-control" id="kelas" placeholder="X - MIPA 2">
@@ -37,11 +35,14 @@
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="hendroooo@gmail.com">
                     </div>
-                </div>
+                </div> --}}
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Hendro10mipa2.">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Hendro10mipa2.">
+                        <button id="toggle-password" type="button" class="btn btn-outline-secondary">
+                            <i id="toggle-password-icon" class="bi bi-eye"></i>
+                        </button>
                     </div>
                 </div>
                 <button type="button" class="btn btn-danger btn-batal ">Batal</button>
@@ -154,4 +155,19 @@
             </form> --}}
         </div>
     </div>
+    <script>
+        document.getElementById('toggle-password').addEventListener('click', function (e) {
+            var passwordInput = document.getElementById('password');
+            var passwordIcon = document.getElementById('toggle-password-icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.classList.remove('bi bi-eye');
+                passwordIcon.classList.add('bi bi-eye-slash"');
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.classList.remove('bi bi-eye-slash"');
+                passwordIcon.classList.add('bi bi-eye');
+            }
+        });
+    </script>
 @endsection

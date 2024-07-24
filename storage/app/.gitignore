@@ -1,3 +1,5 @@
 *
 !public/
 !.gitignore
+!Template_data_siswa.xlsx
+!Template_data_guru.xlsx
