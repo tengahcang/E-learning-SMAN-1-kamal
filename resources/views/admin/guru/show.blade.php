@@ -1,31 +1,20 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-sm my-5">
-    <div class="row justify-content-center">
-        <div class="p-5 bg-light rounded-3 col-xl-4 border">
-            <div class="mb-3 text-center">
-                <i class="bi-person-circle fs-1"></i>
-                <h4>Detail Siswa</h4>
+    <div class="container-sm py-4 bg-white px-3 shadow-sm rounded">
+        <h5 class="font-weight-bold">Detail Guru</h5>
+        <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+                <label for="name" class="form-label">Nama</label>
+                <h5>{{ $user->name }}</h5>
             </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label for="name" class="form-label">Nama</label>
-                    <h5>{{ $user->name }}</h5>
-                </div>
-                <div class="col-md-12 mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <h5>{{ $user->username }}</h5>
-                </div>
-
+            <div class="col-md-6 mb-3">
+                <label for="username" class="form-label">Username</label>
+                <h5>{{ $user->username }}</h5>
             </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12 d-grid">
-                    <a class="btn btn-outline-dark btn-lg mt-3" href="{{ route('teachers.index') }}"><i class="bi-arrow-left-circle me-2"></i>Back</a>
-                </div>
+            <div class="col-md-3 d-grid">
+                <a class="btn btn-danger btn-lg mt-3" href="{{ route('teachers.index') }}"><i
+                        class="bi-arrow-left-circle me-2"></i>Back</a>
             </div>
         </div>
     </div>
-</div>
 @endsection

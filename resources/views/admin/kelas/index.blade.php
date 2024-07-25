@@ -8,7 +8,7 @@
             <div class="col-lg-3 col-xl-6">
                 <ul class="list-inline mb-0 float-end">
                     <li class="list-inline-item">
-                        <a href="{{ route('classes.create') }}" class="btn btn-primary btn-create">
+                        <a href="{{ route('classes.create') }}" class="btn btn-danger">
                             <i class="bi bi-plus-circle me-1"></i> Create class
                         </a>
                     </li>
@@ -37,11 +37,11 @@
                                 <td>{{ $class->name }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('classes.show', ['class' => $class->id]) }}"
+                                        {{-- <a href="{{ route('classes.show', ['class' => $class->id]) }}"
                                             class="btn btn-info btn-sm"><i
-                                                class="bi bi-eye"></i></a>
+                                                class="bi bi-eye"></i></a> --}}
                                         <a href="{{ route('classes.edit', ['class' => $class->id]) }}"
-                                            class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                            class="btn btn-warning btn-sm me-2"><i class="bi bi-pencil-square"></i></a>
                                         <div>
                                             <form action="{{ route('classes.destroy', ['class' => $class->id]) }}"
                                                 method="POST">

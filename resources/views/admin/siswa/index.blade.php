@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="container">
         <div class="row mb-0">
             <div class="col-lg-9 col-xl-6">
@@ -12,14 +13,13 @@
                             <i class="bi bi-download me-1"></i> to PDF
                         </a>
                     </li> --}}
-                    <li class="list-inline-item">|</li>
                     <li class="list-inline-item">
-                        <a href="{{ route('students.upload.form') }}" class="btn btn-primary">
+                        <a href="{{ route('students.upload.form') }}" class="btn btn-danger" >
                             <i class="bi bi-plus-circle me-1"></i>Add Student Excel
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="{{ route('students.create') }}" class="btn btn-primary btn-create">
+                        <a href="{{ route('students.create') }}" class="btn btn-danger">
                             <i class="bi bi-plus-circle me-1"></i> Create Student
                         </a>
                     </li>
@@ -29,7 +29,7 @@
         <div class="table-responsive bg-white p-4 rounded-3 shadow-sm mt-3">
             <h6>Tabel Siswa</h6>
             <div>
-                <table id="studentTable" class="table table-striped nowrap" style="width:100%" >
+                <table id="studentTable" class="table table-striped nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -49,9 +49,12 @@
                                 <td>{{ str_repeat('*', $student->password_length) }}</td>
                                 {{-- <td>{{ $student->address }}</td> --}}
                                 <td>
-                                    <a href="{{ route('students.show', ['student'=> $student->id]) }}" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('students.edit', ['student'=> $student->id]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="{{ route('students.destroy', ['student'=> $student->id]) }}" method="POST" style="display:inline-block;">
+                                    <a href="{{ route('students.show', ['student' => $student->id]) }}"
+                                        class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                    <a href="{{ route('students.edit', ['student' => $student->id]) }}"
+                                        class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                    <form action="{{ route('students.destroy', ['student' => $student->id]) }}"
+                                        method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"

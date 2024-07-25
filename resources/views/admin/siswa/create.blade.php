@@ -39,10 +39,14 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Hendro10mipa2.">
-                        <button id="toggle-password" type="button" class="btn btn-outline-secondary">
-                            <i id="toggle-password-icon" class="bi bi-eye"></i>
-                        </button>
+                        <div class="input-group">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Hendro10mipa2.">
+                            <div class="input-group-append">
+                                <button id="toggle-password" type="button" class="btn btn-outline-secondary">
+                                    <i id="toggle-password-icon" class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button type="button" class="btn btn-danger btn-batal ">Batal</button>

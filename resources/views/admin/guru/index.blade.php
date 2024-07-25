@@ -9,12 +9,12 @@
             <div class="col-lg-3 col-xl-6">
                 <ul class="list-inline mb-0 float-end">
                     <li class="list-inline-item">
-                        <a href="{{ route('teachers.upload.form') }}" class="btn btn-primary">
-                            <i class="bi bi-plus-circle me-1"></i>Add Teachers Excel
+                        <a href="{{ route('teachers.upload.form') }}" class="btn btn-danger">
+                            <i class="bi bi-plus-circle  me-1"></i>Add Teachers Excel
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="{{ route('teachers.create') }}" class="btn btn-primary btn-create">
+                        <a href="{{ route('teachers.create') }}" class="btn btn-danger">
                             <i class="bi bi-plus-circle me-1"></i> Create Teacher
                         </a>
                     </li>

@@ -8,7 +8,7 @@
             <div class="col-lg-3 col-xl-6">
                 <ul class="list-inline mb-0 float-end">
                     <li class="list-inline-item">
-                        <a href="{{ route('subjects.create') }}" class="btn btn-primary btn-create">
+                        <a href="{{ route('subjects.create') }}" class="btn btn-danger">
                             <i class="bi bi-plus-circle me-1"></i> Create Subject
                         </a>
                     </li>
@@ -40,18 +40,18 @@
                                             <td>{{ str_repeat('*', $teacher->password_length) }}</td> --}}
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('subjects.show', ['subject' => $subject->id]) }}"
+                                            {{-- <a href="{{ route('subjects.show', ['subject' => $subject->id]) }}"
                                                 class="btn btn-outline-dark btn-sm me-2"><i
-                                                    class="bi-person-lines-fill"></i></a>
+                                                    class="bi-person-lines-fill"></i></a> --}}
                                             <a href="{{ route('subjects.edit', ['subject' => $subject->id]) }}"
-                                                class="btn btn-outline-dark btn-sm me-2"><i
+                                                class="btn btn-warning btn-sm me-2"><i
                                                     class="bi-pencil-square"></i></a>
                                             <div>
                                                 <form action="{{ route('subjects.destroy', ['subject' => $subject->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" class="btn btn-outline-dark btn-sm me-2"><i
+                                                    <button type="submit" class="btn btn-danger btn-sm me-2"><i
                                                             class="bi-trash"></i></button>
                                                 </form>
                                             </div>

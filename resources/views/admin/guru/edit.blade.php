@@ -134,10 +134,14 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Raditguru.">
-                    <button id="toggle-password" type="button" class="btn btn-outline-secondary">
-                        <i id="toggle-password-icon" class="bi bi-eye"></i>
-                    </button>
+                    <div class="input-group">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Raditguru.">
+                        <div class="input-group-append">
+                            <button id="toggle-password" type="button" class="btn btn-outline-secondary">
+                                <i id="toggle-password-icon" class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
