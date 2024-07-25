@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Guru;
 
-use App\Models\Room;
-use App\Models\Tugas;
-use App\Models\Aktivitas;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Aktivitas;
+use App\Models\Materi;
+use App\Models\Room;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class TugasController extends Controller
+class MateriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,7 +30,7 @@ class TugasController extends Controller
         $id_guru = $user->id_guru;
         $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
         $activity = Aktivitas::findOrFail($id_activity);
-        return view('guru.tugas.create', compact('activity', 'id_room','rooms'));
+        return view('guru.materi.create', compact('activity', 'id_room','rooms'));
     }
 
     /**
@@ -40,13 +39,12 @@ class TugasController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request);
         $messages = [
             'required' => ':Attribute harus diisi.',
         ];
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'description' => 'nullable',
-            'deadline' => 'required',
             'file' => 'nullable'
         ], $messages);
 
@@ -54,11 +52,9 @@ class TugasController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $task = new Tugas();
-        $task->id_aktivitas = $request->id_activity;
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->deadline = $request->deadline;
+        $subject_matter = new Materi();
+        $subject_matter->id_aktivitas = $request->id_activity;
+        $subject_matter->name = $request->name;
 
         // Debugging to check if file is received
         if ($request->hasFile('file')) {
@@ -67,10 +63,10 @@ class TugasController extends Controller
             $generatedFileName = uniqid() . '.' . $file->getClientOriginalExtension();
 
             // Ensure file is stored
-            $task->addMedia($file)->usingFileName($generatedFileName)->withCustomProperties(['original_name' => $originalFileName])->toMediaCollection('templates');
+            $subject_matter->addMedia($file)->usingFileName($generatedFileName)->withCustomProperties(['original_name' => $originalFileName])->toMediaCollection('materi');
         }
 
-        $task->save();
+        $subject_matter->save();
 
         return redirect()->route('teacher.matapelajaran.index', ['id_room' => $request->id_room]);
     }
@@ -84,10 +80,10 @@ class TugasController extends Controller
         $user = Auth::user();
         $id_guru = $user->id_guru;
         $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
-        $task = Tugas::with('activity')->find($id);
+        $materi = Materi::with('activity')->find($id);
         // $activity = $task->activity;
         // dd($task);
-        return view('guru.tugas.show', compact('task','rooms'));
+        return view('guru.materi.show', compact('materi','rooms'));
     }
 
     /**
@@ -99,11 +95,11 @@ class TugasController extends Controller
         $user = Auth::user();
         $id_guru = $user->id_guru;
         $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
-        $tugas = Tugas::find($id);
-        $activity = $tugas->activity;
+        $materi = Materi::find($id);
+        $activity = $materi->activity;
         // dd($activity);
         // return view('guru.tugas.edit', compact('task', 'activity'));
-        return view('guru.tugas.edit', compact('tugas', 'activity','rooms'));
+        return view('guru.materi.edit', compact('materi', 'activity','rooms'));
     }
 
     /**
@@ -112,32 +108,32 @@ class TugasController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        // dd($request);
         $messages = [
             'required' => ':Attribute harus diisi.',
         ];
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'description' => 'required',
-            'deadline' => 'required',
+            'file' => 'nullable'
         ], $messages);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $task = Tugas::find($id);
-        $task->id_aktivitas = $request->id_activity;
-        $task->name = $request->name;
-        $task->description = $request->description;
-        $task->deadline = $request->deadline;
+        $subject_matter = Materi::find($id);
+        $subject_matter->id_aktivitas = $request->id_activity;
+        $subject_matter->name = $request->name;
+        // Debugging to check if file is received
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $originalFileName = $file->getClientOriginalName();
             $generatedFileName = uniqid() . '.' . $file->getClientOriginalExtension();
 
             // Ensure file is stored
-            $task->addMedia($file)->usingFileName($generatedFileName)->withCustomProperties(['original_name' => $originalFileName])->toMediaCollection('templates');
+            $subject_matter->addMedia($file)->usingFileName($generatedFileName)->withCustomProperties(['original_name' => $originalFileName])->toMediaCollection('materi');
         }
 
-        $task->save();
+        $subject_matter->save();
         return redirect()->route('teacher.matapelajaran.index', ['id_room' => $request->id_room]);
     }
 

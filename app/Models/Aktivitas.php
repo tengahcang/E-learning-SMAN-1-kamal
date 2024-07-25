@@ -14,4 +14,7 @@ class Aktivitas extends Model
     public function tasks(){
         return $this->hasMany(Tugas::class,'id_aktivitas');
     }
+    public function subject_matter(){
+        return $this->hasMany(Materi::class,'id_aktivitas');
+    }
 }

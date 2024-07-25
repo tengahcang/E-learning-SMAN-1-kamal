@@ -21,7 +21,7 @@ class AktivitasController extends Controller
         $user = Auth::user();
         $id_guru = $user->id_guru;
         $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
-        $activities = Aktivitas::where('id_room', $id)->with('tasks')->get();
+        $activities = Aktivitas::where('id_room', $id)->with('tasks', 'subject_matter')->get();
         $room = Room::find($id);
         return view('guru.aktivitas.index',compact('activities','room','rooms'));
     }
@@ -57,7 +57,7 @@ class AktivitasController extends Controller
         $activity->id_room = $request->room;
         $activity->name = $request->name;
         $activity->save();
-        return redirect()->route('matapelajaran.index', ['id_room' => $request->room]);
+        return redirect()->route('teacher.matapelajaran.index', ['id_room' => $request->room]);
     }
 
     /**

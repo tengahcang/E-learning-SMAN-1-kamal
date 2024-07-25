@@ -14,7 +14,7 @@ class AktivitasController extends Controller
     {
         //
         // dd($id);
-        $activities = Aktivitas::where('id_room', $id)->with('tasks')->get();
+        $activities = Aktivitas::where('id_room', $id)->with('tasks', 'subject_matter')->get();
         $room = Room::find($id);
         return view('siswa.aktivitas.index',compact('activities','room'));
     }

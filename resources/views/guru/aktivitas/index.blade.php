@@ -189,11 +189,29 @@
         @foreach ($activities as $activity)
             <div class="task-item">
                 <div class="task-header">{{ $activity->name }}</div>
+                @foreach ($activity->subject_matter as $matter)
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <i class="bi bi-file-earmark-pdf"></i> {{ $matter->name }}
+                        </div>
+                        <div>
+                            <a href="{{ route('teacher.materi.show', $matter->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a>
+                            <a class="icon-btn me-2" href="{{ route('teacher.materi.edit', $matter->id) }}"><i class="bi bi-pencil"></i></a>
+
+                            <form action="{{ route('teacher.materi.destroy', $matter->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="icon-btn"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
 
                 @foreach ($activity->tasks as $task)
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div>
-                            <i class="bi bi-file-earmark-pdf"></i><span> {{ $task->name }}</span>
+                            <i class="bi bi-pencil"></i> {{ $task->name }} (<span class="task-title">Tugas</span>)
                         </div>
                         <div>
                             <a href="{{ route('teacher.tugas.show', $task->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a>
@@ -208,8 +226,12 @@
                         </div>
                     </div>
                 @endforeach
+                <a href="{{ route('teacher.materi.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
+                    class="btn btn-outline-secondary w-100">+ Tambahkan Materi</a>
+                    <br>
+                    <br>
                 <a href="{{ route('teacher.tugas.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
-                    class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</a>
+                    class="btn btn-outline-secondary w-100">+ Tambahkan Tugas</a>
             </div>
         @endforeach
         <p>=============UNDERSCONS======================</p>

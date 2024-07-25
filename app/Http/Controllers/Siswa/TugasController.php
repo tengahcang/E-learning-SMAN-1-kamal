@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Siswa;
 use App\Http\Controllers\Controller;
 use App\Models\Pengumpulan;
 use App\Models\Tugas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -58,10 +59,11 @@ class TugasController extends Controller
         }
 
         $task = Tugas::with('activity')->findOrFail($id);
+        $isPastDeadline = Carbon::now()->isAfter($task->deadline);
 
-        // dd($submission);
+        // dd($isPastDeadline);
 
-        return view('siswa.tugas.show', compact('task', 'submission'));
+        return view('siswa.tugas.show', compact('task', 'submission', 'isPastDeadline'));
     }
 
     /**

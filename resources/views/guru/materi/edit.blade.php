@@ -3,31 +3,23 @@
 @section('content')
 <div class="container bg-white p-3 shadow-sm">
     <h3 class="mb-4">Edit Tugas untuk {{ $activity->name }}</h3>
-    <form action="{{ route('teacher.tugas.update', $tugas->id) }}" method="POST">
+    <form action="{{ route('teacher.materi.update', $materi->id) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="id_activity" value="{{ $activity->id }}">
         <input type="hidden" name="id_room" value="{{ $activity->id_room }}">
         <div class="form-group mb-4">
-            <label for="name">Nama Tugas</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $tugas->name }}" required>
+            <label for="name">Nama Materi</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ $materi->name }}" required>
         </div>
         <div class="form-group mb-4">
-            <label for="description">Deskripsi Tugas</label>
-            <textarea class="form-control" id="description" name="description">{{ $tugas->description }}</textarea>
-        </div>
-        <div class="form-group mb-4">
-            <label for="deadline">Deadline</label>
-            <input type="datetime-local" class="form-control" id="deadline" name="deadline" value="{{ \Carbon\Carbon::parse($tugas->deadline)->format('Y-m-d\TH:i') }}" required>
-        </div>
-        <div class="form-group mb-4">
-            <label for="file">Unggah Template Pekerjaan</label>
+            <label for="file">Unggah Materi</label>
             <input type="file" class="form-control-file" id="file" name="file">
         </div>
         <div class="form-group">
             <label>Files yang sudah dikumpulkan:</label>
             <div class="uploaded-files">
-                @foreach ($tugas->getMedia('templates') as $media)
+                @foreach ($materi->getMedia('materi') as $media)
                     <button type="button" class="file-item btn btn-light" data-id="{{ $media->id }}" data-name="{{ $media->getCustomProperty('original_name') }}" data-bs-toggle="modal" data-bs-target="#fileModal">
                         <img src="{{ $media->getUrl() }}" alt="{{ $media->getCustomProperty('original_name') }}" class="file-thumbnail">
                         <p>{{ $media->getCustomProperty('original_name') }}</p>
@@ -35,7 +27,7 @@
                 @endforeach
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Update Tugas</button>
+        <button type="submit" class="btn btn-success">Update Materi</button>
     </form>
 </div>
 <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
@@ -72,7 +64,7 @@
 
         document.querySelectorAll('.file-item').forEach(function(item) {
             item.addEventListener('click', function() {
-                let submisionId = '{{ $tugas->id }}';
+                let submisionId = '{{ $materi->id }}';
                 let fileId = this.getAttribute('data-id');
                 idData.value = fileId;
                 idSubmission.value = submisionId;
@@ -104,4 +96,3 @@
         });
     });
 </script>
-@endpush

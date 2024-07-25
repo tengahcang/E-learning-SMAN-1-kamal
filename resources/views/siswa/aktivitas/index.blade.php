@@ -11,6 +11,19 @@
 
                 </div>
                 <ul class="list-group mt-2">
+                    @foreach($activity->subject_matter as $matter)
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5>
+                                    <a href="{{ route('student.materi.show', $matter->id) }}">{{ $matter->name }}</a>
+                                    {{-- <span style="color: red;">(Tugas)</span> --}}
+                                </h5>
+
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
                     @foreach($activity->tasks as $task)
                     <li class="list-group-item">
                         <div class="d-flex justify-content-between align-items-center">

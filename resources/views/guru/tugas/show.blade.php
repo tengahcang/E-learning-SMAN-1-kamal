@@ -3,7 +3,7 @@
 @section('content')
 <div class="container bg-white p-3 shadow-sm">
     <h1>{{ $task->name }}</h1>
-    <p>{{ $task->description }}</p>
+    <p>{!! nl2br($task->description) !!}</p>
     <p>Deadline: {{ \Carbon\Carbon::parse($task->deadline)->format('d-m-Y H:i') }}</p>
 
     @if ($task->hasMedia('templates'))
