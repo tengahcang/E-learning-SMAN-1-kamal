@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Siswa;
 
-use App\Http\Controllers\Controller;
-use App\Models\Aktivitas;
 use App\Models\Room;
+use App\Models\Aktivitas;
+use App\Models\RoomSiswa;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AktivitasController extends Controller
 {
@@ -14,8 +15,12 @@ class AktivitasController extends Controller
     {
         //
         // dd($id);
+        $room_siswas = RoomSiswa::where('id_siswa', $id)
+        ->with(['room.class', 'room.subject', 'room.teacher'])
+        ->get();
+
         $activities = Aktivitas::where('id_room', $id)->with('tasks', 'subject_matter')->get();
         $room = Room::find($id);
-        return view('siswa.aktivitas.index',compact('activities','room'));
+        return view('siswa.aktivitas.index',compact('activities','room' , 'room_siswas'));
     }
 }

@@ -78,7 +78,7 @@
                         <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $room->id]) }}">
                             <div class="card bg-success text-white card-item">
                                 <div></div>
-                                <div class="text-dark footer-cardpelajaran  rounded-bottom card-text">
+                                <div class="text-dark footer-cardpelajaran rounded-bottom card-text">
                                     {{ $room->class->name }}<br>{{ $room->subject->name }}
                                 </div>
                             </div>

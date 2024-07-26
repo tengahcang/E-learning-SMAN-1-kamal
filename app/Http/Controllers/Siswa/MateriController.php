@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Siswa;
 
-use App\Http\Controllers\Controller;
 use App\Models\Materi;
+use App\Models\RoomSiswa;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class MateriController extends Controller
 {
@@ -40,10 +42,16 @@ class MateriController extends Controller
         //
         $materi = Materi::with('activity')->findOrFail($id);
         // $isPastDeadline = Carbon::now()->isAfter($task->deadline);
+        $user = Auth::user();
+        $id_siswa = $user->id_siswa;
 
+        // Cari semua entri RoomSiswa yang terkait dengan siswa ini
+        $room_siswas = RoomSiswa::where('id_siswa', $id_siswa)
+            ->with(['room.class', 'room.subject', 'room.teacher'])
+            ->get();
         // dd($isPastDeadline);
 
-        return view('siswa.materi.show', compact('materi'));
+        return view('siswa.materi.show', compact('materi','room_siswas'));
     }
 
     /**

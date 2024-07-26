@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Siswa;
 
-use App\Http\Controllers\Controller;
-use App\Models\Pengumpulan;
-use App\Models\Tugas;
 use Carbon\Carbon;
+use App\Models\Tugas;
+use App\Models\RoomSiswa;
+use App\Models\Pengumpulan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
 {
@@ -46,7 +47,12 @@ class TugasController extends Controller
         // $submission = Pengumpulan::where('id_tugas', $id)
         //                             ->where('id_siswa', $user->id_siswa)
         //                             ->first();
+        $id_siswa = $user->id_siswa;
 
+        // Cari semua entri RoomSiswa yang terkait dengan siswa ini
+        $room_siswas = RoomSiswa::where('id_siswa', $id_siswa)
+            ->with(['room.class', 'room.subject', 'room.teacher'])
+            ->get();
         try {
             // Periksa apakah kolom benar
             $submission = Pengumpulan::where('id_tugas', $id)
@@ -63,7 +69,7 @@ class TugasController extends Controller
 
         // dd($isPastDeadline);
 
-        return view('siswa.tugas.show', compact('task', 'submission', 'isPastDeadline'));
+        return view('siswa.tugas.show', compact('task', 'submission', 'isPastDeadline','room_siswas'));
     }
 
     /**

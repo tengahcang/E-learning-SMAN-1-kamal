@@ -35,13 +35,13 @@
                     @elseif (Auth::user()->role == 'guru')
                         <li class="nav-item col-2 col-md-auto"> <a href="{{ route('guru') }}" class="nav-link @if ($currentRouteName == 'guru') active @endif">beranda</a></li>
                         {{-- <li class="nav-item col-2 col-md-auto">Dashboard</li> --}}
-                        {{-- <li class="nav-item col-2 col-md-auto">Matpel</li> --}}
-                    {{-- @elseif (Auth::user()->role == "siswa") --}}
-                        {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('siswa') }}" class="nav-link @if($currentRouteName == 'guru') active @endif">beranda</a></li> --}}
+{{-- <li class="nav-item col-2 col-md-auto">Matpel</li> --}}
+{{-- @elseif (Auth::user()->role == "siswa") --}}
+{{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('siswa') }}" class="nav-link @if ($currentRouteName == 'guru') active @endif">beranda</a></li> --}}
 
-                        {{-- <li class="nav-item col-2 col-md-auto">Matpel</li> --}}
-                        {{-- <li class="nav-item col-2 col-md-auto">Tugas</li> --}}
-                    {{-- @endif  --}}
+{{-- <li class="nav-item col-2 col-md-auto">Matpel</li> --}}
+{{-- <li class="nav-item col-2 col-md-auto">Tugas</li> --}}
+{{-- @endif  --}}
 {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('home') }}" class="nav-link @if ($currentRouteName == 'home') active @endif">Home</a></li> --}}
 {{-- <li class="nav-item col-2 col-md-auto"><a href="{{ route('employees.index') }}" class="nav-link @if ($currentRouteName == 'employees.index') active @endif">Employee</a></li> --}}
 {{-- </ul>
@@ -82,7 +82,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                @if (Auth::user()->role == "admin")
+                                @if (Auth::user()->role == 'admin')
                                     <a class="dropdown-item" href="">
                                         Profile
                                     </a>
@@ -123,18 +123,7 @@
             <span> EL - SMAN 1 Kamal</span>
 
         </a>
-        <div class="mb-3 mt-5 ">
-            <div class="container user-tag rounded-3 text-white p-3 align-items-center   d-flex">
-                <div
-                    class="bg-white container-icon-user rounded-3 ms-1 align-items-center justify-content-center d-flex">
-                    <i class="icon-user bi bi-person-fill"></i>
-                </div>
-
-                <span>120202030</span>
-
-            </div>
-        </div>
-        <ul class="nav flex-column">
+        <ul class="nav flex-column mt-4">
             @guest
                 <li class="nav-item mb-3">
                     <a class="nav-link active" href="#"><i
@@ -203,7 +192,8 @@
                         <li class="nav-item mb-3">
                             <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $room->id]) }}"
                                 class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
-                                <i  class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->class->name }}-{{ $room->subject->name }}</span>
+                                <i
+                                    class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->class->name }}-{{ $room->subject->name }}</span>
                             </a>
                         </li>
                     @endforeach
@@ -216,22 +206,30 @@
                         </a>
                     </li>
                     @endforeach --}}
-                @elseif (Auth::user()->role == 'siswa')
+                    @elseif (Auth::user()->role == 'siswa')
                     <li class="nav-item mb-3">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('siswa') }}" class="nav-link @if ($currentRouteName == 'siswa') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
                         </a>
                     </li>
-                    <li class="nav-item mb-3">
-                        <a href="#" class="nav-link">
-                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATPEL</span>
-                        </a>
-                    </li>
-                    <li class="nav-item mb-3">
-                        <a href="#" class="nav-link">
-                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>TUGAS</span>
-                        </a>
-                    </li>
+                    @foreach ($room_siswas as $room)
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('student.matapelajaran.index', ['id_room' => $room->id_room]) }}"
+                                class="nav-link @if ($currentRouteName == 'student.matapelajaran.index' && request()->id_room == $room->id_room) active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->room->subject->name }} - {{ $room->room->class->name }}</span>
+                            </a>
+                        </li>
+                    @endforeach
+
+                    {{-- @foreach ($kelas_siswa as $kelas)
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('students.matapelajaran.index', ['id_room' => $room->id]) }}"
+                                class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
+                                <i
+                                    class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $kelas->class->name }}-{{ $kelas->subject->name }}</span>
+                            </a>
+                        </li>
+                    @endforeach --}}
                 @endif
             @endguest
         </ul>
@@ -246,41 +244,87 @@
         <div class="offcanvas-body">
             <div id="sidebar" class="col-md-3 col-12 bg-white sidebar p-4">
                 <a class="navbar-brand text-black align-items-center d-flex" href="#">
-                    <img src="img/logo.png" class="logo-brand" width="50" />
+                    <img src="{{asset('img/logo.png')}}" class="logo-brand" width="50" />
                     <span> EL - SMAN 1 Kamal</span>
                 </a>
-                <div class="mb-3 mt-5 ">
-                    <div class="container user-tag rounded-3 text-white p-3 align-items-center d-flex">
-                        <div
-                            class="bg-white container-icon-user rounded-3 ms-1 align-items-center justify-content-center d-flex">
-                            <i class="icon-user bi bi-person-fill"></i>
-                        </div>
-                        <span>120202030</span>
-                    </div>
-                </div>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-3">
-                        <a class="nav-link active" href="#"><i
-                                class="bi bi-journal-bookmark-fill icon-sidebar "></i><span>BERANDA</span></a>
-                    </li>
-                    <li class="nav-item mb-3">
-                        <a class="nav-link" href="#"><i
-                                class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>IPA</span></a>
-                    </li>
-                    <li class="nav-item mb-3">
-                        <a class="nav-link" href="#"><i
-                                class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>IPS</span></a>
-                    </li>
-                    <li class="nav-item mb-3">
-                        <a class="nav-link" href="#"><i
-                                class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATEMATIKA</span></a>
-                    </li>
-                    <li class="nav-item mb-3">
-                        <a class="nav-link" href="#"><i
-                                class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>BAHASA
-                                INDONESIA</span></a>
-                    </li>
-                </ul>
+                @if (Auth::user()->role == 'admin')
+                    <ul class="nav flex-column mt-3">
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('admin') }}"
+                                class="nav-link @if ($currentRouteName == 'admin') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>BERANDA</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('students.index') }}"
+                                class="nav-link @if ($currentRouteName == 'students.index') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>SISWA</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('teachers.index') }}"
+                                class="nav-link @if ($currentRouteName == 'teachers.index') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>GURU</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('subjects.index') }}"
+                                class="nav-link @if ($currentRouteName == 'subjects.index') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATA PELAJARAN</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('classes.index') }}"
+                                class="nav-link @if ($currentRouteName == 'classes.index') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>KELAS</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('rooms.index') }}"
+                                class="nav-link @if ($currentRouteName == 'rooms.index') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>ROOM</span>
+                            </a>
+                        </li>
+                    </ul>
+                @elseif (Auth::user()->role == 'guru')
+                    <ul class="nav flex-column mt-3">
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('guru') }}"
+                                class="nav-link @if ($currentRouteName == 'guru') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
+                            </a>
+                        </li>
+                        @foreach ($rooms as $room)
+                            <li class="nav-item mb-3">
+                                <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $room->id]) }}"
+                                    class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
+                                    <i
+                                        class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->class->name }}-{{ $room->subject->name }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @elseif (Auth::user()->role == 'siswa')
+                    <ul class="nav flex-column mt-3">
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('siswa') }}"
+                                class="nav-link @if ($currentRouteName == 'siswa') active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
+                            </a>
+                        </li>
+                        @foreach ($room_siswas as $room)
+                            <li class="nav-item mb-3">
+                                <a href="{{ route('student.matapelajaran.index', ['id_room' => $room->id_room]) }}"
+                                    class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
+                                    <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->room->subject->name }}
+                                        - {{ $room->room->class->name }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+
+                @endif
+
             </div>
         </div>
     </div>

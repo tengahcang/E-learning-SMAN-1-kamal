@@ -29,7 +29,7 @@ class DashboardController extends Controller
 
         // dd($kelas_siswa);
 
-        return view('siswa.dashboard', compact('user', 'kelas_siswa'));
+        return view('siswa.dashboard', compact('user', 'kelas_siswa', 'room_siswas'));
     }
     public function profile(){
         $user = Auth::user();

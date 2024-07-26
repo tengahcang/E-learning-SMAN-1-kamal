@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="container">
-    <h1>{{ $room->subject->name." ". $room->class->name }}</h1>
-    <div class="list-group">
+    <h4 >{{ $room->subject->name." - ". $room->class->name }}</h4>
+    <div class="row bg-white p-3 mt-3 ">
         @foreach($activities as $activity)
             <div class="list-group-item">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>{{ $activity->name }}</h3>
+                    <h5 style="font-weight: bold">{{ $activity->name }}</h5>
 
                 </div>
                 <ul class="list-group mt-2">
                     @foreach($activity->subject_matter as $matter)
-                    <li class="list-group-item">
+                    <li class="list-group-item bg-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h5>
