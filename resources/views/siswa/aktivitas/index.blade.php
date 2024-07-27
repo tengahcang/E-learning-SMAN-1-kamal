@@ -1,45 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h4 >{{ $room->subject->name." - ". $room->class->name }}</h4>
-    <div class="row bg-white p-3 mt-3 ">
-        @foreach($activities as $activity)
-            <div class="list-group-item">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 style="font-weight: bold">{{ $activity->name }}</h5>
-
-                </div>
-                <ul class="list-group mt-2">
-                    @foreach($activity->subject_matter as $matter)
-                    <li class="list-group-item bg-white">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h5>
-                                    <a href="{{ route('student.materi.show', $matter->id) }}">{{ $matter->name }}</a>
-                                    {{-- <span style="color: red;">(Tugas)</span> --}}
-                                </h5>
-
-                            </div>
-                        </div>
-                    </li>
-                    @endforeach
-                    @foreach($activity->tasks as $task)
-                    <li class="list-group-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h5>
-                                    <a href="{{ route('student.tugas.show', $task->id) }}">{{ $task->name }}</a>
-                                    <span style="color: red;">(Tugas)</span>
-                                </h5>
-
-                            </div>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
+    <div class="container">
+        <h4 c>{{ $room->subject->name . ' - ' . $room->class->name }}</h4>
+        <div class="container bg-white shadow-sm p-4 mt-2">
+            @foreach ($activities as $activity)
+                <h4 class="mb-4" style="font-weight: bold">{{ $activity->name }}</h4>
+                @foreach ($activity->subject_matter as $matter)
+                    <div class="content-item mb-2">
+                        <a class="text-dark text-decoration-none" href="{{ route('student.materi.show', $matter->id) }}">
+                            <i class="bi bi-file-earmark-text custom-icon me-3"></i>
+                            <span>Materi - {{ $matter->name }}</span>
+                        </a>
+                    </div>
+                @endforeach
+            @endforeach
+            {{-- <h4>Pertemuan 1: Pancasila sebagai Ideologi dan Dasar Negara</h4> --}}
+            @foreach ($activity->tasks as $task)
+                <a class="text-dark text-decoration-none mb-3" href="{{ route('student.tugas.show', $task->id) }}">
+                    <div class="content-item mb-2">
+                        <i class="bi bi-pencil custom-icon me-3"></i>
+                        <span><span class="text-danger">Tugas</span> - {{ $task->name }}</span>
+                    </div>
+                </a>
+            @endforeach
+            {{-- <div class="content-item">
+                <i class="bi bi-file-earmark-text custom-icon me-3"></i>
+                <span>Materi Pertama - Pancasila sebagai Ideologi dan Dasar Negara</span>
             </div>
-        @endforeach
+            <div class="content-item ">
+                <i class="bi bi-pencil custom-icon me-3"></i>
+                <span>Tugas Pertama - Essay Ideologi Pancasila</span>
+            </div> --}}
+        </div>
     </div>
-</div>
 @endsection

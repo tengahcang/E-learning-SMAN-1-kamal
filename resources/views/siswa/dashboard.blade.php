@@ -34,6 +34,7 @@
 
 <div class="container">
     <div class="row bg-white p-3 shadow-sm">
+        <h5 class="mb-4">Pelajaran saya</h5>
         @foreach ($kelas_siswa as $kelas)
             <div class="col-md-3 col-sm-6 mb-3 ">
                 <a href="{{ route('student.matapelajaran.index', ['id_room' => $kelas->id]) }}">
@@ -46,6 +47,7 @@
                 </a>
             </div>
         @endforeach
+
     </div>
 </div>
 @endsection

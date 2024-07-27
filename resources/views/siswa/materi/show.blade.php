@@ -27,8 +27,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>{{ $materi->name }}</h1>
+<div class="container bg-white p-3 rounded shadow-sm">
+    <h4 class="mb-4" style="font-weight: bold">Pertemuan - {{$materi->activity->name}} : {{ $materi->name }}</h4>
     @if ($materi->hasMedia('materi'))
         @foreach ($materi->getMedia('materi') as $media)
             <p>Template File: <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>

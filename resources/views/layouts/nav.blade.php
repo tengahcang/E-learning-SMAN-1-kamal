@@ -206,7 +206,7 @@
                         </a>
                     </li>
                     @endforeach --}}
-                    @elseif (Auth::user()->role == 'siswa')
+                @elseif (Auth::user()->role == 'siswa')
                     <li class="nav-item mb-3">
                         <a href="{{ route('siswa') }}" class="nav-link @if ($currentRouteName == 'siswa') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
@@ -216,7 +216,8 @@
                         <li class="nav-item mb-3">
                             <a href="{{ route('student.matapelajaran.index', ['id_room' => $room->id_room]) }}"
                                 class="nav-link @if ($currentRouteName == 'student.matapelajaran.index' && request()->id_room == $room->id_room) active @endif">
-                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->room->subject->name }} - {{ $room->room->class->name }}</span>
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->room->subject->name }}
+                                    - {{ $room->room->class->name }}</span>
                             </a>
                         </li>
                     @endforeach
@@ -244,7 +245,7 @@
         <div class="offcanvas-body">
             <div id="sidebar" class="col-md-3 col-12 bg-white sidebar p-4">
                 <a class="navbar-brand text-black align-items-center d-flex" href="#">
-                    <img src="{{asset('img/logo.png')}}" class="logo-brand" width="50" />
+                    <img src="{{ asset('img/logo.png') }}" class="logo-brand" width="50" />
                     <span> EL - SMAN 1 Kamal</span>
                 </a>
                 @if (Auth::user()->role == 'admin')
@@ -313,14 +314,14 @@
                             </a>
                         </li>
                         @foreach ($room_siswas as $room)
-                            <li class="nav-item mb-3">
-                                <a href="{{ route('student.matapelajaran.index', ['id_room' => $room->id_room]) }}"
-                                    class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
-                                    <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->room->subject->name }}
-                                        - {{ $room->room->class->name }}</span>
-                                </a>
-                            </li>
-                        @endforeach
+                        <li class="nav-item mb-3">
+                            <a href="{{ route('student.matapelajaran.index', ['id_room' => $room->id_room]) }}"
+                                class="nav-link @if ($currentRouteName == 'student.matapelajaran.index' && request()->id_room == $room->id_room) active @endif">
+                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->room->subject->name }}
+                                    - {{ $room->room->class->name }}</span>
+                            </a>
+                        </li>
+                    @endforeach
                     </ul>
 
                 @endif
