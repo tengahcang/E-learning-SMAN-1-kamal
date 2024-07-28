@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Edit Pengumpulan Tugas: {{ $task->name }}</h1>
+<div class="container bg-white p-3 shadow-sm">
+    <h5 style="font-weight: bold">Edit Pengumpulan Tugas: {{ $task->name }}</h5>
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -27,7 +27,7 @@
             @enderror
         </div>
 
-        <div class="form-group">
+        <div class="form-group mt-2">
             <label>Files yang sudah dikumpulkan:</label>
             <div class="uploaded-files">
                 @foreach ($submision->getMedia('pengumpulans') as $media)
@@ -38,7 +38,7 @@
                 @endforeach
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan Pengumpulan</button>
+        <button type="submit" class="btn btn-primary mt-3">Simpan Pengumpulan</button>
     </form>
 </div>
 
