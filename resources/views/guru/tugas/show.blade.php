@@ -8,7 +8,7 @@
 
     @if ($task->hasMedia('templates'))
         @foreach ($task->getMedia('templates') as $media)
-            <p>Template File: <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>
+            <p>Template File: <a href="{{ route('download.media', $media->id) }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>
         @endforeach
     @endif
     {{-- <h1>{{ $task->activity->id_room }}</h1> --}}

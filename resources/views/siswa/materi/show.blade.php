@@ -31,7 +31,7 @@
     <h4 class="mb-4" style="font-weight: bold">Pertemuan - {{$materi->activity->name}} : {{ $materi->name }}</h4>
     @if ($materi->hasMedia('materi'))
         @foreach ($materi->getMedia('materi') as $media)
-            <p>Template File: <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>
+            <p>Template File: <a href="{{ route('download.media', $media->id) }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>
         @endforeach
     @endif
 </div>

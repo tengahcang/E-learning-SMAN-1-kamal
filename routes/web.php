@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\KelasController as AdminKelas;
 use App\Http\Controllers\Admin\MataPelajaranController as AdminMatPel;
 use App\Http\Controllers\Admin\SiswaController as AdminSiswa;
 use App\Http\Controllers\Admin\RoomController as AdminRoom;
+use App\Http\Controllers\DownloadMediaController;
 use App\Http\Controllers\Guru\AktivitasController as GuruAktivitas;
 use App\Http\Controllers\Guru\DashboardController as GuruDashboard;
 use App\Http\Controllers\Guru\MateriController as GuruMateri;
@@ -128,3 +129,4 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->group(function () 
 
 
 });
+Route::get('/download/{mediaItem}', [DownloadMediaController::class, 'show'])->name('download.media');
