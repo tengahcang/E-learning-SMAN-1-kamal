@@ -50,17 +50,19 @@
                 @endforeach
             @endif
             @if ($isPastDeadline)
+                <p class="text-danger">Deadline telah terlewati, Anda tidak bisa mengedit tugas.</p>
+
+            @else
                 <a href="{{ route('student.pengumpulan.edit', ['pengumpulan' => $submission->id]) }}"
                     class="btn btn-warning btn-sm">Edit Tugas</a>
-            @else
-                <p class="text-danger">Deadline telah terlewati, Anda tidak bisa mengedit tugas.</p>
             @endif
         @else
             @if ($isPastDeadline)
+                <p class="text-danger">Deadline telah terlewati, Anda tidak bisa menambahkan tugas.</p>
+            @else
+
                 <a href="{{ route('student.pengumpulan.create', ['id_tugas' => $task->id]) }}"
                     class="btn btn-danger btn-sm">Tambah Tugas</a>
-            @else
-                <p class="text-danger">Deadline telah terlewati, Anda tidak bisa menambahkan tugas.</p>
             @endif
         @endif
     </div>

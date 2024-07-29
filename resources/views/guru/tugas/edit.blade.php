@@ -24,41 +24,45 @@
             <label for="file">Unggah Template Pekerjaan</label>
             <input type="file" class="form-control-file" id="file" name="file">
         </div>
-        <div class="form-group">
-            <label>Files yang sudah dikumpulkan:</label>
-            <div class="uploaded-files">
-                @foreach ($tugas->getMedia('templates') as $media)
-                    <button type="button" class="file-item btn btn-light" data-id="{{ $media->id }}" data-name="{{ $media->getCustomProperty('original_name') }}" data-bs-toggle="modal" data-bs-target="#fileModal">
-                        <img src="{{ $media->getUrl() }}" alt="{{ $media->getCustomProperty('original_name') }}" class="file-thumbnail">
-                        <p>{{ $media->getCustomProperty('original_name') }}</p>
-                    </button>
-                @endforeach
+        @if ($tugas->hasMedia('templates'))
+            <div class="form-group">
+                <label>Files yang sudah dikumpulkan:</label>
+                <div class="uploaded-files">
+                    @foreach ($tugas->getMedia('templates') as $media)
+                        <button type="button" class="file-item btn btn-light" data-id="{{ $media->id }}" data-name="{{ $media->getCustomProperty('original_name') }}" data-bs-toggle="modal" data-bs-target="#fileModal">
+                            <img src="{{ $media->getUrl() }}" alt="{{ $media->getCustomProperty('original_name') }}" class="file-thumbnail">
+                            <p>{{ $media->getCustomProperty('original_name') }}</p>
+                        </button>
+                    @endforeach
+                </div>
             </div>
-        </div>
+        @endif
         <button type="submit" class="btn btn-success">Update Tugas</button>
     </form>
 </div>
-<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="fileModalLabel">Edit File</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="delete-file-btn" method="POST" action="">
-                    @csrf
-                    @method('delete')
-                    <img src="{{ $media->getUrl() }}" alt="{{ $media->getCustomProperty('original_name') }}" class="file-thumbnail">
-                        <p>{{ $media->getCustomProperty('original_name') }}</p>
-                    <input type="hidden" name="idData" id="idData">
-                    <input type="hidden" name="idSubmission" id="idSubmission">
-                    <button type="submit" class="btn btn-danger">delete changes</button>
-                </form>
+@if ($tugas->hasMedia('templates'))
+    <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fileModalLabel">Edit File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="delete-file-btn" method="POST" action="">
+                        @csrf
+                        @method('delete')
+                        <img src="{{ $media->getUrl() }}" alt="{{ $media->getCustomProperty('original_name') }}" class="file-thumbnail">
+                            <p>{{ $media->getCustomProperty('original_name') }}</p>
+                        <input type="hidden" name="idData" id="idData">
+                        <input type="hidden" name="idSubmission" id="idSubmission">
+                        <button type="submit" class="btn btn-danger">delete changes</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endif
 @endsection
 @push('scripts')
 <script>

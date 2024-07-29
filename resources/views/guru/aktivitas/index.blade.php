@@ -234,7 +234,7 @@
                     class="btn btn-outline-secondary w-100">+ Tambahkan Tugas</a>
             </div>
         @endforeach
-        <p>=============UNDERSCONS======================</p>
+        {{-- <p>=============UNDERSCONS======================</p>
         <div class="task-item">
             <div class="task-header">Pertemuan ke 1</div>
             <div class="d-flex justify-content-between align-items-center mb-2">
@@ -299,5 +299,5 @@
             </div>
             <button class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</button>
         </div>
-    </div>
+    </div> --}}
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengumpulan;
+use App\Models\RoomSiswa;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +27,11 @@ class SubmisionController extends Controller
     public function create(string $id)
     {
         //
+        $room_siswas = RoomSiswa::where('id_siswa', $id)
+        ->with(['room.class', 'room.subject', 'room.teacher'])
+        ->get();
         $task = Tugas::with('activity')->findOrFail($id);
-        return view('siswa.pengumpulan.create', compact('task'));
+        return view('siswa.pengumpulan.create', compact('task','room_siswas'));
     }
 
     /**
