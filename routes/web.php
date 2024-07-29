@@ -21,8 +21,22 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $user = Auth::user();
+
+    if ($user) {
+        switch ($user->role) {
+            case 'admin':
+                return redirect()->route('admin');
+            case 'guru':
+                return redirect()->route('guru');
+            case 'siswa':
+                return redirect()->route('siswa');
+        }
+    } else {
+        // Redirect to the login page if the user is not authenticated
+        return redirect()->route('login');
+    }
+})->middleware('auth');
 
 Auth::routes();
 
