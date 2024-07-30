@@ -12,7 +12,7 @@
         @endforeach
     @endif
     {{-- <h1>{{ $task->activity->id_room }}</h1> --}}
-
+    <a href="{{route('teacher.tugas.pengumpulan', $task->id)}}"class="btn btn-primary btn-sm">pengumpulan</a>
     <a href="{{ route('teacher.tugas.edit', $task->id) }}" class="btn btn-warning btn-sm">Edit</a>
     <form action="{{ route('teacher.tugas.destroy', $task->id) }}" method="POST" class="d-inline">
         @csrf

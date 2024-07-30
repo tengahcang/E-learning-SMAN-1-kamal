@@ -10,6 +10,7 @@ use App\Http\Controllers\DownloadMediaController;
 use App\Http\Controllers\Guru\AktivitasController as GuruAktivitas;
 use App\Http\Controllers\Guru\DashboardController as GuruDashboard;
 use App\Http\Controllers\Guru\MateriController as GuruMateri;
+use App\Http\Controllers\Guru\SubmisionController as GuruSubmision;
 use App\Http\Controllers\Guru\TugasController as GuruTugas;
 use App\Http\Controllers\Siswa\AktivitasController as SiswaAktivitas;
 use App\Http\Controllers\Siswa\TugasController as SiswaTugas;
@@ -33,7 +34,6 @@ Route::get('/', function () {
                 return redirect()->route('siswa');
         }
     } else {
-        // Redirect to the login page if the user is not authenticated
         return redirect()->route('login');
     }
 })->middleware('auth');
@@ -100,6 +100,8 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
         'update' => 'teacher.tugas.update',
         'destroy' => 'teacher.tugas.destroy',
     ]);
+    Route::get('/teacher/tugas/{task}/pengumpulan', [GuruSubmision::class, 'show'])->name('teacher.tugas.pengumpulan');
+    Route::post('/teacher/tugas/{task}/pengumpulan/{submission}/nilai', [GuruSubmision::class, 'store'])->name('teacher.tugas.saveNilai');
 
 
 });
