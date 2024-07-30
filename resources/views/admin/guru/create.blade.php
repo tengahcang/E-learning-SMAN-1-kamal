@@ -39,7 +39,8 @@
                     @enderror
                 </div>
             </div>
-            <button type="button" class="btn btn-danger btn-batal">Batal</button>
+            <a href="{{route('teachers.index')}}" class="btn btn-danger btn-batal">Batal</a>
+            {{-- <button  type="button" class="btn btn-danger btn-batal">Batal</button> --}}
             <button type="submit" class="btn btn-success btn-tambah">Tambahkan</button>
         </form>
     </div>

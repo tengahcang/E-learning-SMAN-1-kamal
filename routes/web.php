@@ -102,6 +102,8 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
     ]);
     Route::get('/teacher/tugas/{task}/pengumpulan', [GuruSubmision::class, 'show'])->name('teacher.tugas.pengumpulan');
     Route::post('/teacher/tugas/{task}/pengumpulan/{submission}/nilai', [GuruSubmision::class, 'store'])->name('teacher.tugas.saveNilai');
+    Route::post('/teacher/room/update-description', [GuruAktivitas::class, 'updateDescription'])->name('teacher.room.updateDescription');
+    Route::get('/teacher/room/{room}/participant', [GuruAktivitas::class, 'participant'])->name('teacher.room.participant');
 
 
 });

@@ -107,11 +107,11 @@
                     <div class="form-group">
                         <div class="upload-area"
                             style="border: 2px dashed #007bff; padding: 30px; text-align: center; position: relative;">
-                            <label for="teacher-file-upload" class="btn btn-primary upload-label"
+                            <label for="file-upload" class="btn btn-primary upload-label"
                                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                                 Choose File Or Drag Here
                             </label>
-                            <input type="file" id="teacher-file-upload" name="file" style="display: none;" required>
+                            <input type="file" id="file-upload" name="file" style="display: none;" required>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success mt-5 w-100">Upload</button>

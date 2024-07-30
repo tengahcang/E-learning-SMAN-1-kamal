@@ -3,6 +3,8 @@
 @section('content')
     <div class="container">
         <h4 c>{{ $room->subject->name . ' - ' . $room->class->name }}</h4>
+        <h5>Deskripsi:</h5>
+        <p id="room-description">{!! nl2br(e($room->description)) !!}</p>
         <div class="container bg-white shadow-sm p-4 mt-2">
             @foreach ($activities as $activity)
                 <h4 class="mb-4" style="font-weight: bold">{{ $activity->name }}</h4>

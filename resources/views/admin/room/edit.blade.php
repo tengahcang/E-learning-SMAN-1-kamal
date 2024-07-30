@@ -95,9 +95,7 @@
                             @enderror
                         </div>
                     </div>
-
                     <a href="{{ route('rooms.index') }}" class="btn btn-danger btn-md mt-3">Batal</a>
-
                     <button type="submit" class="btn btn-success btn-md mt-3">
                         Update</button>
 

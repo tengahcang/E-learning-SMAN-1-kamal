@@ -10,3 +10,51 @@
 
 @import "datatables.net-bs5/css/dataTables.bootstrap5.css";
 @import "datatables.net-buttons-bs5/css/buttons.bootstrap5.css";
+
+
+
+.task-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.btn-tambah-pertemuan {
+    background-color: #BA57AA;
+    color: white;
+}
+
+.task-title {
+    color: red;
+}
+
+.task-button {
+    float: right;
+}
+
+.task-button.submit {
+    background-color: orange;
+    color: white;
+}
+
+.task-button.do {
+    background-color: purple;
+    color: white;
+}
+
+.task-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.text-purple {
+    color: purple;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}

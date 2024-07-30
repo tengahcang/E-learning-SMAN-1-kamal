@@ -12,8 +12,7 @@
                 <h5>{{ $user->username }}</h5>
             </div>
             <div class="col-md-3 d-grid">
-                <a class="btn btn-danger btn-lg mt-3" href="{{ route('teachers.index') }}"><i
-                        class="bi-arrow-left-circle me-2"></i>Back</a>
+                <a class="btn btn-danger btn-lg mt-3" href="{{ route('teachers.index') }}"><i class="bi-arrow-left-circle me-2"></i>Back</a>
             </div>
         </div>
     </div>

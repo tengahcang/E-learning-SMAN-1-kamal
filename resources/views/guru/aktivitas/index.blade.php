@@ -132,59 +132,18 @@
             </div>
         </div>
     </div> --}}
-    <style>
-        .task-item {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .btn-tambah-pertemuan {
-            background-color: #57BAAB;
-            color: white;
-        }
-
-        .task-title {
-            color: red;
-        }
-
-        .task-button {
-            float: right;
-        }
-
-        .task-button.submit {
-            background-color: orange;
-            color: white;
-        }
-
-        .task-button.do {
-            background-color: purple;
-            color: white;
-        }
-
-        .task-header {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .text-purple {
-            color: purple;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: inherit;
-        }
-    </style>
     <div class="container bg-white p-4 shadow-sm">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4>{{ $room->class->name }}-{{ $room->subject->name }} </h4>
-            <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn  btn-tambah-pertemuan">+
-                Tambah
-                Pertemuan</a>
+            <div>
+                <a href="{{ route('teacher.room.participant', $room->id) }}" class="btn" style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
+                <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn btn-tambah-pertemuan">Tambah Activity</a>
+            </div>
+        </div>
+        <div>
+            <h5>Deskripsi:</h5>
+            <p id="room-description">{!! nl2br(e($room->description)) !!}</p>
+            <button id="edit-description" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#editDescriptionModal">Edit Deskripsi</button>
         </div>
         @foreach ($activities as $activity)
             <div class="task-item">
@@ -234,70 +193,37 @@
                     class="btn btn-outline-secondary w-100">+ Tambahkan Tugas</a>
             </div>
         @endforeach
-        {{-- <p>=============UNDERSCONS======================</p>
-        <div class="task-item">
-            <div class="task-header">Pertemuan ke 1</div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                    <i class="bi bi-file-earmark-pdf"></i> Materi Awal - Pengertian IPA (PDF)
-                </div>
-                <div>
-                    <button class="icon-btn"><i class="bi bi-eye"></i></button>
-                    <button class="icon-btn"><i class="bi bi-pencil"></i></button>
-                    <button class="icon-btn"><i class="bi bi-trash"></i></button>
-                </div>
-            </div>
-            <button class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</button>
-        </div>
+    </div>
 
-        <div class="task-item">
-            <div class="task-header">Pertemuan ke 2</div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                    <i class="bi bi-file-earmark-pdf"></i> Materi Kedua - Spesifikasi Makhluk Hidup (PDF)
+    <div class="modal fade" id="editDescriptionModal" tabindex="-1" aria-labelledby="editDescriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDescriptionModalLabel">Edit Deskripsi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div>
-                    <button class="icon-btn"><i class="bi bi-eye"></i></button>
-                    <button class="icon-btn"><i class="bi bi-pencil"></i></button>
-                    <button class="icon-btn"><i class="bi bi-trash"></i></button>
+                <div class="modal-body">
+                    <form id="edit-description-form" action="{{ route('teacher.room.updateDescription') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $room->id }}">
+                        <textarea id="modal-description" name="description" class="form-control" placeholder="Masukkan deskripsi mata pelajaran" rows="3">{{ $room->description }}</textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" form="edit-description-form" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                    <i class="bi bi-pencil"></i> Tugas - Merangkum (<span class="task-title">Tugas</span>)
-                </div>
-            </div>
-            <button class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</button>
         </div>
-
-        <div class="task-item">
-            <div class="task-header">Pertemuan ke 3</div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                    <i class="bi bi-file-earmark"></i> Tulang Manusia (<span class="text-purple">Ulangan</span>)
-                </div>
-                <div>
-                    <button class="icon-btn"><i class="bi bi-eye"></i></button>
-                    <button class="icon-btn"><i class="bi bi-pencil"></i></button>
-                    <button class="icon-btn"><i class="bi bi-trash"></i></button>
-                </div>
-            </div>
-            <button class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</button>
-        </div>
-
-        <div class="task-item">
-            <div class="task-header">Pertemuan ke 4</div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                    <i class="bi bi-file-earmark"></i> Ulangan Tengah Semester (<span class="text-purple">Ulangan</span>)
-                </div>
-                <div>
-                    <button class="icon-btn"><i class="bi bi-eye"></i></button>
-                    <button class="icon-btn"><i class="bi bi-pencil"></i></button>
-                    <button class="icon-btn"><i class="bi bi-trash"></i></button>
-                </div>
-            </div>
-            <button class="btn btn-outline-secondary w-100">+ Tambahkan Materi / Tugas / Ulangan</button>
-        </div>
-    </div> --}}
+    </div>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        $('#edit-description').on('click', function() {
+            var description = $('#room-description').text();
+            $('#modal-description').val(description);
+        });
+    });
+</script>
+@endpush

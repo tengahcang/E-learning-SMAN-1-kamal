@@ -19,7 +19,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-danger w-100">Batal</button>
+                        <a class="btn btn-danger w-100" href="{{ route('classes.index') }}">Batal</a>
                     </div>
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-success w-100">Tambahkan</button>

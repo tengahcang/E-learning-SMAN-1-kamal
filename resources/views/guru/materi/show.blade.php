@@ -5,7 +5,7 @@
     <h1>{{ $materi->name }}</h1>
     @if ($materi->hasMedia('materi'))
         @foreach ($materi->getMedia('materi') as $media)
-            <p>Template File: <a href="{{ route('download.media', $media->id) }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>
+            <p>File Materi: <a href="{{ route('download.media', $media->id) }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a></p>
         @endforeach
     @endif
     {{-- <h1>{{ $task->activity->id_room }}</h1> --}}

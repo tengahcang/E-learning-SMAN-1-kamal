@@ -153,15 +153,15 @@
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a href="{{ route('students.index') }}"
-                            class="nav-link @if ($currentRouteName == 'students.index') active @endif">
-                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>SISWA</span>
-                        </a>
-                    </li>
-                    <li class="nav-item mb-3">
                         <a href="{{ route('teachers.index') }}"
                             class="nav-link @if ($currentRouteName == 'teachers.index') active @endif">
                             <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>GURU</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a href="{{ route('students.index') }}"
+                            class="nav-link @if ($currentRouteName == 'students.index') active @endif">
+                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>SISWA</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3">

@@ -17,49 +17,10 @@
                         @enderror
                     </div>
                 </div>
-                {{-- <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="guruPengampu" class="form-label">Guru Pengampu</label>
-                        <select class="form-select @error('teacher') is-invalid @enderror" name="teacher" id="guruPengampu">
-                            <option selected>Hendro Laksono</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                        @error('teacher')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-6">
-                        <label for="kelas" class="form-label">Kelas</label>
-                        <select class="form-select @error('class') is-invalid @enderror" name="class" id="kelas">
-                            <option selected>X - MIPA 2</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                        @error('class')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <label for="tambahSiswa" class="form-label">Tambahkan Siswa</label>
-                        <select class="form-select @error('student') is-invalid @enderror" name="student" id="tambahSiswa">
-                            <option selected>Cindy Gracya</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                        @error('student')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div> --}}
                 <div class="row">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-danger w-100">Batal</button>
+                        <a class="btn btn-danger w-100" href="{{ route('subjects.index') }}">Batal</a>
+                        {{-- <button type="button" class="btn btn-danger w-100">Batal</button> --}}
                     </div>
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-success w-100">Tambahkan</button>

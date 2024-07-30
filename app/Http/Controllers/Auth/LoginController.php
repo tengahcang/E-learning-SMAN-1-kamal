@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -56,5 +58,22 @@ class LoginController extends Controller
         }else{
             return redirect($this->redirectTo);
         }
+    }
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $user = User::where($this->username(), $request->{$this->username()})->first();
+        if (!$user) {
+            $errors = [$this->username() => 'Username tidak ditemukan.'];
+        } elseif (!Hash::check($request->password, $user->password)) {
+            $errors = ['password' => 'Password salah.'];
+        } else {
+            $errors = [$this->username() => 'Login gagal.'];
+        }
+        if ($request->expectsJson()) {
+            return response()->json($errors, 422);
+        }
+        return redirect()->back()
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors($errors);
     }
 }

@@ -91,4 +91,22 @@ class AktivitasController extends Controller
     {
         //
     }
+    public function updateDescription(Request $request)
+    {
+        // dd($request);
+        $room = Room::find($request->id);
+        $room->description = $request->description;
+        $room->save();
+        return redirect()->route('teacher.matapelajaran.index', ['id_room' => $request->id]);
+    }
+    public function participant(string $id)
+    {
+        $user = Auth::user();
+        $id_guru = $user->id_guru;
+        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
+        $participant = Room::where('id', $id)->with('subject', 'class', 'teacher')->first();
+        $students_room = Room::with('students')->find($id);
+        // dd($participant);
+        return view('guru.peserta.index',compact('rooms','participant','students_room'));
+    }
 }

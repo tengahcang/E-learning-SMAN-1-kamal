@@ -47,64 +47,7 @@
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
-                        {{-- <div class="col-md-6 mb-3">
-                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
                     </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('Username / NIP') }}</label>
-
-                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
-                            @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                             @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Alamat') }}</label>
-
-                            <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}"  autocomplete="address" autofocus>
-                            @error('address')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="telephone" class="col-md-4 col-form-label text-md-end">{{ __('Telepon') }}</label>
-
-                            <input id="telephone" type="number" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"  autocomplete="telephone" autofocus>
-                            @error('telephone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-
-                    </div> --}}
-                    </div>
-
                     <a href="{{ route('rooms.index') }}" class="btn btn-danger btn-md mt-3"> Batal</a>
                     <button type="submit" class="btn btn-success btn-md mt-3">
                         Tambahkan</button>

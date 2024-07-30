@@ -88,38 +88,6 @@
         </div>
     </div>
     <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
-        <h6>Tabel Kelas</h6>
-        <div>
-            <table class="table table-striped nowrap" style="width:100%" id="kelasTable">
-                <thead>
-                    <tr>
-                        <th>Nomor</th>
-                        <th>Kelas</th>
-                        {{-- <th>Action</th> --}}
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($classes as $index => $class)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $class->name }}</td>
-                            {{-- <td>
-                                <a class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                <a class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                                <form method="POST"
-                                    style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Are you sure?')"><i class="bi bi-trash3"></i></button>
-                                </form>
-                            </td> --}}
-                        </tr>
-                    @endforeach
-            </table>
-        </div>
-    </div>
-    <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
         <h6>Tabel Mata Pelajaran</h6>
         <div>
             <table class="table table-striped" style="width:100%" id="matpelTable">
@@ -153,7 +121,40 @@
         </div>
     </div>
     <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
-        <h6>Tabel Ruangan</h6>
+        <h6>Tabel Kelas</h6>
+        <div>
+            <table class="table table-striped nowrap" style="width:100%" id="kelasTable">
+                <thead>
+                    <tr>
+                        <th>Nomor</th>
+                        <th>Kelas</th>
+                        {{-- <th>Action</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($classes as $index => $class)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $class->name }}</td>
+                            {{-- <td>
+                                <a class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                <a class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                <form method="POST"
+                                    style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure?')"><i class="bi bi-trash3"></i></button>
+                                </form>
+                            </td> --}}
+                        </tr>
+                    @endforeach
+            </table>
+        </div>
+    </div>
+
+    <div class="container bg-white p-4 rounded-3 shadow-sm mt-3">
+        <h6>Tabel Room</h6>
         <div>
             <table class="table table-striped" style="width:100%" id="roomTable">
                 <thead>
