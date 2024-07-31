@@ -106,18 +106,5 @@
                 </div> --}}
             </div>
         </div>
-
-        <div class="schedule bg-white p-3 rounded">
-            <h5>JADWAL KELAS</h5>
-            <div class="schedule-item mt-5">
-                <div>ILMU PENGETAHUAN ALAM - XII MIPA 2</div>
-                <div>Senin, 14 Juni 2024</div>
-            </div>
-            <hr>
-            <div class="schedule-item">
-                <div>MATEMATIKA - XII MIPA 2</div>
-                <div>Senin, 14 Juni 2024</div>
-            </div>
-        </div>
     </div>
 @endsection

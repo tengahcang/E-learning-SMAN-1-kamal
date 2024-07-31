@@ -100,21 +100,25 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="card-title">INPUT DATA EXCEL GURU</h5>
-                    <a href="{{ route('teachers.download-template') }}" class="btn btn-success">Download Template Excel</a>
+                    <a href="{{ route('teachers.download-template') }}" class="btn btn-success btn-ijo">Download Template Excel</a>
                 </div>
                 <form action="{{ route('teachers.import') }}" method="POST" class="mt-5" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <div class="upload-area"
-                            style="border: 2px dashed #007bff; padding: 30px; text-align: center; position: relative;">
+                            style="border: 2px dashed #CBCBCB; padding: 30px; text-align: center; position: relative;">
                             <label for="file-upload" class="btn btn-primary upload-label"
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);background-color:transparent;border:0px;color:black">
                                 Choose File Or Drag Here
                             </label>
                             <input type="file" id="file-upload" name="file" style="display: none;" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success mt-5 w-100">Upload</button>
+                    <div class="d-flex mt-5">
+                        <a class="btn btn-danger me-3" href="{{ url()->previous() }}">Kembali</a>
+                        <button type="submit" class="btn btn-success btn-ijo">Upload</button>
+                    </div>
+
                 </form>
             </div>
         </div>

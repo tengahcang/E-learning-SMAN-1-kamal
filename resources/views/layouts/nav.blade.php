@@ -149,7 +149,7 @@
                 @if (Auth::user()->role == 'admin')
                     <li class="nav-item mb-3">
                         <a href="{{ route('admin') }}" class="nav-link @if ($currentRouteName == 'admin') active @endif">
-                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>BERANDA</span>
+                            <i class="bi bi-app-indicator icon-sidebar"></i><span>BERANDA</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3">
@@ -185,13 +185,13 @@
                 @elseif (Auth::user()->role == 'guru')
                     <li class="nav-item mb-3">
                         <a href="{{ route('guru') }}" class="nav-link @if ($currentRouteName == 'guru') active @endif">
-                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
+                            <i class="bi bi-app-indicator icon-sidebar"></i><span>DASHBOARD</span>
                         </a>
                     </li>
                     @foreach ($rooms as $room)
                         <li class="nav-item mb-3">
                             <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $room->id]) }}"
-                                class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
+                                class="nav-link @if ($currentRouteName == 'teacher.matapelajaran.index' && request()->id_room == $room->id) active @endif">
                                 <i
                                     class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->class->name }}-{{ $room->subject->name }}</span>
                             </a>
@@ -209,7 +209,7 @@
                 @elseif (Auth::user()->role == 'siswa')
                     <li class="nav-item mb-3">
                         <a href="{{ route('siswa') }}" class="nav-link @if ($currentRouteName == 'siswa') active @endif">
-                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
+                            <i class="bi bi-app-indicator icon-sidebar"></i><span>DASHBOARD</span>
                         </a>
                     </li>
                     @foreach ($room_siswas as $room)
@@ -253,7 +253,7 @@
                         <li class="nav-item mb-3">
                             <a href="{{ route('admin') }}"
                                 class="nav-link @if ($currentRouteName == 'admin') active @endif">
-                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>BERANDA</span>
+                                <i class="bi bi-app-indicator icon-sidebar"></i><span>BERANDA</span>
                             </a>
                         </li>
                         <li class="nav-item mb-3">
@@ -292,16 +292,17 @@
                         <li class="nav-item mb-3">
                             <a href="{{ route('guru') }}"
                                 class="nav-link @if ($currentRouteName == 'guru') active @endif">
-                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
+                                <i class="bi bi-app-indicator icon-sidebar"></i><span>DASHBOARD</span>
                             </a>
                         </li>
                         @foreach ($rooms as $room)
                             <li class="nav-item mb-3">
                                 <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $room->id]) }}"
-                                    class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
+                                    class="nav-link @if ($currentRouteName == 'teacher.matapelajaran.index' && request()->id_room == $room->id) active @endif">
                                     <i
                                         class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $room->class->name }}-{{ $room->subject->name }}</span>
                                 </a>
+
                             </li>
                         @endforeach
                     </ul>
@@ -310,7 +311,7 @@
                         <li class="nav-item mb-3">
                             <a href="{{ route('siswa') }}"
                                 class="nav-link @if ($currentRouteName == 'siswa') active @endif">
-                                <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>DASHBOARD</span>
+                                <i class="bi bi-app-indicator icon-sidebar"></i><span>DASHBOARD</span>
                             </a>
                         </li>
                         @foreach ($room_siswas as $room)

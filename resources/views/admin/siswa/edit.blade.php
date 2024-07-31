@@ -108,13 +108,15 @@
     <div class=" bg-white p-4 rounded-3 shadow-sm mt-3">
         <h6>INPUT SISWA</h6>
         <div class=" mt-4">
-            <form action="{{ route('students.update',['student'=>$user->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('students.update', ['student' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="namaSiswa" class="form-label">Nama Siswa</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" id="namaSiswa" value="{{ $errors->any() ? old('name') : $user->name }}" autocomplete="name" placeholder="Hendro Laksono">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" id="namaSiswa" value="{{ $errors->any() ? old('name') : $user->name }}"
+                            autocomplete="name" placeholder="Masukkan Nama Siswa">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -124,7 +126,9 @@
                     </div>
                     <div class="col-md-6">
                         <label for="nisn" class="form-label">NISN (Nomor Induk Siswa Nasional)</label>
-                        <input type="text" class="form-control @error('nisn') is-invalid @enderror" name="nisn" id="nisn" value="{{ $errors->any() ? old('nisn') : $user->username }}"  autocomplete="nisn">
+                        <input type="text" class="form-control @error('nisn') is-invalid @enderror" name="nisn"
+                            id="nisn" value="{{ $errors->any() ? old('nisn') : $user->username }}" autocomplete="nisn"
+                            placeholder="Masukkan NISN">
                         @error('nisn')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -136,22 +140,23 @@
                     <div class="col-md-6">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Hendro10mipa2.">
-                            <div class="input-group-append">
-                                <button id="toggle-password" type="button" class="btn btn-outline-secondary">
-                                    <i id="toggle-password-icon" class="bi bi-eye"></i>
-                                </button>
-                            </div>
+                            <input type="password" class="form-control" name="password" id="password"
+                                placeholder="Masukkan Password">
+                            <button id="toggle-password" type="button" class="btn btn-outline-secondary">
+                                <i id="toggle-password-icon" class="bi bi-eye"></i>
+
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-danger btn-batal " href="{{ route('students.index') }}"><i class="bi-arrow-left-circle me-2"></i>Batal</a>
-                <button type="submit" class="btn btn-success btn-tambah ">Tambahkan</button>
-            </form>
         </div>
+        <a class="btn btn-danger btn-batal " href="{{ route('students.index') }}"><i
+                class="bi-arrow-left-circle me-2"></i>Batal</a>
+        <button type="submit" class="btn btn-success btn-tambah ">Tambahkan</button>
+        </form>
+    </div>
     </div>
     <script>
-        document.getElementById('toggle-password').addEventListener('click', function (e) {
+        document.getElementById('toggle-password').addEventListener('click', function(e) {
             var passwordInput = document.getElementById('password');
             var passwordIcon = document.getElementById('toggle-password-icon');
             if (passwordInput.type === 'password') {
