@@ -1,10 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <style>
-        .btn-tambahkan {
-            background-color: #BA57AA;
-        }
-    </style>
+
     <div class="container bg-white p-3">
         <div>
             <h4>Tambah Pertemuan</h4>
@@ -30,7 +26,7 @@
                     </span>
                 @enderror
             </div>
-            <button type="submit" class="btn text-black btn-tambahkan">Tambahkan</button>
+            <button type="submit" class="btn text-white btn-ijo">Tambahkan</button>
         </form>
     </div>
     {{-- <div class="container-sm mt-5">
