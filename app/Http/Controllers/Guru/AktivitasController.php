@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Exports\SemuaPengumpulanExport;
 use App\Models\Room;
 use App\Models\Aktivitas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AktivitasController extends Controller
 {
@@ -74,6 +77,11 @@ class AktivitasController extends Controller
     public function edit(string $id)
     {
         //
+        $user = Auth::user();
+        $id_guru = $user->id_guru;
+        $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
+        $activity = Aktivitas::find($id);
+        return view('guru.aktivitas.edit',compact('rooms','activity'));
     }
 
     /**
@@ -82,6 +90,20 @@ class AktivitasController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+        ];
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ], $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $activity = Aktivitas::find($id);
+        $activity->id_room = $request->room;
+        $activity->name = $request->name;
+        $activity->save();
+        return redirect()->route('teacher.matapelajaran.index', ['id_room' => $request->room]);
     }
 
     /**
@@ -89,7 +111,15 @@ class AktivitasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $activity = Aktivitas::find($id);
+            $room = $activity->id_room;
+            $activity->delete();
+            return redirect()->route('teacher.matapelajaran.index', ['id_room' => $room]);
+        } catch (QueryException $e) {
+            return redirect()->route('teacher.matapelajaran.index', ['id_room' => $activity->id_room])
+                ->with('error', 'Data aktivitas tidak bisa dihapus karena ada tugas dan materi di dalamnya.');
+        }
     }
     public function updateDescription(Request $request)
     {
@@ -108,5 +138,11 @@ class AktivitasController extends Controller
         $students_room = Room::with('students')->find($id);
         // dd($participant);
         return view('guru.peserta.index',compact('rooms','participant','students_room'));
+    }
+    public function exportAllTasksNilai($roomId)
+    {
+        $room = Room::with('class', 'subject')->findOrFail($roomId);
+        $fileName = 'semua_nilai_tugas (' .  $room->subject->name . '_' . $room->class->name . ').xlsx';
+        return Excel::download(new SemuaPengumpulanExport($roomId), $fileName);
     }
 }

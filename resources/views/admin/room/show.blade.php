@@ -14,10 +14,10 @@
                         <h5>{{ $room->teacher->name }}</h5>
                     </div>
                     {{-- <div class="col-md-12 mb-3">
-                    <label for="address" class="form-label">Alamat</label>
-                    <h5>{{ $teacher->address }}</h5>
+
+                    </div> --}}
                 </div>
-                <div class="col-md-12 mb-3">
+                {{-- <div class="col-md-12 mb-3">
                     <label for="telephone" class="form-label">Telepon</label>
                     <h5>{{ $teacher->telephone }}</h5>
                 </div> --}}

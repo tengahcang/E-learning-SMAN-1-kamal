@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Aktivitas;
 use App\Models\Materi;
 use App\Models\Room;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -143,5 +144,16 @@ class MateriController extends Controller
     public function destroy(string $id)
     {
         //
+        try {
+            $subject_matter = Materi::find($id);
+            $activity = Aktivitas::find($subject_matter->id_aktivitas);
+            $room = $activity->id_room;
+            $subject_matter->delete();
+            // dd($activity);
+            return redirect()->route('teacher.matapelajaran.index', ['id_room' => $room]);
+        } catch (QueryException $e) {
+            return redirect()->route('teacher.matapelajaran.index', ['id_room' => $activity->id_room])
+                ->with('error', 'Data materi tidak bisa dihapus.');
+        }
     }
 }

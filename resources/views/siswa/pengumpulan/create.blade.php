@@ -16,7 +16,7 @@
         @csrf
         <input type="hidden" name="task_id" value="{{ $task->id }}">
         <div class="form-group">
-            <input type="textarea" name="content" id="content">
+            <textarea class="form-control" name="content" id="content"></textarea>
         </div>
         <div class="form-group">
             <label for="files">Upload Files:</label>

@@ -3,63 +3,63 @@
 @section('content')
 <div class="container bg-white p-3 shadow-sm">
     <h1>Pengumpulan Tugas: {{ $task->name }}</h1>
-    <h2>Daftar Siswa</h2>
     <table class="table">
         <thead>
             <tr>
                 <th>No</th>
                 <th>NISN</th>
                 <th>Nama</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($students as $index => $student)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $student->nisn }}</td>
-                    <td>{{ $student->nama }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <h2>Pengumpulan Tugas</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>NISN</th>
-                <th>Nama</th>
+                <th>Terakhir diedit</th>
                 <th>Content</th>
                 <th>File</th>
                 <th>Nilai</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($pengumpulans as $index => $pengumpulan)
+            @foreach ($students as $index => $student)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $pengumpulan->siswa->NISN }}</td>
-                    <td>{{ $pengumpulan->siswa->name }}</td>
-                    <td>{{ $pengumpulan->content }}</td>
+                    <td>{{ $student->NISN }}</td>
+                    <td>{{ $student->name }}</td>
                     <td>
-                        @if ($pengumpulan->hasMedia('pengumpulans'))
-                            @foreach ($pengumpulan->getMedia('pengumpulans') as $media)
-                                <a href="{{ $media->getUrl() }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a><br>
-                            @endforeach
+                        @if(isset($pengumpulans[$student->id]))
+                            {{ $pengumpulans[$student->id]->updated_at }}
+                        @else
+                            -
                         @endif
                     </td>
                     <td>
-                        <form action="{{ route('teacher.tugas.saveNilai', [$task->id, $pengumpulan->id]) }}" method="POST">
-                            @csrf
-                            <input type="number" name="nilai" value="{{ $pengumpulan->nilai }}" class="form-control" required>
-                            <button type="submit" class="btn btn-primary btn-sm mt-2">Simpan</button>
-                        </form>
+                        @if(isset($pengumpulans[$student->id]))
+                            {!! nl2br(e($pengumpulans[$student->id]->content)) !!}
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td>
+                        @if(isset($pengumpulans[$student->id]) && $pengumpulans[$student->id]->hasMedia('pengumpulans'))
+                            @foreach ($pengumpulans[$student->id]->getMedia('pengumpulans') as $media)
+                                <a href="{{ route('download.media', $media->id) }}" target="_blank">{{ $media->getCustomProperty('original_name') }}</a><br>
+                            @endforeach
+                        @else
+                            -
+                        @endif
+                    </td>
+                    <td>
+                        @if(isset($pengumpulans[$student->id]))
+                            <form action="{{ route('teacher.tugas.saveNilai', [$task->id, $pengumpulans[$student->id]->id]) }}" method="POST">
+                                @csrf
+                                <input type="number" name="nilai" value="{{ $pengumpulans[$student->id]->nilai }}" class="form-control" required>
+                                <button type="submit" class="btn btn-primary btn-sm mt-2">Simpan</button>
+                            </form>
+                        @else
+                            -
+                        @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     <a href="{{ route('teacher.matapelajaran.index', ['id_room' => $task->activity->id_room]) }}" class="btn btn-secondary btn-sm">Back</a>
+    <a href="{{ route('teacher.tugas.exportNilai', $task->id) }}" class="btn btn-success btn-sm">Export Nilai</a>
 </div>
 @endsection

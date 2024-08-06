@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Exports\PengumpulanExport;
 use App\Http\Controllers\Controller;
 use App\Models\Pengumpulan;
 use App\Models\Room;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubmisionController extends Controller
 {
@@ -45,28 +47,29 @@ class SubmisionController extends Controller
      */
     public function show($taskId)
     {
-        //
         // $task = Tugas::findOrFail($taskId);
-        // $pengumpulans = Pengumpulan::where('id_tugas', $taskId)->get();
-        // $room = $task->activity->id_room;
-        // $room = Room::with('students')->find($id);
-        // // $siswas = $room->students; // Ambil semua siswa yang terhubung dengan room
-        // dd($room);
-        // // return view('guru.pengumpulan.show', compact('task', 'pengumpulans', 'siswas'));
+        // $user = Auth::user();
+        // $id_guru = $user->id_guru;
+        // $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
+        // $pengumpulans = Pengumpulan::with('siswa')->where('id_tugas', $taskId)->get();
+        // $roomId = $task->activity->id_room;
+        // $room = Room::with('students')->find($roomId);
+        // $students = $room->students;
+        // return view('guru.pengumpulan.show', compact('task', 'pengumpulans', 'students', 'rooms'));
         $task = Tugas::findOrFail($taskId);
         $user = Auth::user();
         $id_guru = $user->id_guru;
         $rooms = Room::where('id_guru', $id_guru)->with('subject', 'class')->get();
+
         // Ambil pengumpulan terkait tugas ini
-        $pengumpulans = Pengumpulan::with('siswa')->where('id_tugas', $taskId)->get();
+        $pengumpulans = Pengumpulan::with('siswa')->where('id_tugas', $taskId)->get()->keyBy('id_siswa');
+
         // Ambil room id dari activity yang terkait dengan tugas ini
         $roomId = $task->activity->id_room;
+
         // Ambil room beserta siswa yang terhubung
         $room = Room::with('students')->find($roomId);
-
-        // Pastikan 'students' adalah nama relasi di model 'Room' untuk mengambil siswa.
         $students = $room->students;
-        // dd($pengumpulans);
 
         return view('guru.pengumpulan.show', compact('task', 'pengumpulans', 'students', 'rooms'));
     }
@@ -93,5 +96,14 @@ class SubmisionController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function exportNilai($taskId)
+    {
+        $task = Tugas::findOrFail($taskId);
+        $roomId = $task->activity->id_room;
+        $room = Room::with('students')->find($roomId);
+        $students = $room->students;
+
+        return Excel::download(new PengumpulanExport($taskId, $students), 'nilai.xlsx');
     }
 }

@@ -18,6 +18,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 </head>
@@ -99,7 +100,13 @@
             </div>
         </div>
     </div> --}}
+
     <div class="login-container p-5">
+        @if (session('message'))
+            <div class="alert alert-warning">
+                {{ session('message') }}
+            </div>
+        @endif
         <img src="{{ asset('img/logo.png') }}" alt="School Logo">
         <h2 class="font-weight-bold">Selamat Datang</h2>
         <span class="mb-5">Silahkan Login Dengan Akun Anda</span>
@@ -117,17 +124,39 @@
             </div>
             <div class="mb-3 text-start">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
-                    required id="password" placeholder="Masukkan kata sandi">
-                @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                <div class="input-group">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required id="password" placeholder="Masukkan kata sandi">
+                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                        <i class="bi bi-eye-slash" id="togglePasswordIcon"></i>
+                    </button>
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>
             <button type="submit" class="btn btn-custom btn-block">{{ __('Login') }}</button>
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#togglePassword').on('click', function() {
+                const passwordField = $('#password');
+                const passwordFieldType = passwordField.attr('type');
+                const toggleIcon = $('#togglePasswordIcon');
+
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                    toggleIcon.removeClass('bi-eye-slash').addClass('bi-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                    toggleIcon.removeClass('bi-eye').addClass('bi-eye-slash');
+                }
+            });
+        });
+    </script>
 
 </body>
+</html>
 {{-- @endsection --}}

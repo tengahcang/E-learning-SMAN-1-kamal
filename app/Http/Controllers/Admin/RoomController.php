@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\SemuaPengumpulanExport;
 use App\Http\Controllers\Controller;
 use App\Imports\SiswaImport;
 use App\Models\Guru;
@@ -170,5 +171,11 @@ class RoomController extends Controller
         $room = Room::find($id);
         $room->delete();
         return redirect()->route('rooms.index');
+    }
+    public function exportAllTasksNilai($roomId)
+    {
+        $room = Room::with('class', 'subject')->findOrFail($roomId);
+        $fileName = 'semua_nilai_tugas (' .  $room->subject->name . '_' . $room->class->name . ').xlsx';
+        return Excel::download(new SemuaPengumpulanExport($roomId), $fileName);
     }
 }

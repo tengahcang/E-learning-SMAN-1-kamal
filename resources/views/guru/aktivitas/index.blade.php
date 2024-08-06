@@ -132,14 +132,19 @@
             </div>
         </div>
     </div> --}}
+
     <div class="container bg-white p-4 shadow-sm mb-3">
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4>{{ $room->class->name }}-{{ $room->subject->name }} </h4>
             <div>
-                <a href="{{ route('teacher.room.participant', $room->id) }}" class="btn"
-                    style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
-                <a href="{{ route('teacher.matapelajaran.create', ['id_room' => $room->id]) }}" class="btn btn-ungu">Tambah
-                    Activity</a>
+                <a href="{{ route('teacher.room.participant', $room->id) }}" class="btn" style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
+                <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn btn-ungu">Tambah Activity</a>
+                <a href="{{ route('teacher.room.exportAllTasksNilai', $room->id) }}" class="btn btn-success btn-sm">Export Semua Nilai Tugas</a>
             </div>
         </div>
         <div>
@@ -152,10 +157,19 @@
 
         </div>
 
+
     </div>
     @foreach ($activities as $activity)
         <div class="task-item bg-white  border-0 shadow-sm">
             <div class="task-header">{{ $activity->name }}</div>
+            <div class="d-flex justify-content-end mb-2">
+                <a href="{{ route('teacher.matapelajaran.edit', $activity->id) }}" class="btn btn-outline-primary me-2">Edit Activity</a>
+                <form action="{{ route('teacher.matapelajaran.destroy', $activity->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">Hapus Activity</button>
+                </form>
+            </div>
             @foreach ($activity->subject_matter as $matter)
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <a href="{{ route('teacher.materi.show', $matter->id) }}" class="text-secondary">
@@ -163,9 +177,7 @@
                     </a>
                     <div class="my-3">
                         {{-- <a href="{{ route('teacher.materi.show', $matter->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a> --}}
-                        <a class="icon-btn me-2" href="{{ route('teacher.materi.edit', $matter->id) }}"><i
-                                class="bi bi-pencil"></i></a>
-
+                        <a class="icon-btn me-2" href="{{ route('teacher.materi.edit', $matter->id) }}"><i class="bi bi-pencil"></i></a>
                         <form action="{{ route('teacher.materi.destroy', $matter->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
@@ -183,14 +195,13 @@
                     <div>
                         {{-- <a href="{{ route('teacher.tugas.show', $task->id) }}" class="icon-btn me-3"><i
                                 class="bi bi-eye"></i></a> --}}
-                        <a class="icon-btn me-2" href="{{ route('teacher.tugas.edit', $task->id) }}"><i
-                                class="bi bi-pencil"></i></a>
-
+                        <a class="icon-btn me-2" href="{{ route('teacher.tugas.edit', $task->id) }}"><i class="bi bi-pencil"></i></a>
                         <form action="{{ route('teacher.tugas.destroy', $task->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="icon-btn"><i class="bi bi-trash"></i></button>
                         </form>
+
                     </div>
                 </div>
             @endforeach
@@ -200,11 +211,9 @@
                 <a href="{{ route('teacher.tugas.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
                     class="btn btn-ungu w-50">+ Tambahkan Tugas</a>
             </div>
-
         </div>
     @endforeach
-    <div class="modal fade" id="editDescriptionModal" tabindex="-1" aria-labelledby="editDescriptionModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editDescriptionModal" tabindex="-1" aria-labelledby="editDescriptionModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

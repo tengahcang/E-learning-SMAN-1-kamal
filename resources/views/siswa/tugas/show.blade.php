@@ -41,10 +41,11 @@
                 {{-- <p>Template File: <a href="{{ route('download.media', $media->id) }}" download>{{ $media->getCustomProperty('original_name') }}</a></p> --}}
             @endforeach
         @endif
-        @if ($submission->nilai !== null)
-            <p><b>Nilai:</b> {{ $submission->nilai }}</p>
-        @endif
+
         @if ($submission)
+            @if ($submission->nilai !== null)
+                <p><b>Nilai:</b> {{ $submission->nilai }}</p>
+            @endif
             @if ($submission->hasMedia('pengumpulans'))
                 <p>File yang sudah dikumpulkan:</p>
                 @foreach ($submission->getMedia('pengumpulans') as $media)
