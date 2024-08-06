@@ -132,7 +132,8 @@
             </div>
         </div>
     </div> --}}
-    <div class="container bg-white p-4 shadow-sm">
+
+    <div class="container bg-white p-4 shadow-sm mb-3">
         @if(session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -142,72 +143,76 @@
             <h4>{{ $room->class->name }}-{{ $room->subject->name }} </h4>
             <div>
                 <a href="{{ route('teacher.room.participant', $room->id) }}" class="btn" style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
-                <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn btn-tambah-pertemuan">Tambah Activity</a>
+                <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn btn-ungu">Tambah Activity</a>
                 <a href="{{ route('teacher.room.exportAllTasksNilai', $room->id) }}" class="btn btn-success btn-sm">Export Semua Nilai Tugas</a>
             </div>
         </div>
         <div>
             <h5>Deskripsi:</h5>
             <p id="room-description">{!! nl2br(e($room->description)) !!}</p>
-            <button id="edit-description" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#editDescriptionModal">Edit Deskripsi</button>
-        </div>
-        @foreach ($activities as $activity)
-            <div class="task-item">
-                <div class="task-header">{{ $activity->name }}</div>
-                <div class="d-flex justify-content-end mb-2">
-                    <a href="{{ route('teacher.matapelajaran.edit', $activity->id) }}" class="btn btn-outline-primary me-2">Edit Activity</a>
-
-                    <form action="{{ route('teacher.matapelajaran.destroy', $activity->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Hapus Activity</button>
-                    </form>
-                </div>
-                @foreach ($activity->subject_matter as $matter)
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div>
-                            <i class="bi bi-file-earmark-pdf"></i> {{ $matter->name }}
-                        </div>
-                        <div>
-                            <a href="{{ route('teacher.materi.show', $matter->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a>
-                            <a class="icon-btn me-2" href="{{ route('teacher.materi.edit', $matter->id) }}"><i class="bi bi-pencil"></i></a>
-
-                            <form action="{{ route('teacher.materi.destroy', $matter->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="icon-btn"><i class="bi bi-trash"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                @endforeach
-                @foreach ($activity->tasks as $task)
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div>
-                            <i class="bi bi-pencil"></i> {{ $task->name }} (<span class="task-title">Tugas</span>)
-                        </div>
-                        <div>
-                            <a href="{{ route('teacher.tugas.show', $task->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a>
-                            <a class="icon-btn me-2" href="{{ route('teacher.tugas.edit', $task->id) }}"><i class="bi bi-pencil"></i></a>
-
-                            <form action="{{ route('teacher.tugas.destroy', $task->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="icon-btn"><i class="bi bi-trash"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                @endforeach
-                <a href="{{ route('teacher.materi.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
-                    class="btn btn-outline-secondary w-100">+ Tambahkan Materi</a>
-                    <br>
-                    <br>
-                <a href="{{ route('teacher.tugas.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
-                    class="btn btn-outline-secondary w-100">+ Tambahkan Tugas</a>
+            <div class="justify-content-end d-flex">
+                <button id="edit-description" class="btn btn-danger mt-2" data-bs-toggle="modal"
+                    data-bs-target="#editDescriptionModal">Edit Deskripsi</button>
             </div>
-        @endforeach
+
+        </div>
+
+
     </div>
+    @foreach ($activities as $activity)
+        <div class="task-item bg-white  border-0 shadow-sm">
+            <div class="task-header">{{ $activity->name }}</div>
+            <div class="d-flex justify-content-end mb-2">
+                <a href="{{ route('teacher.matapelajaran.edit', $activity->id) }}" class="btn btn-outline-primary me-2">Edit Activity</a>
+                <form action="{{ route('teacher.matapelajaran.destroy', $activity->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">Hapus Activity</button>
+                </form>
+            </div>
+            @foreach ($activity->subject_matter as $matter)
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <a href="{{ route('teacher.materi.show', $matter->id) }}" class="text-secondary">
+                        <i class="bi bi-file-earmark-pdf"></i> {{ $matter->name }}
+                    </a>
+                    <div class="my-3">
+                        {{-- <a href="{{ route('teacher.materi.show', $matter->id) }}" class="icon-btn me-3"><i class="bi bi-eye"></i></a> --}}
+                        <a class="icon-btn me-2" href="{{ route('teacher.materi.edit', $matter->id) }}"><i class="bi bi-pencil"></i></a>
+                        <form action="{{ route('teacher.materi.destroy', $matter->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="icon-btn"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            @endforeach
+
+            @foreach ($activity->tasks as $task)
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ route('teacher.tugas.show', $task->id) }}" class="text-secondary">
+                        <i class="bi bi-pencil"></i> {{ $task->name }} (Tugas)
+                    </a>
+                    <div>
+                        {{-- <a href="{{ route('teacher.tugas.show', $task->id) }}" class="icon-btn me-3"><i
+                                class="bi bi-eye"></i></a> --}}
+                        <a class="icon-btn me-2" href="{{ route('teacher.tugas.edit', $task->id) }}"><i class="bi bi-pencil"></i></a>
+                        <form action="{{ route('teacher.tugas.destroy', $task->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="icon-btn"><i class="bi bi-trash"></i></button>
+                        </form>
+
+                    </div>
+                </div>
+            @endforeach
+            <div class="d-flex mt-4 justify-content-between">
+                <a href="{{ route('teacher.materi.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
+                    class="btn btn-biru me-3 w-50">+ Tambahkan Materi</a>
+                <a href="{{ route('teacher.tugas.create', ['id_activity' => $activity->id, 'id_room' => $room->id]) }}"
+                    class="btn btn-ungu w-50">+ Tambahkan Tugas</a>
+            </div>
+        </div>
+    @endforeach
     <div class="modal fade" id="editDescriptionModal" tabindex="-1" aria-labelledby="editDescriptionModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -219,7 +224,8 @@
                     <form id="edit-description-form" action="{{ route('teacher.room.updateDescription') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $room->id }}">
-                        <textarea id="modal-description" name="description" class="form-control" placeholder="Masukkan deskripsi mata pelajaran" rows="3">{{ $room->description }}</textarea>
+                        <textarea id="modal-description" name="description" class="form-control" placeholder="Masukkan deskripsi mata pelajaran"
+                            rows="3">{{ $room->description }}</textarea>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -231,12 +237,12 @@
     </div>
 @endsection
 @push('scripts')
-<script>
-    $(document).ready(function () {
-        $('#edit-description').on('click', function() {
-            var description = $('#room-description').text();
-            $('#modal-description').val(description);
+    <script>
+        $(document).ready(function() {
+            $('#edit-description').on('click', function() {
+                var description = $('#room-description').text();
+                $('#modal-description').val(description);
+            });
         });
-    });
-</script>
+    </script>
 @endpush

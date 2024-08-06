@@ -58,3 +58,33 @@
     cursor: pointer;
     color: inherit;
 }
+.btn-ijo{
+    background-color: #57BA8A;
+    border: #57BA8A;
+}
+.btn-ijo:hover{
+    background-color: #448f6a;
+
+}
+.btn-biru{
+    background-color: #57a2ba;
+    color: rgb(255, 255, 255);
+}
+.btn-biru:hover{
+    background-color: #40788b;
+    color: rgb(255, 255, 255);
+}
+.btn-ungu{
+    background-color: #8757ba;
+    color: rgb(255, 255, 255);
+}
+.btn-ungu:hover{
+    background-color: #754ba1;
+    color: rgb(255, 255, 255);
+}
+.text-materi-tugas{
+    text-decoration: none;
+}
+.text-materi-tugas:hover{
+    text-decoration: underline;
+}

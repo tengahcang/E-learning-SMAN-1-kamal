@@ -8,7 +8,7 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="namaGuru" class="form-label">Nama Guru</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Raditya Dika" autocomplete="name" >
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Masukkan Nama Guru" autocomplete="name" >
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="nip" class="form-label">NIP (Nomor Induk Pegawai)</label>
-                    <input type="text" class="form-control @error('nip') is-invalid @enderror" name="NIP" id="NIP" value="{{ old('nip') }}" autocomplete="NIP" placeholder="12034020199">
+                    <input type="text" class="form-control @error('nip') is-invalid @enderror" name="NIP" id="NIP" value="{{ old('nip') }}" autocomplete="NIP" placeholder="Masukkan NIP">
                     @error('nip')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -28,10 +28,13 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Raditguru.">
-                    <button id="toggle-password" type="button" class="btn btn-outline-secondary">
-                        <i id="toggle-password-icon" class="bi bi-eye"></i>
-                    </button>
+                    <div class="input-group">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Masukkan Password">
+                        <button id="toggle-password" type="button" class="btn btn-outline-secondary">
+                            <i id="toggle-password-icon" class="bi bi-eye"></i>
+                        </button>
+                    </div>
+
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

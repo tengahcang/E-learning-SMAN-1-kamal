@@ -8,10 +8,20 @@
 
         </div>
     </div>
-    <p>Nama Guru Pengampu: {{ $participant->teacher->name }}</p>
-    <p>NIP Guru Pengampu: {{ $participant->teacher->NIP }}</p>
-    <br>
-    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group mb-4">
+                <label for="name">Nama Guru Pengampu:</label>
+                <input type="text" class="form-control" id="name" name="name" disabled value="{{ $participant->teacher->name }}" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group mb-4">
+                <label for="name">NIP Guru Pengampu:</label>
+                <input type="text" class="form-control" id="nip" name="nip" value="{{ $participant->teacher->NIP}}" disabled required>
+            </div>
+        </div>
+    </div>
     <div class="col-md-12 mb-3">
         <label for="students" class="form-label">Daftar Siswa</label>
         <table class="table table-bordered table-hover table-striped mb-0 bg-white" id="roomTable">
