@@ -99,7 +99,13 @@
             </div>
         </div>
     </div> --}}
+
     <div class="login-container p-5">
+        @if (session('message'))
+            <div class="alert alert-warning">
+                {{ session('message') }}
+            </div>
+        @endif
         <img src="{{ asset('img/logo.png') }}" alt="School Logo">
         <h2 class="font-weight-bold">Selamat Datang</h2>
         <span class="mb-5">Silahkan Login Dengan Akun Anda</span>

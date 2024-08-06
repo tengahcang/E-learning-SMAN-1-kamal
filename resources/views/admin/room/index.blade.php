@@ -40,6 +40,7 @@
                                     <div class="d-flex">
                                         <a href="{{ route('rooms.show', ['room' => $room->id]) }}"
                                             class="btn btn-info btn-sm me-2 "><i class="bi-person-lines-fill"></i></a>
+                                        <a href="{{ route('admin.room.exportAllTasksNilai', $room->id) }}" class="btn btn-success btn-sm me-2 ">Export Nilai</a>
                                         <a href="{{ route('rooms.edit', ['room' => $room->id]) }}"
                                             class="btn btn-warning btn-sm me-2"><i class="bi-pencil-square"></i></a>
                                         <div>

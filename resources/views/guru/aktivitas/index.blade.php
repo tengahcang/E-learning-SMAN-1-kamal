@@ -133,11 +133,17 @@
         </div>
     </div> --}}
     <div class="container bg-white p-4 shadow-sm">
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4>{{ $room->class->name }}-{{ $room->subject->name }} </h4>
             <div>
                 <a href="{{ route('teacher.room.participant', $room->id) }}" class="btn" style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
                 <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn btn-tambah-pertemuan">Tambah Activity</a>
+                <a href="{{ route('teacher.room.exportAllTasksNilai', $room->id) }}" class="btn btn-success btn-sm">Export Semua Nilai Tugas</a>
             </div>
         </div>
         <div>
@@ -148,6 +154,15 @@
         @foreach ($activities as $activity)
             <div class="task-item">
                 <div class="task-header">{{ $activity->name }}</div>
+                <div class="d-flex justify-content-end mb-2">
+                    <a href="{{ route('teacher.matapelajaran.edit', $activity->id) }}" class="btn btn-outline-primary me-2">Edit Activity</a>
+
+                    <form action="{{ route('teacher.matapelajaran.destroy', $activity->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger">Hapus Activity</button>
+                    </form>
+                </div>
                 @foreach ($activity->subject_matter as $matter)
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div>
@@ -166,7 +181,6 @@
                         </div>
                     </div>
                 @endforeach
-
                 @foreach ($activity->tasks as $task)
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div>
@@ -194,7 +208,6 @@
             </div>
         @endforeach
     </div>
-
     <div class="modal fade" id="editDescriptionModal" tabindex="-1" aria-labelledby="editDescriptionModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

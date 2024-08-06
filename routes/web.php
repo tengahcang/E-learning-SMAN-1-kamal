@@ -42,7 +42,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin', 'activity'])->prefix('admin')->group(function () {
     Route::get('/',[AdminDashboard::class,'index'])->name('admin');
     Route::get('/profile',[AdminDashboard::class,'index'])->name('profile');
     Route::resource('students',AdminSiswa::class);
@@ -65,8 +65,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('subjects',AdminMatPel::class);
     Route::resource('classes',AdminKelas::class);
     Route::resource('rooms',AdminRoom::class);
+    Route::get('admin/rooms/{roomId}/exportAllTasksNilai', [GuruAktivitas::class, 'exportAllTasksNilai'])->name('admin.room.exportAllTasksNilai');
+
 });
-Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
+Route::middleware(['auth', 'role:guru', 'activity'])->prefix('teacher')->group(function () {
     Route::get('/',[GuruDashboard::class,'index'])->name('guru');
     Route::get('/profile',[GuruDashboard::class,'index'])->name('teacher.profile');
     Route::get('matapelajaran/{id_room}', [GuruAktivitas::class, 'index'])->name('teacher.matapelajaran.index');
@@ -104,10 +106,12 @@ Route::middleware(['auth', 'role:guru'])->prefix('teacher')->group(function () {
     Route::post('/teacher/tugas/{task}/pengumpulan/{submission}/nilai', [GuruSubmision::class, 'store'])->name('teacher.tugas.saveNilai');
     Route::post('/teacher/room/update-description', [GuruAktivitas::class, 'updateDescription'])->name('teacher.room.updateDescription');
     Route::get('/teacher/room/{room}/participant', [GuruAktivitas::class, 'participant'])->name('teacher.room.participant');
+    Route::get('teacher/tugas/{task}/export-nilai', [GuruSubmision::class, 'exportNilai'])->name('teacher.tugas.exportNilai');
+    Route::get('teacher/room/{roomId}/exportAllTasksNilai', [GuruAktivitas::class, 'exportAllTasksNilai'])->name('teacher.room.exportAllTasksNilai');
 
 
 });
-Route::middleware(['auth', 'role:siswa'])->prefix('student')->group(function () {
+Route::middleware(['auth', 'role:siswa', 'activity'])->prefix('student')->group(function () {
     Route::get('/', [SiswaDashboard::class,'index'])->name('siswa');
     Route::get('/profile',[SiswaDashboard::class,'profile'])->name('student.profile');
     Route::get('matapelajaran/{id_room}', [SiswaAktivitas::class, 'index'])->name('student.matapelajaran.index');

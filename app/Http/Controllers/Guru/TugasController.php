@@ -8,6 +8,7 @@ use App\Models\Aktivitas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -147,5 +148,16 @@ class TugasController extends Controller
     public function destroy(string $id)
     {
         //
+        try {
+            $task = Tugas::find($id);
+            $activity = Aktivitas::find($task->id_aktivitas);
+            $room = $activity->id_room;
+            $task->delete();
+            // dd($room);
+            return redirect()->route('teacher.matapelajaran.index', ['id_room' => $room]);
+        } catch (QueryException $e) {
+            return redirect()->route('teacher.matapelajaran.index', ['id_room' => $activity->id_room])
+                ->with('error', 'Data tugas tidak bisa dihapus karena sudah ada yang mengumpulkan tugas.');
+        }
     }
 }
