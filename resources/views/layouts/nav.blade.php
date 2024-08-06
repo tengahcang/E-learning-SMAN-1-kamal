@@ -1,4 +1,4 @@
-@php
+    @php
     $currentRouteName = Route::currentRouteName();
 @endphp
 
@@ -198,14 +198,7 @@
                         </li>
                     @endforeach
 
-                    {{-- @foreach ($rooms as $room)
-                    <li class="nav-item mb-3">
-                        <a href="{{ route('matapelajaran.index') }}"
-                            class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
-                            <i class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>MATPEL</span>
-                        </a>
-                    </li>
-                    @endforeach --}}
+
                 @elseif (Auth::user()->role == 'siswa')
                     <li class="nav-item mb-3">
                         <a href="{{ route('siswa') }}" class="nav-link @if ($currentRouteName == 'siswa') active @endif">
@@ -222,22 +215,14 @@
                         </li>
                     @endforeach
 
-                    {{-- @foreach ($kelas_siswa as $kelas)
-                        <li class="nav-item mb-3">
-                            <a href="{{ route('students.matapelajaran.index', ['id_room' => $room->id]) }}"
-                                class="nav-link @if ($currentRouteName == 'matapelajaran.index') active @endif">
-                                <i
-                                    class="bi bi-journal-bookmark-fill icon-sidebar"></i><span>{{ $kelas->class->name }}-{{ $kelas->subject->name }}</span>
-                            </a>
-                        </li>
-                    @endforeach --}}
+
                 @endif
             @endguest
         </ul>
 
     </aside>
     <!-- Main content -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar">
+    {{-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar">
         <div class="offcanvas-header">
             <div></div>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -323,12 +308,10 @@
                         </li>
                     @endforeach
                     </ul>
-
                 @endif
-
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div id="main-content" class="col-md-9 col-12">
         <nav class="navbar navbar-light">
@@ -350,10 +333,19 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-
-                            <a class="dropdown-item">
-                                Profile
-                            </a>
+                            @if (Auth::user()->role == 'admin')
+                                <a class="dropdown-item" href="{{ Route('profile') }}">
+                                    Profile
+                                </a>
+                            @elseif (Auth::user()->role == 'guru')
+                                <a class="dropdown-item" href="{{ Route('teacher.profile') }}">
+                                    Profile
+                                </a>
+                            @elseif (Auth::user()->role == 'siswa')
+                                <a class="dropdown-item" href="{{ Route('student.profile') }}">
+                                    Profile
+                                </a>
+                            @endif
                         </li>
                         <li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"

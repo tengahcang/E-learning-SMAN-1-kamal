@@ -44,7 +44,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth', 'role:admin', 'activity'])->prefix('admin')->group(function () {
     Route::get('/',[AdminDashboard::class,'index'])->name('admin');
-    Route::get('/profile',[AdminDashboard::class,'index'])->name('profile');
+    Route::get('/profile',[AdminDashboard::class,'profile'])->name('profile');
+    Route::post('/update-password', [AdminDashboard::class, 'updatePassword'])->name('update-password');
     Route::resource('students',AdminSiswa::class);
     Route::get('students/upload/form',[AdminSiswa::class, 'createImport'])->name('students.upload.form');
     Route::get('student/download-template',[AdminSiswa::class, 'downloadTemplate'])->name('students.download.form');
@@ -70,7 +71,8 @@ Route::middleware(['auth', 'role:admin', 'activity'])->prefix('admin')->group(fu
 });
 Route::middleware(['auth', 'role:guru', 'activity'])->prefix('teacher')->group(function () {
     Route::get('/',[GuruDashboard::class,'index'])->name('guru');
-    Route::get('/profile',[GuruDashboard::class,'index'])->name('teacher.profile');
+    Route::get('/profile',[GuruDashboard::class,'profile'])->name('teacher.profile');
+    Route::post('/update-password', [GuruDashboard::class, 'updatePassword'])->name('teacher.update-password');
     Route::get('matapelajaran/{id_room}', [GuruAktivitas::class, 'index'])->name('teacher.matapelajaran.index');
     Route::get('matapelajaran/{id_room}/create', [GuruAktivitas::class, 'create'])->name('teacher.matapelajaran.create');
     Route::resource('matapelajaran', GuruAktivitas::class)->except('index', 'create')->names([
@@ -114,6 +116,7 @@ Route::middleware(['auth', 'role:guru', 'activity'])->prefix('teacher')->group(f
 Route::middleware(['auth', 'role:siswa', 'activity'])->prefix('student')->group(function () {
     Route::get('/', [SiswaDashboard::class,'index'])->name('siswa');
     Route::get('/profile',[SiswaDashboard::class,'profile'])->name('student.profile');
+    Route::post('/update-password', [SiswaDashboard::class, 'updatePassword'])->name('student.update-password');
     Route::get('matapelajaran/{id_room}', [SiswaAktivitas::class, 'index'])->name('student.matapelajaran.index');
     Route::resource('tugas', SiswaTugas::class)->except('index', 'create')->names([
         'index' => 'student.tugas.index',
