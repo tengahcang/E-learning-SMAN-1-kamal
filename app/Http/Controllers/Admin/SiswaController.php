@@ -150,12 +150,13 @@ class SiswaController extends Controller
         $request->validate([
             'file' => 'required|mimes:xlsx,xls'
         ]);
-
-        Excel::import(new SiswaImport, $request->file('file'));
+        $import = new SiswaImport;
+        Excel::import($import, $request->file('file'));
+        $failedRows = $import->getFailedRows();
 
         // return back()->with('success', 'File uploaded successfully.');
 
-        return redirect()->route('students.index');
+        return redirect()->route('students.index')->with('failedRows', $failedRows);
     }
     public function downloadTemplate()
     {

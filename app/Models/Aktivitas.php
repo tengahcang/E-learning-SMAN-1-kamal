@@ -9,7 +9,7 @@ class Aktivitas extends Model
 {
     use HasFactory;
     public function room(){
-        return $this->belongsTo(Room::class);
+        return $this->belongsTo(Room::class, 'id_room');
     }
     public function tasks(){
         return $this->hasMany(Tugas::class,'id_aktivitas');

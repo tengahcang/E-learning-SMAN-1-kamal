@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Aktivitas;
 use App\Models\RoomSiswa;
 use App\Models\Siswa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -24,13 +26,44 @@ class DashboardController extends Controller
 
         // Ambil informasi dari ruangan yang ditemukan
         $kelas_siswa = [];
+        $tasks_due_today = [];
+        $tasks_due_7_days = [];
+        $tasks_due_30_days = [];
+        $today = Carbon::now()->startOfDay();
+        $next_7_days = Carbon::now()->addDays(7)->endOfDay();
+        $next_30_days = Carbon::now()->addDays(30)->endOfDay();
+        // foreach ($room_siswas as $room_siswa) {
+        //     $kelas_siswa[] = $room_siswa->room;
+        // }
         foreach ($room_siswas as $room_siswa) {
             $kelas_siswa[] = $room_siswa->room;
+            $id_room = $room_siswa->room->id;
+
+            // Cari aktivitas yang terkait dengan room ini
+            $activities = Aktivitas::where('id_room', $id_room)
+                ->with('tasks', 'room.subject')
+                ->get();
+            // dd($activities);
+            foreach ($activities as $activity) {
+                // dd($activity->room);
+                foreach ($activity->tasks as $task) {
+                    $deadline = Carbon::parse($task->deadline);
+                    $task->parsed_deadline = $deadline;
+                    $task->subject_name = $activity->room->subject->name;
+                    if ($deadline->isToday()) {
+                        $tasks_due_today[] = $task;
+                    } elseif ($deadline->between($today, $next_7_days)) {
+                        $tasks_due_7_days[] = $task;
+                    } elseif ($deadline->between($today, $next_30_days)) {
+                        $tasks_due_30_days[] = $task;
+                    }
+                }
+            }
         }
 
-        // dd($kelas_siswa);
+        // dd($task);
 
-        return view('siswa.dashboard', compact('user', 'kelas_siswa', 'room_siswas'));
+        return view('siswa.dashboard', compact('user', 'kelas_siswa', 'room_siswas', 'tasks_due_today', 'tasks_due_7_days', 'tasks_due_30_days'));
     }
     public function profile(){
         $user = Auth::user();

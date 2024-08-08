@@ -48,8 +48,11 @@
                         @if(isset($pengumpulans[$student->id]))
                             <form action="{{ route('teacher.tugas.saveNilai', [$task->id, $pengumpulans[$student->id]->id]) }}" method="POST">
                                 @csrf
-                                <input type="number" name="nilai" value="{{ $pengumpulans[$student->id]->nilai }}" class="form-control" required>
-                                <button type="submit" class="btn btn-primary btn-sm mt-2">Simpan</button>
+                                <div class="input-group">
+                                    <input type="number" name="nilai" value="{{ $pengumpulans[$student->id]->nilai }}" class="form-control" required>
+                                    <button type="submit" class="btn btn-primary btn-sm mt-2">Simpan</button>
+                                </div>
+
                             </form>
                         @else
                             -

@@ -21,6 +21,6 @@ class Room extends Model
         return $this->belongsToMany(Siswa::class, 'room_siswas', 'id_room', 'id_siswa');
     }
     public function activities(){
-        return $this->hasMany(Aktivitas::class);
+        return $this->hasMany(Aktivitas::class, 'id_room');
     }
 }
