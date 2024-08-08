@@ -21,6 +21,16 @@
                 </ul>
             </div>
         </div>
+        @if (session('failedRows'))
+            <div class="alert alert-warning">
+                <h4>Data yang gagal diimpor:</h4>
+                <ul>
+                    @foreach (session('failedRows') as $row)
+                        <li>{{ $row['nip'] }} - {{ $row['nama'] }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="table-responsive bg-white p-4 rounded-3 shadow-sm mt-3">
             <h6>Tabel Guru</h6>
             <div>

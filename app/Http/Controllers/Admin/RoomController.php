@@ -10,9 +10,13 @@ use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\Room;
 use App\Models\Siswa;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class RoomController extends Controller
 {
@@ -98,26 +102,6 @@ class RoomController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request);
-        //
-        // $messages = [
-        //     'required' => ':Attribute harus diisi.',
-        // ];
-        // $validator = Validator::make($request->all(), [
-        //     'subject' => 'required',
-        //     'class' => 'required',
-        //     'teacher' => 'required'
-        // ], $messages);
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
-        // $room = Room::find($id);
-        // $room->id_matpel = $request->subject;
-        // $room->id_kelas = $request->class;
-        // $room->id_guru = $request->teacher;
-        // $room->save();
-        // $room->students()->sync($request->students); // Sinkronisasi siswa yang dipilih dengan tabel pivot
-        // return redirect()->route('rooms.index');
         $messages = [
             'required' => ':Attribute harus diisi.',
         ];
@@ -131,13 +115,12 @@ class RoomController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
         $room = Room::find($id);
         $room->id_matpel = $request->subject;
         $room->id_kelas = $request->class;
         $room->id_guru = $request->teacher;
         $room->save();
-
+        $missingStudents = [];
         if ($request->hasFile('students_file')) {
             $students = Excel::toCollection(new SiswaImport, $request->file('students_file'))->first();
             // dd($students);
@@ -149,17 +132,22 @@ class RoomController extends Controller
                         ['nisn', '=', $student['nisn']],
                         ['name', '=', $student['nama']]
                     ])->first();
-                    $studentIds[] = $studentRecord->id;
+                    if ($studentRecord) {
+                        $studentIds[] = $studentRecord->id;
+                    } else {
+                        $missingStudents[] = [
+                            'nisn' => $student['nisn'],
+                            'nama' => $student['nama']
+                        ];
+                    }
                 }
             }
-            // dd($studentIds);
             $room->students()->sync($studentIds);
         } else {
             $room->students()->sync($request->students);
         }
 
-        return redirect()->route('rooms.index');
-
+        return redirect()->route('rooms.index')->with('failedRows', $missingStudents);
     }
 
     /**
@@ -177,5 +165,27 @@ class RoomController extends Controller
         $room = Room::with('class', 'subject')->findOrFail($roomId);
         $fileName = 'semua_nilai_tugas (' .  $room->subject->name . '_' . $room->class->name . ').xlsx';
         return Excel::download(new SemuaPengumpulanExport($roomId), $fileName);
+    }
+    public function reset()
+    {
+        try {
+            DB::transaction(function () {
+                // Delete all related data
+                DB::table('pengumpulans')->delete();
+                DB::table('tugas')->delete();
+                DB::table('materis')->delete();
+                DB::table('aktivitas')->delete();
+                DB::table('room_siswas')->delete();
+                DB::table('rooms')->delete();
+
+                // Clear the media files
+                Media::truncate();
+            });
+
+            return redirect()->back()->with('status', 'Room data has been reset successfully.');
+        } catch (Exception $e) {
+            Log::error('Error resetting room data: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to reset room data: ' . $e->getMessage());
+        }
     }
 }

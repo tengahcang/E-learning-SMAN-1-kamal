@@ -67,7 +67,7 @@ Route::middleware(['auth', 'role:admin', 'activity'])->prefix('admin')->group(fu
     Route::resource('classes',AdminKelas::class);
     Route::resource('rooms',AdminRoom::class);
     Route::get('admin/rooms/{roomId}/exportAllTasksNilai', [GuruAktivitas::class, 'exportAllTasksNilai'])->name('admin.room.exportAllTasksNilai');
-
+    Route::post('/reset-room-data', [AdminRoom::class, 'reset'])->name('reset.room.data');
 });
 Route::middleware(['auth', 'role:guru', 'activity'])->prefix('teacher')->group(function () {
     Route::get('/',[GuruDashboard::class,'index'])->name('guru');
@@ -147,10 +147,8 @@ Route::middleware(['auth', 'role:siswa', 'activity'])->prefix('student')->group(
         'destroy' => 'student.materi.destroy',
     ]);
     Route::put('/edit-file', [SiswaSubmision::class, 'updateFile'])->name('student.pengumpulan.updateFile');
-    // Route::delete('/pengumpulan/delete-file/{id}', [SiswaSubmision::class, 'deleteFile'])->name('pengumpulan.deleteFile');
     Route::delete('/delete-file', [SiswaSubmision::class, 'destroyFile'])->name('student.pengumpulan.deleteFile');
-    // web.php
-    // Route::get('student/pengumpulan/clear-collection/{collectionName}', [SiswaSubmision::class, 'clearMediaCollection'])->name('student.pengumpulan.clearCollection');
+    Route::get('/student/room/{room}/participant', [SiswaAktivitas::class, 'participant'])->name('student.room.participant');
 
 
 });

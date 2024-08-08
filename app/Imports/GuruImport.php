@@ -15,27 +15,41 @@ class GuruImport implements ToModel, WithHeadingRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    private $failedRows = [];
     public function model(array $row)
     {
         // dd($row);
-        $guru = Guru::create([
-            'name' => $row['nama'],
-            'NIP' => $row['nip'],
-        ]);
+        $existingGuru = Guru::where('NIP', $row['nip'])->first();
+
 
         // Use the ID of the created Siswa record to create the User record
-        User::create([
-            'name' => $row['nama'],
-            'username' => $row['nip'],
-            'password' => Hash::make($row['nip']),
-            'role' => 'guru',
-            'id_guru' => $guru->id,
-        ]);
 
-        return $guru;
+        if(is_null($existingGuru) && !is_null($row['nip']) && !is_null($row['nama'])){
+            $guru = Guru::create([
+                'name' => $row['nama'],
+                'NIP' => $row['nip'],
+            ]);
+            // Use the ID of the created Siswa record to create the User record
+            User::create([
+                'name' => $row['nama'],
+                'username' => $row['nip'],
+                'password' => Hash::make($row['nip']),
+                'role' => 'guru',
+                'id_guru' => $guru->id,
+            ]);
+            return $guru;
+        }else{
+            $this->failedRows[] = $row;
+        }
+
+
     }
     public function headingRow(): int
     {
         return 2;
+    }
+    public function getFailedRows()
+    {
+        return $this->failedRows;
     }
 }

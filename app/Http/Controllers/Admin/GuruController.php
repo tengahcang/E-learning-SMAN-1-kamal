@@ -147,12 +147,12 @@ class GuruController extends Controller
         $request->validate([
             'file' => 'required|mimes:xlsx,xls'
         ]);
-
-        Excel::import(new GuruImport, $request->file('file'));
-
+        $import = new GuruImport;
+        Excel::import($import, $request->file('file'));
+        $failedRows = $import->getFailedRows();
         // return back()->with('success', 'File uploaded successfully.');
 
-        return redirect()->route('teachers.index');
+        return redirect()->route('teachers.index')->with('failedRows', $failedRows);
     }
     public function download()
     {

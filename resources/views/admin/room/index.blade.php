@@ -1,12 +1,29 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        @if (session('failedRows'))
+            <div class="alert alert-warning">
+                <h4>Siswa yang tidak ada di database:</h4>
+                <ul>
+                    @foreach (session('failedRows') as $student)
+                        <li>NISN: {{ $student['nisn'] }}, Nama: {{ $student['nama'] }}</li>
+                    @endforeach
+                </ul>
+                <h4>Silahkan masukkan terlebih dahulu data siswa ke dalam database siswa keseluruhan</h4>
+            </div>
+        @endif
         <div class="row mb-0">
             <div class="col-lg-9 col-xl-6">
                 {{-- <h4 class="mb-3">{{ $pageTitle }}</h4> --}}
             </div>
             <div class="col-lg-3 col-xl-6">
                 <ul class="list-inline mb-0 float-end">
+                    <li class="list-inline-item">
+                        <form action="{{ route('reset.room.data') }}" method="POST" onsubmit="return confirm('Are you sure you want to reset all room data?');">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Reset Room Data</button>
+                        </form>
+                    </li>
                     <li class="list-inline-item">
                         <a href="{{ route('rooms.create') }}" class="btn btn-danger">
                             <i class="bi bi-plus-circle me-1"></i> Create room

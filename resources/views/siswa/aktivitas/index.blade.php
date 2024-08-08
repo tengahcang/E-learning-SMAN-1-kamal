@@ -6,6 +6,7 @@
             <h4 style="font-weight: bold">{{ $room->subject->name . ' - ' . $room->class->name }}</h4>
             <h5>Deskripsi:</h5>
             <p id="room-description">{!! nl2br(e($room->description)) !!}</p>
+            <a href="{{ route('student.room.participant', $room->id) }}" class="btn" style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
         </div>
 
 

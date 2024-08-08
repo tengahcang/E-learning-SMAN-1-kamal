@@ -30,6 +30,22 @@
     .schedule-item:last-child {
         border-bottom: none;
     }
+    .tasks-container {
+            margin-top: 2rem;
+        }
+
+        .task-item {
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .task-deadline {
+            color: red;
+        }
 </style>
 
 <div class="container">
@@ -48,6 +64,45 @@
             </div>
         @endforeach
 
+    </div>
+    <div class="tasks-container">
+        <h5 class="mb-4">Tugas yang harus dikerjakan</h5>
+
+        <h6>Hari ini</h6>
+        @forelse ($tasks_due_today as $task)
+            <a href="{{ route('student.tugas.show', $task->id) }}">
+                <div class="task-item">
+                    <div>{{ $task->name }} - {{ $task->subject_name }}</div>
+                    <div class="task-deadline">{{ $task->parsed_deadline->format('d M Y H:i') }}</div>
+                </div>
+            </a>
+        @empty
+            <div>Tidak ada tugas untuk hari ini.</div>
+        @endforelse
+
+        <h6>7 Hari ke Depan</h6>
+        @forelse ($tasks_due_7_days as $task)
+            <a href="{{ route('student.tugas.show', $task->id) }}">
+                <div class="task-item">
+                    <div>{{ $task->name }} - {{ $task->subject_name }}</div>
+                    <div class="task-deadline">{{ $task->parsed_deadline->format('d M Y H:i') }}</div>
+                </div>
+            </a>
+        @empty
+            <div>Tidak ada tugas untuk 7 hari ke depan.</div>
+        @endforelse
+
+        <h6>30 Hari ke Depan</h6>
+        @forelse ($tasks_due_30_days as $task)
+            <a href="{{ route('student.tugas.show', $task->id) }}">
+                <div class="task-item">
+                    <div>{{ $task->name }} - {{ $task->subject_name }}</div>
+                    <div class="task-deadline">{{ $task->parsed_deadline->format('d M Y H:i') }}</div>
+                </div>
+            </a>
+        @empty
+            <div>Tidak ada tugas untuk 30 hari ke depan.</div>
+        @endforelse
     </div>
 </div>
 @endsection

@@ -18,6 +18,7 @@ class SiswaImport implements ToModel, WithHeadingRow, ToCollection
     // /**
     // * @param Collection $collection
     // */
+    private $failedRows = [];
     public function collection(Collection $rows)
     {
         //
@@ -25,8 +26,9 @@ class SiswaImport implements ToModel, WithHeadingRow, ToCollection
     }
     public function model(array $row)
     {
+        $existingSiswa = Siswa::where('NISN', $row['nisn'])->first();
         // Create the Siswa record first
-        if(!is_null($row['nisn']) && !is_null($row['nama'])){
+        if(is_null($existingSiswa) && !is_null($row['nisn']) && !is_null($row['nama'])){
             $siswa = Siswa::create([
                 'name' => $row['nama'],
                 'NISN' => $row['nisn'],
@@ -40,11 +42,17 @@ class SiswaImport implements ToModel, WithHeadingRow, ToCollection
                 'id_siswa' => $siswa->id,
             ]);
             return $siswa;
+        }else{
+            $this->failedRows[] = $row;
         }
          // Optionally return the Siswa object
     }
     public function headingRow(): int
     {
         return 3;
+    }
+    public function getFailedRows()
+    {
+        return $this->failedRows;
     }
 }
