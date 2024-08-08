@@ -144,7 +144,7 @@
             <div>
                 <a href="{{ route('teacher.room.participant', $room->id) }}" class="btn" style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
                 <a href="{{ route('teacher.matapelajaran.create',['id_room'=>$room->id]) }}" class="btn btn-ungu">Tambah Activity</a>
-                <a href="{{ route('teacher.room.exportAllTasksNilai', $room->id) }}" class="btn btn-success btn-sm">Export Semua Nilai Tugas</a>
+                <a href="{{ route('teacher.room.exportAllTasksNilai', $room->id) }}" class="btn btn-ijo text-white">Export Semua Nilai Tugas</a>
             </div>
         </div>
         <div>

@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Siswa Edit Profile</h1>
-    </div>
-
     <div class="row justify-content-center">
         @if(session('success'))
             <div class="alert alert-success">
@@ -15,16 +11,12 @@
                 {{ session('error') }}
             </div>
         @endif
-        <div class="col-md-8">
-            <div class="card">
+        <div >
+            <div class="row bg-white shadow-sm p-4">
                 <div class="card-header">
-                    <h4 class="text-center">PROFILE SISWA</h4>
+                    <h4 class="text-center">EDIT PROFILE SISWA</h4>
                 </div>
                 <div class="card-body">
-                    <div class="text-center mb-3">
-                        {{-- <i class="bi-person-circle fs-1" width="150"></i> --}}
-                        <img src="{{ asset('img/user.png') }}" class="rounded-circle" alt="Avatar" width="150">
-                    </div>
                     <form method="POST" action="{{ route('student.update-password') }}">
                         @csrf
                         <div class="mb-3">
@@ -55,8 +47,8 @@
                         </div>
                         <div class="d-flex justify-content">
                             {{-- <button type="button" class="btn btn-danger" onclick="window.history.back();">Batal</button> --}}
-                            <a href="{{Route('siswa')}}" class="btn btn-danger">Batal</a>
-                            <button type="submit" class="btn btn-success">Edit Profile</button>
+                            <a href="{{Route('siswa')}}" class="btn btn-danger me-3">Batal</a>
+                            <button type="submit" class="btn btn-ijo text-white">Edit Profile</button>
                         </div>
                     </form>
                 </div>

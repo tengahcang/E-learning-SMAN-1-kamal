@@ -89,11 +89,14 @@ class SubmisionController extends Controller
      */
     public function edit(string $id)
     {
+        $room_siswas = RoomSiswa::where('id_siswa', $id)
+        ->with(['room.class', 'room.subject', 'room.teacher'])
+        ->get();
         //
         $submision = Pengumpulan::with([ 'media'])->findOrFail($id);
         $task = Tugas::with('activity')->findOrFail($submision->id_tugas);
         // dd($submision);
-        return view('siswa.pengumpulan.edit', compact('submision', 'task'));
+        return view('siswa.pengumpulan.edit', compact('submision', 'task','room_siswas'));
     }
 
     /**

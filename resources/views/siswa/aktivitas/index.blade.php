@@ -4,6 +4,7 @@
     <div class="container">
         <div class="container bg-white p-4 shadow-sm">
             <h4 style="font-weight: bold">{{ $room->subject->name . ' - ' . $room->class->name }}</h4>
+            <hr>
             <h5>Deskripsi:</h5>
             <p id="room-description">{!! nl2br(e($room->description)) !!}</p>
             <a href="{{ route('student.room.participant', $room->id) }}" class="btn" style="background-color: #FF6D59; color: white;">Lihat Daftar Siswa</a>
@@ -13,6 +14,7 @@
             @foreach ($activities as $activity)
             <div class="container bg-white shadow-sm p-4 mt-2 rounded">
                 <h4 class="mb-2" style="font-weight: bold">{{ $activity->name }}</h4>
+                <hr>
 
                 @if ($activity->subject_matter->isNotEmpty())
                     @foreach ($activity->subject_matter as $matter)
