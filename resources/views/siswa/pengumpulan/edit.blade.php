@@ -14,6 +14,7 @@
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <input type="hidden" name="task_id" value="{{ $task->id }}">
             <div class="form-group">
                 <input type="text" class="form-control" name="content" id="content"
                     value="{{ $errors->any() ? old('name') : $submision->content }}">

@@ -71,7 +71,7 @@
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
-                        <div class="col-md-12 mb-3">
+                        {{-- <div class="col-md-12 mb-3">
                             <label for="students" class="form-label">Siswa</label>
                             <select name="students[]" id="students" class="form-select" multiple>
                                 @php
@@ -86,7 +86,7 @@
                             @error('students')
                                 <div class="text-danger"><small>{{ $message }}</small></div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="col-md-12 mb-3">
                             <label for="students_file" class="form-label">Upload Data Siswa (Excel)</label>
                             <input type="file" name="students_file" id="students_file" class="form-control">

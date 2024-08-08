@@ -119,6 +119,7 @@ class SubmisionController extends Controller
         }
 
         $submision = Pengumpulan::find($id);
+        // dd($request);
         $submision->id_tugas = $request->task_id;
         $submision->id_siswa = $user->id_siswa;
         $submision->content = $request->content;
