@@ -106,7 +106,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="bg-white p-4 rounded-3 shadow-sm mt-3">
-    <h6>INPUT GURU</h6>
+    <h6>EDIT GURU</h6>
     <div class="mt-4">
         <form action="{{ route('teachers.update',['teacher'=>$user->id]) }}" method="POST" enctype="multipart/form-data">
             @method('put')
@@ -148,7 +148,7 @@
                 </div>
             </div>
             <a href="{{route('teachers.index')}}" class="btn btn-danger btn-batal">Batal</a>
-            <button type="submit" class="btn btn-success btn-tambah">Tambahkan</button>
+            <button type="submit" class="btn btn-success btn-tambah">Perbarui</button>
         </form>
     </div>
 </div>

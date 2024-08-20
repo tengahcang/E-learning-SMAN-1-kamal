@@ -106,9 +106,10 @@
 @extends('layouts.app')
 @section('content')
     <div class=" bg-white p-4 rounded-3 shadow-sm mt-3">
-        <h6>INPUT SISWA</h6>
+        <h6>EDIT SISWA</h6>
         <div class=" mt-4">
-            <form action="{{ route('students.update', ['student' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('students.update', ['student' => $user->id]) }}" method="POST"
+                enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="row mb-3">
@@ -151,7 +152,7 @@
         </div>
         <a class="btn btn-danger btn-batal " href="{{ route('students.index') }}"><i
                 class="bi-arrow-left-circle me-2"></i>Batal</a>
-        <button type="submit" class="btn btn-success btn-tambah ">Tambahkan</button>
+        <button type="submit" class="btn btn-success btn-tambah">Perbarui</button>
         </form>
     </div>
     </div>

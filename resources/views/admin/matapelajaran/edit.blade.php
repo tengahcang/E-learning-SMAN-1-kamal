@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="bg-white p-4 rounded-3 shadow-sm mt-3">
-        <h6>INPUT MATA PELAJARAN</h6>
+        <h6>EDIT MATA PELAJARAN</h6>
         <div class="mt-4">
             <form action="{{ route('subjects.update',['subject'=>$subject->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -21,7 +21,7 @@
                         <a class="btn btn-danger w-100" href="{{ route('subjects.index') }}">Batal</a>
                     </div>
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-success w-100">Tambahkan</button>
+                        <button type="submit" class="btn btn-success w-100">Perbarui</button>
                     </div>
                 </div>
             </form>
