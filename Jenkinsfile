@@ -21,15 +21,15 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'docker exec <container_app_name> composer install --no-interaction --prefer-dist --optimize-autoloader'
+                bat 'docker exec laravel_app composer install --no-interaction --prefer-dist --optimize-autoloader'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'docker exec <container_app_name> php artisan config:cache'
-                bat 'docker exec <container_app_name> php artisan migrate --env=testing --force'
-                bat 'docker exec <container_app_name> ./vendor/bin/phpunit'
+                bat 'docker exec laravel_app php artisan config:cache'
+                bat 'docker exec laravel_app php artisan migrate --env=testing --force'
+                bat 'docker exec laravel_app ./vendor/bin/phpunit'
             }
         }
 
